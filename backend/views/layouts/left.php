@@ -52,109 +52,118 @@ use dmstr\widgets\Menu;
 
                         ],
                     ],
-
                     [
-                        'label' => 'Region',
+                        'label' => 'Zones Configuration',
                         'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
-                        'icon' => 'sun-o text-orange',
+                        'icon' => 'database text-orange',
                         'items' => [
+
                             [
-                                //  'visible' =>  yii::$app->user->can('auditSystem'),
-                                'label' => Yii::t('app', 'New Region'),
-                                'url' => ['/region/create'],
-                                'icon' => 'plus text-orange',
+                                'label' => 'Region',
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                                'icon' => 'sun-o text-orange',
+                                'items' => [
+                                    [
+                                        //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                        'label' => Yii::t('app', 'New Region'),
+                                        'url' => ['/region/create'],
+                                        'icon' => 'plus text-orange',
+                                    ],
+                                    [
+                                        //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                        'label' => Yii::t('app', 'Region List'),
+                                        'url' => ['/region/index'],
+                                        'icon' => 'list text-orange',
+                                    ],
+
+                                ],
+                            ],
+                            [
+                                'label' => 'District',
+                                //  'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                                'icon' => 'sun-o text-orange',
+                                'items' => [
+                                    [
+                                        //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                        'label' => Yii::t('app', 'New District'),
+                                        'url' => ['/district/create'],
+                                        'icon' => 'plus text-orange',
+                                    ],
+                                    [
+                                        //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                        'label' => Yii::t('app', 'District Lists'),
+                                        'url' => ['/district/index'],
+                                        'icon' => 'list text-orange',
+                                    ],
+
+
+                                ],
+                            ],
+                            [
+                                'label' => 'Municipal',
+                                //  'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                                'icon' => 'sun-o text-orange',
+                                'items' => [
+                                    [
+                                        //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                        'label' => Yii::t('app', 'Add New Municipal'),
+                                        'url' => ['/municipal/create'],
+                                        'icon' => 'plus text-orange',
+                                    ],
+
+                                    [
+                                        //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                        'label' => Yii::t('app', 'Municipal List'),
+                                        'url' => ['/municipal/index'],
+                                        'icon' => 'list text-orange',
+                                    ],
+                                ],
+                            ],
+                            [
+                                'label' => 'Street',
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                                'icon' => 'sun-o text-orange',
+                                'items' => [
+                                    [
+                                        //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                        'label' => Yii::t('app', 'Add New Street'),
+                                        'url' => ['/street/create'],
+                                        'icon' => 'plus text-orange',
+                                    ],
+
+                                    [
+                                        //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                        'label' => Yii::t('app', 'Street List'),
+                                        'url' => ['/street/index'],
+                                        'icon' => 'list text-orange',
+                                    ],
+                                ],
                             ],
                             [
                                 //  'visible' =>  yii::$app->user->can('auditSystem'),
-                                'label' => Yii::t('app', 'Region List'),
-                                'url' => ['/region/index'],
+                                'label' => Yii::t('app', 'Work Area'),
+                                //'url' => [''],
                                 'icon' => 'lock text-orange',
+                                'items' => [
+                                    [
+                                        //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                        'label' => Yii::t('app', 'Add Wok Area'),
+                                        'url' => ['/work-area/create'],
+                                        'icon' => 'plus text-orange',
+                                    ],
+
+                                    [
+                                        //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                        'label' => Yii::t('app', 'Work Area Lists'),
+                                        'url' => ['/work-area/index'],
+                                        'icon' => 'list text-orange',
+                                    ],
+                                ],
                             ],
 
                         ],
                     ],
-                    [
-                        'label' => 'District',
-                        //  'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
-                        'icon' => 'sun-o text-orange',
-                        'items' => [
-                            [
-                                //  'visible' =>  yii::$app->user->can('auditSystem'),
-                                'label' => Yii::t('app', 'New District'),
-                                'url' => ['/district/create'],
-                                'icon' => 'plus text-orange',
-                            ],
-                            [
-                                //  'visible' =>  yii::$app->user->can('auditSystem'),
-                                'label' => Yii::t('app', 'District Lists'),
-                                'url' => ['/district/index'],
-                                'icon' => 'plus text-orange',
-                            ],
 
-
-                        ],
-                    ],
-                    [
-                        'label' => 'Municipal',
-                        //  'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
-                        'icon' => 'sun-o text-orange',
-                        'items' => [
-                            [
-                                //  'visible' =>  yii::$app->user->can('auditSystem'),
-                                'label' => Yii::t('app', 'Add New Municipal'),
-                                'url' => ['/municipal/create'],
-                                'icon' => 'lock text-orange',
-                            ],
-
-                            [
-                                //  'visible' =>  yii::$app->user->can('auditSystem'),
-                                'label' => Yii::t('app', 'Municipal List'),
-                                'url' => ['/municipal/index'],
-                                'icon' => 'lock text-orange',
-                            ],
-                        ],
-                    ],
-                    [
-                        'label' => 'Street',
-                        //  'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
-                        'icon' => 'sun-o text-orange',
-                        'items' => [
-                            [
-                                //  'visible' =>  yii::$app->user->can('auditSystem'),
-                                'label' => Yii::t('app', 'Add New Street'),
-                                'url' => ['/street/create'],
-                                'icon' => 'lock text-orange',
-                            ],
-
-                            [
-                                //  'visible' =>  yii::$app->user->can('auditSystem'),
-                                'label' => Yii::t('app', 'Street List'),
-                                'url' => ['/street/index'],
-                                'icon' => 'lock text-orange',
-                            ],
-                        ],
-                    ],
-                    [
-                        //  'visible' =>  yii::$app->user->can('auditSystem'),
-                        'label' => Yii::t('app', 'Work Area'),
-                        //'url' => [''],
-                        'icon' => 'lock text-orange',
-                        'items' => [
-                            [
-                                //  'visible' =>  yii::$app->user->can('auditSystem'),
-                                'label' => Yii::t('app', 'Add Wok Area'),
-                                'url' => ['/work-area/create'],
-                                'icon' => 'lock text-orange',
-                            ],
-
-                            [
-                                //  'visible' =>  yii::$app->user->can('auditSystem'),
-                                'label' => Yii::t('app', 'Work Area Lists'),
-                                'url' => ['/work-area/index'],
-                                'icon' => 'lock text-orange',
-                            ],
-                        ],
-                    ],
                     [
                         'label' => 'Office Setup',
                         'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
@@ -164,7 +173,7 @@ use dmstr\widgets\Menu;
                             [
                                 //  'visible' =>  yii::$app->user->can('auditSystem'),
                                 'label' => Yii::t('app', 'Audit Trail'),
-                                'url' => ['/audit/index'],
+                                'url' => ['/audit/index/'],
                                 'icon' => 'lock text-orange',
                             ],
 
@@ -202,8 +211,38 @@ use dmstr\widgets\Menu;
                             [
                                 'label' => 'Manager',
                                 'icon' => 'user text-green',
-                                'url' => ['/user/manager'],
+                                'url' => '',
+                                'items' => [
+                                    [
+                                        'label' => 'New Manager',
+                                        'icon' => 'plus text-green',
+                                        'url' => ['/user/manager-create']
+                                    ],
+                                    [
+                                        'label' => 'Managers List',
+                                        'icon' => 'users text-green',
+                                        'url' => ['/user/managers-list']
+                                    ],
+                                ],
                             ],
+                            [
+                                'label' => 'Supervisors',
+                                'icon' => 'user text-green',
+                                'url' => '',
+                                'items' => [
+                                    [
+                                        'label' => 'New Supervisor',
+                                        'icon' => 'plus text-green',
+                                        'url' => ['/user/supervisor-create']
+                                    ],
+                                    [
+                                        'label' => 'Supervisor List',
+                                        'icon' => 'users text-green',
+                                        'url' => ['/user/supervisors-list']
+                                    ],
+                                ],
+                            ],
+
                             [
                                 'label' => 'Supervisors',
                                 'icon' => 'user text-green',
@@ -233,7 +272,7 @@ use dmstr\widgets\Menu;
 
                             [
                                 'visible' => (Yii::$app->user->identity->username == 'super_admin' || Yii::$app->user->identity->username == 'admin'),
-                                'label' => Yii::t('app', 'Manager Permissions'),
+                                'label' => Yii::t('app', 'Permissions'),
                                 'url' => ['/auth-item/index'],
                                 'icon' => 'fa fa-lock text-orange',
                             ],

@@ -41,6 +41,7 @@ class MunicipalSearch extends Municipal
     public function search($params)
     {
         $query = Municipal::find();
+        $query->where(['region'=>\Yii::$app->user->identity])->andWhere(['district'=>\Yii::$app->user->identity->district]);
 
         // add conditions that should always apply here
 

@@ -47,11 +47,13 @@ class ComposerStaticInit9c4ae0f1e3be1063039c0f96f3fd7424
         ),
         'k' => 
         array (
+            'kartik\\sortable\\' => 16,
             'kartik\\select2\\' => 15,
             'kartik\\mpdf\\' => 12,
             'kartik\\growl\\' => 13,
             'kartik\\grid\\' => 12,
             'kartik\\form\\' => 12,
+            'kartik\\dynagrid\\' => 16,
             'kartik\\dialog\\' => 14,
             'kartik\\date\\' => 12,
             'kartik\\base\\' => 12,
@@ -177,6 +179,10 @@ class ComposerStaticInit9c4ae0f1e3be1063039c0f96f3fd7424
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
+        'kartik\\sortable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-sortable/src',
+        ),
         'kartik\\select2\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-select2/src',
@@ -196,6 +202,10 @@ class ComposerStaticInit9c4ae0f1e3be1063039c0f96f3fd7424
         'kartik\\form\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-activeform/src',
+        ),
+        'kartik\\dynagrid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-dynagrid/src',
         ),
         'kartik\\dialog\\' => 
         array (

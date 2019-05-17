@@ -29,7 +29,8 @@
         "dmstr/yii2-adminlte-asset": "^2.1",
         "kartik-v/yii2-widget-select2": "@dev",
         "kartik-v/yii2-mpdf": "dev-master",
-        "2amigos/yii2-date-picker-widget": "~1.0"
+        "2amigos/yii2-date-picker-widget": "~1.0",
+        "kartik-v/yii2-dynagrid": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

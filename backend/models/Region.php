@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "region".
@@ -100,5 +101,11 @@ class Region extends \yii\db\ActiveRecord
     public function getWorkAreas()
     {
         return $this->hasMany(WorkArea::className(), ['region' => 'id']);
+    }
+
+
+    public static function getRegion()
+    {
+        return ArrayHelper::map(Region::find()->where(['id'=>Yii::$app->user->identity->region])->all(),'id','name');
     }
 }

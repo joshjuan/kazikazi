@@ -47,6 +47,30 @@ class UserController extends Controller
         ]);
     }
 
+    public function actionManagersList()
+    {
+        $searchModel = new UserSearch();
+        $dataProvider = $searchModel->searchManager(Yii::$app->request->queryParams);
+
+        Audit::setActivity('Ameangalia orodha ya watumiaji wa mfumo ', 'User ', 'Index', '', '');
+        return $this->render('managers', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionSupervisorsList()
+    {
+        $searchModel = new UserSearch();
+        $dataProvider = $searchModel->searchSupervisor(Yii::$app->request->queryParams);
+
+        Audit::setActivity('Ameangalia orodha ya watumiaji wa mfumo ', 'User ', 'Index', '', '');
+        return $this->render('supervisor', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     public function actionSuperAdmin()
     {
         if (!Yii::$app->user->isGuest) {
@@ -194,6 +218,50 @@ class UserController extends Controller
         }
 
     }
+    public function actionSupervisorCreate()
+    {
+
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+                $model = new User();
+
+                //  $model->scenario = 'createUser';
+
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                    Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+            else
+            {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
+
+
+        return $this->render('create-supervisor', [
+            'model' => $model,
+        ]);
+
+        }
+        else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
+    }
     public function actionAdminCreate()
     {
 
@@ -225,7 +293,51 @@ class UserController extends Controller
             }
 
 
-        return $this->render('create', [
+        return $this->render('create-admin', [
+            'model' => $model,
+        ]);
+
+        }
+        else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
+    }
+    public function actionManagerCreate()
+    {
+
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+                $model = new User();
+
+                //  $model->scenario = 'createUser';
+
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                    Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+            else
+            {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
+
+
+        return $this->render('create-manager', [
             'model' => $model,
         ]);
 

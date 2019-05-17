@@ -1,5 +1,6 @@
 <?php
 
+use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,7 +15,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'region')->textInput() ?>
+    <?= $form->field($model, 'region')->widget(Select2::classname(), [
+        'data' => \backend\models\Region::getRegion(),
+        'options' => ['placeholder' => 'Choose Region'],
+        'pluginOptions' => [
+            'allowClear' => true,
+
+        ],
+    ]);
+    ?>
 
     <?= $form->field($model, 'create_at')->textInput() ?>
 
