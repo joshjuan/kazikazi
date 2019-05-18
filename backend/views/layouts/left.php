@@ -60,7 +60,7 @@ use dmstr\widgets\Menu;
 
                             [
                                 'label' => 'Region',
-                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                                'visible' => Yii::$app->user->can('super_admin') ,
                                 'icon' => 'sun-o text-orange',
                                 'items' => [
                                     [
@@ -80,7 +80,7 @@ use dmstr\widgets\Menu;
                             ],
                             [
                                 'label' => 'District',
-                                //  'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                                  'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin'),
                                 'icon' => 'sun-o text-orange',
                                 'items' => [
                                     [
@@ -165,7 +165,7 @@ use dmstr\widgets\Menu;
                     ],
 
                     [
-                        'label' => 'Office Setup',
+                        'label' => 'System Logs',
                         'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
                         'icon' => 'sun-o text-orange',
                         'items' => [
@@ -174,6 +174,12 @@ use dmstr\widgets\Menu;
                                 //  'visible' =>  yii::$app->user->can('auditSystem'),
                                 'label' => Yii::t('app', 'Audit Trail'),
                                 'url' => ['/audit/index/'],
+                                'icon' => 'lock text-orange',
+                            ],
+                            [
+                                //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                'label' => Yii::t('app', 'Mobile Logs'),
+                                'url' => ['/mobile-logs/index'],
                                 'icon' => 'lock text-orange',
                             ],
 
@@ -242,18 +248,23 @@ use dmstr\widgets\Menu;
                                     ],
                                 ],
                             ],
-
                             [
-                                'label' => 'Supervisors',
-                                'icon' => 'user text-green',
-                                'url' => ['/user/supervisor'],
+                                'label' => 'Clerks',
+                                'icon' => 'users text-green',
+                                'url' => '',
+                                'items' => [
+                                    [
+                                        'label' => 'New Clerk',
+                                        'icon' => 'plus text-green',
+                                        'url' => ['/user/clerks']
+                                    ],
+                                    [
+                                        'label' => 'Clerk List',
+                                        'icon' => 'users text-green',
+                                        'url' => ['/user/clerks-list']
+                                    ],
+                                ],
                             ],
-
-                            ['label' => 'Clerk List',
-                                'icon' => 'user text-green',
-                                'url' => ['user/clerk'],
-                            ],
-
 
                         ],
                     ],
@@ -263,12 +274,6 @@ use dmstr\widgets\Menu;
                         'icon' => 'cogs text-orange',
                         'items' => [
                             ['label' => 'Users', 'icon' => 'user text-orange', 'url' => ['/user'],],
-                            [
-                                'visible' => Yii::$app->user->can('admin') || yii::$app->user->can('super_admin') || yii::$app->user->can('auditor'),
-                                'label' => Yii::t('app', 'Audit Trail'),
-                                'url' => ['/audit/index'],
-                                'icon' => 'lock text-orange',
-                            ],
 
                             [
                                 'visible' => (Yii::$app->user->identity->username == 'super_admin' || Yii::$app->user->identity->username == 'admin'),
@@ -289,7 +294,7 @@ use dmstr\widgets\Menu;
                                 'icon' => 'fa fa-lock text-orange',
                             ],
                             [
-                                'label' => 'Assign Permissions ',
+                                'label' => 'Assign Roles ',
                                 'visible' => (Yii::$app->user->identity->username == 'super_admin' || Yii::$app->user->identity->username == 'admin'),
                                 'icon' => 'lock text-orange', 'url' => ['/auth-assignment'],
                             ],

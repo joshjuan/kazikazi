@@ -67,17 +67,6 @@ use kartik\form\ActiveForm;
                             ]);
                             ?>
                         </div>
-                        <div class="col-sm-4">
-                            <?= $form->field($model, 'street')->widget(Select2::classname(), [
-                                'data' => \backend\models\Street::getStreet(),
-                                'options' => ['placeholder' => 'Choose Street'],
-                                'pluginOptions' => [
-                                    'allowClear' => true,
-
-                                ],
-                            ]);
-                            ?>
-                        </div>
                     </div>
                     <div class="col-sm-12 no-padding">
                         <div class="col-sm-6">

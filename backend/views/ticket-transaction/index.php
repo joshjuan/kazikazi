@@ -1,5 +1,6 @@
 <?php
 
+use kartik\dynagrid\DynaGrid;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use kartik\grid\GridView;
@@ -15,77 +16,48 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
 <div class="received-cash-index" style="padding-top: 10px">
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
-
-    <?php Pjax::begin(); ?>
-
-    <?php $gridColumns = [
-        [
-            'class' => 'kartik\grid\SerialColumn',
-            'contentOptions' => ['class' => 'kartik-sheet-style'],
-            'width' => '36px',
-            'headerOptions' => ['class' => 'kartik-sheet-style']
+    <?php
+    $pdfHeader = [
+        'L' => [
+            'content' => 'ZUPS REPOTI',
         ],
+        'C' => [
+            'content' => 'MALIPO YA WAZEE KIWILAYA KWA MWEZI WA ' . date('m'),
+            'font-size' => 10,
+            'font-style' => 'B',
+            'font-family' => 'arial',
+            'color' => '#333333'
+        ],
+        'R' => [
+            'content' => 'Imepakuliwa:' . date('Y-m-d H:i:s'),
+        ],
+        'line' => true,
+    ];
 
+    $pdfFooter = [
+        'L' => [
+            'content' => '&copy; ZUPS',
+            'font-size' => 10,
+            'color' => '#333333',
+            'font-family' => 'arial',
+        ],
+        'C' => [
+            'content' => '',
+        ],
+        'R' => [
+            //'content' => 'RIGHT CONTENT (FOOTER)',
+            'font-size' => 10,
+            'color' => '#333333',
+            'font-family' => 'arial',
+        ],
+        'line' => true,
+    ];
+    ?>
+    <?php
+    $gridColumns = [
+        ['class' => 'kartik\grid\SerialColumn'],
         [
             'attribute' => 'ref_no',
-        ],
-        [
-            'attribute' => 'begin_time',
-        ],
-        [
-            'attribute' => 'end_time',
-        ],
-        [
-            'attribute' => 'municipal',
-        ],
-        [
-            'attribute' => 'street',
-        ],
-        [
-            'attribute' => 'work_area',
-        ],
-
-        [
-            'attribute' => 'receipt_no',
-        ],
-        [
-            'attribute' => 'amount',
-        ],
-        [
-            'attribute' => 'car_no',
-        ],
-
-        'status',
-        'create_at',
-        //'created_by',
-
-        [
-            'attribute' => 'region',
-            /*            'value' => function ($model, $key, $index, $widget) {
-                            return Html::a($model->zone->zone_name);
-
-                        },
-                        'filterType' => \kartik\grid\GridView::FILTER_SELECT2,
-                        'filter' => ArrayHelper::map(\backend\models\Zones::find()->orderBy('id')->asArray()->all(), 'id', 'zone_name'),
-                        'filterWidgetOptions' => [
-                            'pluginOptions' => ['allowClear' => true],
-                        ],
-                        'filterInputOptions' => ['placeholder' => 'Kituo'],
-                        'format' => 'raw'*/
-        ],
-        [
-            'attribute' => 'district',
-            /*      'value' => function ($model) {
-                      return Html::a($model->location->name);
-
-                  },
-                  'filterType' => GridView::FILTER_SELECT2,
-                  'filter' => ArrayHelper::map(\backend\models\Region::find()->orderBy('id')->asArray()->all(), 'id', 'name'),
-                  'filterWidgetOptions' => [
-                      'pluginOptions' => ['allowClear' => true],
-                  ],
-                  'filterInputOptions' => ['placeholder' => 'Shehia'],
-                  'format' => 'raw'*/
         ],
         [
             'attribute' => 'user',
@@ -106,8 +78,35 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
                         'filterInputOptions' => ['placeholder' => 'Karani'],
                         'format' => 'raw'*/
         ],
+        [
+            'attribute' => 'begin_time',
+        ],
+        [
+            'attribute' => 'end_time',
+        ],
+        [
+            'attribute' => 'region',
+        ],
+        [
+            'attribute' => 'district',
+        ],
+        [
+            'attribute' => 'municipal',
+        ],
 
+        [
+            'attribute' => 'street',
+        ],
 
+        [
+            'attribute' => 'work_area',
+        ],
+        [
+            'attribute' => 'receipt_no',
+        ],
+
+        'status',
+        'create_at',
         [
             'attribute' => 'amount',
             'format' => ['decimal', 2],
@@ -115,92 +114,104 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
             'footer' => false,
 
         ],
+
+
     ];
-
-
-    // the GridView widget (you must use kartik\grid\GridView)
-    echo \kartik\grid\GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+    DynaGrid::begin([
+        //'dataProvider'=> $dataProvider,
+        // 'filterModel' => $searchModel,
         'columns' => $gridColumns,
-        'id' => 'grid',
-        'containerOptions' => ['style' => 'overflow: auto'], // only set when $responsive = false
-        'beforeHeader' => [
-            [
-                'options' => ['class' => 'skip-export'] // remove this row from export
-            ]
-        ],
+        'theme' => 'panel-info',
+        'showPersonalize' => true,
+        'storage' => 'session',
+        'gridOptions' => [
+            'dataProvider' => $dataProvider,
+            'filterModel'=>$searchModel,
+            'striped' => true,
+            'showPageSummary' => true,
+            'hover' => true,
 
-        'pjax' => true,
-        'bordered' => true,
-        'striped' => true,
-        'condensed' => true,
-        'responsive' => true,
-        'hover' => true,
-        'floatHeader' => false,
+            'toolbar' => [
 
-        'floatHeaderOptions' => ['scrollingTop' => true],
-        'showPageSummary' => true,
-        'panel' => [
-            'type' => GridView::TYPE_INFO,
-            'heading' => '<strong class="lead"  style="color: #01214d;font-family: Tahoma"> <i class="fa fa-check-square text-green"></i> LIST OF TICKET PRINTED TRANSACTIONS </strong>',
-            // 'before' => '<span class="text text-red"> *Eligible*</span>'
-        ],
-        'rowOptions' => function ($model) {
-            return ['data-id' => $model->id];
-        },
-
-        'exportConfig' => [
-            GridView::EXCEL => [
-                'filename' => Yii::t('app', 'Taarifa za Makusanyo'),
-                'showPageSummary' => true,
-                'config' => [
-                    'methods' => [
-                        'SetHeader' => [
-                            ['odd' => 'header', 'even' => 'header']
-                        ],
-                        'SetFooter' => [
-                            ['odd' => 'header', 'even' => 'header']
-                        ],
-                    ],
-                ],
-                'options' => [
-                    'title' => 'Custom Title',
-                    'subject' => 'PDF export',
-                    'keywords' => 'pdf'
-                ],
-
+                ['content' => '{dynagridFilter}{dynagridSort}{dynagrid}'],
+                '{export}',
             ],
-            GridView::PDF => [
-                'filename' => Yii::t('app', 'Taarifa za Makusanyo'),
-                'showPageSummary' => true,
-                'showHeader' => true,
-                'showFooter' => false,
+            'export' => [
+                'fontAwesome' => true
+            ],
+            'pjaxSettings' => [
+                'neverTimeout' => true,
+                // 'beforeGrid'=>'My fancy content before.',
+                //'afterGrid'=>'My fancy content after.',
+            ],
+            'panel' => [
+                'type' => GridView::TYPE_INFO,
+                'heading' => '<strong class="lead"  style="color: #01214d;font-family: Tahoma"> <i class="fa fa-check-square text-green"></i> LIST OF TICKET PRINTED TRANSACTIONS </strong>',
+                // 'before' => '<span class="text text-red"> *Eligible*</span>'
+            ],
+            'persistResize' => false,
+            'toggleDataOptions' => ['minCount' => 10],
+            'exportConfig' => [
+                GridView::PDF => [
+                    'label' => Yii::t('kvgrid', 'PDF'),
+                    //'icon' => $isFa ? 'file-pdf-o' : 'floppy-disk',
+                    'iconOptions' => ['class' => 'text-danger'],
+                    'showHeader' => true,
+                    'showPageSummary' => true,
+                    'showFooter' => true,
+                    'showCaption' => true,
+                    'filename' => Yii::t('kvgrid', 'Zups - Repoti ya wazee'),
+                    'alertMsg' => Yii::t('kvgrid', 'The PDF export file will be generated for download.'),
+                    'options' => ['title' => Yii::t('kvgrid', 'Portable Document Format')],
+                    'mime' => 'application/pdf',
+                    'config' => [
+                        'mode' => 'c',
+                        'format' => 'A4-L',
+                        'destination' => 'D',
+                        'marginTop' => 20,
+                        'marginBottom' => 20,
+                        'cssInline' => '.kv-wrap{padding:20px;}' .
+                            '.kv-align-center{text-align:center;}' .
+                            '.kv-align-left{text-align:left;}' .
+                            '.kv-align-right{text-align:right;}' .
+                            '.kv-align-top{vertical-align:top!important;}' .
+                            '.kv-align-bottom{vertical-align:bottom!important;}' .
+                            '.kv-align-middle{vertical-align:middle!important;}' .
+                            '.kv-page-summary{border-top:4px double #ddd;font-weight: bold;}' .
+                            '.kv-table-footer{border-top:4px double #ddd;font-weight: bold;}' .
+                            '.kv-table-caption{font-size:1.5em;padding:8px;border:1px solid #ddd;border-bottom:none;}',
 
-                'config' => [
-                    'methods' => [
-                        'SetHeader' => [
-                            ['odd' => 'TAARIFA ZA MAKUSANYO', 'even' => 'MAKUSANYO']
+                        'methods' => [
+                            'SetHeader' => [
+                                ['odd' => $pdfHeader, 'even' => $pdfHeader]
+                            ],
+                            'SetFooter' => [
+                                ['odd' => $pdfFooter, 'even' => $pdfFooter]
+                            ],
                         ],
-                        'SetFooter' => [
-                            ['odd' => 'header', 'even' => 'header']
+
+                        'options' => [
+                            'title' => 'PDF export generated',
+                            'subject' => Yii::t('kvgrid', 'PDF export generated by kartik-v/yii2-grid extension'),
+                            'keywords' => Yii::t('kvgrid', 'krajee, grid, export, yii2-grid, pdf')
                         ],
-                    ],
+                        'contentBefore' => '',
+                        'contentAfter' => ''
+                    ]
                 ],
-                'options' => ['title' => Yii::t('app', 'Comma Separated Values')],
-
+                GridView::CSV => [
+                    'label' => 'CSV',
+                    'filename' => 'ZUPS - RIPOTI YA WAZEE',
+                    'options' => ['title' => 'Repoti ya wazee'],
+                ],
             ],
-            GridView::JSON => [
-                'filename' => Yii::t('app', 'Taarifa za Makusanyo'),
-                'showPageSummary' => true,
-                'options' => ['title' => Yii::t('app', 'Comma Separated Values')],
-
-            ],
-
         ],
+        'options' => ['id' => 'dynagrid-1'] // a unique identifier is important
+    ]);
 
-    ]); ?>
 
-    <?php Pjax::end(); ?>
+    DynaGrid::end();
+    ?>
+
 </div>
 

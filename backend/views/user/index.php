@@ -43,7 +43,11 @@ $this->params['breadcrumbs'][] = 'Users';
             'mobile',
             'email',
             'role',
+            [
+                'attribute' => 'region',
+                'value' => 'region0.name'
 
+            ],
             [
                 'attribute' => 'status',
                 'value' => function ($model) {

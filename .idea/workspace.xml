@@ -2,41 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c32f151-f135-4b6e-92d4-ca8a4558f548" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/views/user/_form_admin.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/views/user/_form_manager.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/views/user/_form_super_admin.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/views/user/_form_supervisor.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/views/user/create-admin.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/views/user/create-manager.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/views/user/create-supervisor.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/views/user/managers.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/views/user/supervisor.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/parking.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/parking.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/DistrictController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/DistrictController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/MunicipalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/MunicipalController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/controllers/RegionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/RegionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/StreetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/StreetController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/WorkAreaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/WorkAreaController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/District.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/District.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/DistrictSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/DistrictSearch.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/Municipal.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/Municipal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/MunicipalSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/MunicipalSearch.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/models/Region.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/Region.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/Street.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/Street.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/StreetSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/StreetSearch.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/TicketTransactionSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/TicketTransactionSearch.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/UserSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/UserSearch.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/WorkArea.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/WorkArea.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/district/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/district/_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/layouts/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/layouts/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/views/district/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/district/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/views/layouts/left.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/layouts/left.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/municipal/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/municipal/_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/region/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/region/create.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/street/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/street/_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/work-area/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/work-area/_form.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/views/region/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/region/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/views/ticket-transaction/_search.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/ticket-transaction/_search.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/views/ticket-transaction/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/ticket-transaction/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/views/user/_form_admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/user/_form_admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/views/user/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/user/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/config/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/config/main.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" afterDir="false" />
@@ -60,95 +40,94 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/views/layouts/left.php">
+        <entry file="file://$PROJECT_DIR$/backend/models/Region.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="57" column="43" selection-start-line="57" selection-start-column="43" selection-end-line="57" selection-end-column="43" />
+            <state relative-caret-position="345">
+              <caret line="108" column="40" selection-start-line="108" selection-start-column="40" selection-end-line="108" selection-end-column="40" />
+              <folding>
+                <element signature="e#34#42#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/views/layouts/header.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-85">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/controllers/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="251" column="47" selection-start-line="251" selection-start-column="47" selection-end-line="251" selection-end-column="47" />
+            <state relative-caret-position="2382">
+              <caret line="361" column="47" selection-start-line="361" selection-start-column="47" selection-end-line="361" selection-end-column="47" />
               <folding>
                 <element signature="e#39#64#0#PHP" expanded="true" />
-                <element signature="e#4222#5491#0#PHP" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/views/user/create-supervisor.php">
+        <entry file="file://$PROJECT_DIR$/backend/controllers/RegionController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="39" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
+            <state relative-caret-position="257">
+              <caret line="74" column="93" selection-start-line="74" selection-start-column="93" selection-end-line="74" selection-end-column="93" />
+              <folding>
+                <element signature="e#39#64#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/controllers/DistrictController.php">
+        <entry file="file://$PROJECT_DIR$/backend/views/user/_form_admin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="37" column="35" selection-start-line="37" selection-start-column="35" selection-end-line="37" selection-end-column="35" />
+            <state relative-caret-position="87">
+              <caret line="92" column="81" selection-start-line="92" selection-start-column="81" selection-end-line="92" selection-end-column="81" />
+              <folding>
+                <element signature="e#7#34#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/models/DistrictSearch.php">
+        <entry file="file://$PROJECT_DIR$/backend/views/layouts/left.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="43" column="70" selection-start-line="43" selection-start-column="70" selection-end-line="43" selection-end-column="70" />
+            <state relative-caret-position="549">
+              <caret line="97" selection-start-line="97" selection-end-line="97" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/controllers/MunicipalController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/models/MunicipalSearch.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="43" column="34" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/controllers/StreetController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="37" column="32" lean-forward="true" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/backend/models/StreetSearch.php">
+        <entry file="file://$PROJECT_DIR$/backend/controllers/TicketTransactionController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="47" column="74" selection-start-line="47" selection-start-column="74" selection-end-line="47" selection-end-column="74" />
+              <caret line="38" column="41" selection-start-line="38" selection-start-column="41" selection-end-line="38" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/models/TicketTransactionSearch.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="43" column="20" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/views/user/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="47" column="35" selection-start-line="47" selection-start-column="35" selection-end-line="47" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/models/User.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="461">
+              <caret line="215" column="66" selection-start-line="215" selection-start-column="66" selection-end-line="215" selection-end-column="66" />
             </state>
           </provider>
         </entry>
@@ -160,6 +139,7 @@
       <find>rba</find>
       <find>see</find>
       <find>my application</find>
+      <find>receipt_no</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -168,10 +148,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/backend/views/auth-item/index.php" />
-        <option value="$PROJECT_DIR$/backend/views/auth-item/view.php" />
-        <option value="$PROJECT_DIR$/backend/views/auth-item/update.php" />
-        <option value="$PROJECT_DIR$/backend/views/role/_form.php" />
         <option value="$PROJECT_DIR$/backend/controllers/RoleController.php" />
         <option value="$PROJECT_DIR$/backend/views/auth-assignment/_form.php" />
         <option value="$PROJECT_DIR$/backend/views/user/_form.php" />
@@ -182,20 +158,14 @@
         <option value="$PROJECT_DIR$/common/config/main-local.php" />
         <option value="$PROJECT_DIR$/backend/config/main.php" />
         <option value="$PROJECT_DIR$/vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app/layouts/left.php" />
-        <option value="$PROJECT_DIR$/backend/views/user/index.php" />
         <option value="$PROJECT_DIR$/backend/controllers/AuthItemChildController.php" />
         <option value="$PROJECT_DIR$/backend/views/auth-assignment/index.php" />
         <option value="$PROJECT_DIR$/backend/views/layouts/main.php" />
-        <option value="$PROJECT_DIR$/backend/views/ticket-transaction/_search.php" />
-        <option value="$PROJECT_DIR$/backend/views/ticket-transaction/index.php" />
         <option value="$PROJECT_DIR$/backend/models/TicketTransaction.php" />
         <option value="$PROJECT_DIR$/backend/controllers/TicketTransactionController.php" />
         <option value="$PROJECT_DIR$/backend/models/TicketTransactionSearch.php" />
-        <option value="$PROJECT_DIR$/backend/models/User.php" />
         <option value="$PROJECT_DIR$/common/models/User.php" />
         <option value="$PROJECT_DIR$/backend/views/user/create-admin.php" />
-        <option value="$PROJECT_DIR$/backend/models/Region.php" />
-        <option value="$PROJECT_DIR$/backend/controllers/RegionController.php" />
         <option value="$PROJECT_DIR$/backend/views/region/create.php" />
         <option value="$PROJECT_DIR$/backend/views/district/_form.php" />
         <option value="$PROJECT_DIR$/backend/controllers/DistrictController.php" />
@@ -206,19 +176,29 @@
         <option value="$PROJECT_DIR$/backend/models/Street.php" />
         <option value="$PROJECT_DIR$/backend/models/District.php" />
         <option value="$PROJECT_DIR$/backend/models/Municipal.php" />
-        <option value="$PROJECT_DIR$/backend/views/user/_form_admin.php" />
         <option value="$PROJECT_DIR$/backend/views/user/create-manager.php" />
         <option value="$PROJECT_DIR$/backend/models/WorkArea.php" />
         <option value="$PROJECT_DIR$/backend/views/work-area/_form.php" />
         <option value="$PROJECT_DIR$/backend/controllers/WorkAreaController.php" />
         <option value="$PROJECT_DIR$/backend/models/UserSearch.php" />
-        <option value="$PROJECT_DIR$/backend/controllers/UserController.php" />
         <option value="$PROJECT_DIR$/backend/views/user/create-supervisor.php" />
-        <option value="$PROJECT_DIR$/backend/views/layouts/left.php" />
         <option value="$PROJECT_DIR$/backend/views/layouts/header.php" />
         <option value="$PROJECT_DIR$/backend/models/DistrictSearch.php" />
         <option value="$PROJECT_DIR$/backend/models/MunicipalSearch.php" />
         <option value="$PROJECT_DIR$/backend/models/StreetSearch.php" />
+        <option value="$PROJECT_DIR$/backend/views/region/index.php" />
+        <option value="$PROJECT_DIR$/common/config/main.php" />
+        <option value="$PROJECT_DIR$/backend/views/ticket-transaction/index.php" />
+        <option value="$PROJECT_DIR$/backend/views/ticket-transaction/_search.php" />
+        <option value="$PROJECT_DIR$/backend/views/district/index.php" />
+        <option value="$PROJECT_DIR$/backend/models/RegionSearch.php" />
+        <option value="$PROJECT_DIR$/backend/models/Region.php" />
+        <option value="$PROJECT_DIR$/backend/views/user/_form_admin.php" />
+        <option value="$PROJECT_DIR$/backend/models/User.php" />
+        <option value="$PROJECT_DIR$/backend/views/user/index.php" />
+        <option value="$PROJECT_DIR$/backend/controllers/RegionController.php" />
+        <option value="$PROJECT_DIR$/backend/views/layouts/left.php" />
+        <option value="$PROJECT_DIR$/backend/controllers/UserController.php" />
       </list>
     </option>
   </component>
@@ -324,6 +304,8 @@
       <path value="$PROJECT_DIR$/vendor/2amigos/yii2-date-picker-widget" />
       <path value="$PROJECT_DIR$/vendor/kartik-v/yii2-dynagrid" />
       <path value="$PROJECT_DIR$/vendor/kartik-v/yii2-sortable" />
+      <path value="$PROJECT_DIR$/vendor/kartik-v/dependent-dropdown" />
+      <path value="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-depdrop" />
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
@@ -362,14 +344,13 @@
               <item name="parking" type="b2602c69:ProjectViewProjectNode" />
               <item name="parking" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="parking" type="b2602c69:ProjectViewProjectNode" />
               <item name="parking" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="layouts" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="parking" type="b2602c69:ProjectViewProjectNode" />
@@ -377,6 +358,12 @@
               <item name="backend" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="user" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="parking" type="b2602c69:ProjectViewProjectNode" />
+              <item name="parking" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -427,12 +414,12 @@
       <option name="presentableId" value="Default" />
       <updated>1557984776942</updated>
       <workItem from="1557984778232" duration="41753000" />
-      <workItem from="1558097906598" duration="25985000" />
+      <workItem from="1558097906598" duration="39907000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67738000" />
+    <option name="totallyTimeSpent" value="81660000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -474,67 +461,10 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/backend/views/user/_form.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="53" column="103" selection-start-line="53" selection-start-column="103" selection-end-line="53" selection-end-column="103" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/controllers/AuthItemChildController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2125">
-          <caret line="125" selection-start-line="125" selection-end-line="125" />
-          <folding>
-            <element signature="e#39#67#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/views/auth-assignment/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="48" column="111" selection-start-line="48" selection-start-column="111" selection-end-line="48" selection-end-column="111" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/views/layouts/main-login.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-15" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/views/layouts/content.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1938" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/views/layouts/main.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
           <caret line="39" column="18" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/views/ticket-transaction/_search.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="56" column="67" selection-start-line="56" selection-start-column="67" selection-end-line="56" selection-end-column="67" />
-          <folding>
-            <element signature="e#7#43#0#PHP" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/views/ticket-transaction/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="119" selection-start-line="119" selection-end-line="119" />
-          <folding>
-            <element signature="e#7#35#0#PHP" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#strong#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -566,24 +496,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/models/TicketTransactionSearch.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="45" column="43" lean-forward="true" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/models/User.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="19" column="32" lean-forward="true" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/models/User.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="24" column="36" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -594,22 +510,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/controllers/TicketTransactionController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="38" column="40" selection-start-line="38" selection-start-column="40" selection-end-line="38" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/views/user/admin.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-51" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/views/user/create.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/views/region/index.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/views/user/create-admin.php">
@@ -646,53 +552,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/controllers/RegionController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="66" column="23" selection-start-line="66" selection-start-column="23" selection-end-line="66" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/models/Region.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1066">
-          <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
-          <folding>
-            <element signature="e#34#42#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/models/District.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="112" column="100" selection-start-line="112" selection-start-column="100" selection-end-line="112" selection-end-column="100" />
-          <folding>
-            <element signature="e#34#42#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/models/Street.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="25" column="6" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="6" />
-          <folding>
-            <element signature="e#34#42#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/views/user/_form_admin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="72" column="77" selection-start-line="72" selection-start-column="77" selection-end-line="72" selection-end-column="77" />
-          <folding>
-            <element signature="e#7#34#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/views/user/_form_manager.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -718,26 +577,6 @@
           <caret line="17" selection-start-line="17" selection-end-line="44" selection-end-column="6" />
           <folding>
             <element signature="e#7#34#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/models/Municipal.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="112" selection-start-line="112" selection-end-line="115" selection-end-column="5" />
-          <folding>
-            <element signature="e#34#42#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/models/WorkArea.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="114" column="100" selection-start-line="114" selection-start-column="100" selection-end-line="114" selection-end-column="100" />
-          <folding>
-            <element signature="e#34#42#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -775,28 +614,10 @@
         <state relative-caret-position="-357" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/controllers/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="251" column="47" selection-start-line="251" selection-start-column="47" selection-end-line="251" selection-end-column="47" />
-          <folding>
-            <element signature="e#39#64#0#PHP" expanded="true" />
-            <element signature="e#4222#5491#0#PHP" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/views/user/create-supervisor.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" column="39" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/views/layouts/left.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="57" column="43" selection-start-line="57" selection-start-column="43" selection-end-line="57" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -838,14 +659,192 @@
     <entry file="file://$PROJECT_DIR$/backend/controllers/StreetController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
-          <caret line="37" column="32" lean-forward="true" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
+          <caret line="37" column="32" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/models/StreetSearch.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
+        <state relative-caret-position="-32">
           <caret line="47" column="74" selection-start-line="47" selection-start-column="74" selection-end-line="47" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/config/main-local.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/config/main.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/views/ticket-transaction/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="111">
+          <caret line="104" column="38" selection-start-line="104" selection-start-column="28" selection-end-line="104" selection-end-column="38" />
+          <folding>
+            <element signature="e#7#36#0#PHP" expanded="true" />
+            <element signature="n#style#0;n#strong#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/views/ticket-transaction/_search.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="23" column="69" selection-start-line="23" selection-start-column="69" selection-end-line="23" selection-end-column="69" />
+          <folding>
+            <element signature="e#7#43#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/views/region/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" selection-start-line="15" selection-end-line="106" selection-end-column="6" />
+          <folding>
+            <element signature="e#7#35#0#PHP" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#div#1;n#!!top" />
+            <element signature="n#style#0;n#strong#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/views/district/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="70" column="155" selection-start-line="70" selection-start-column="155" selection-end-line="70" selection-end-column="155" />
+          <folding>
+            <element signature="e#7#28#0#PHP" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#strong#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/models/RegionSearch.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="42" column="20" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/models/Region.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="108" column="40" selection-start-line="108" selection-start-column="40" selection-end-line="108" selection-end-column="40" />
+          <folding>
+            <element signature="e#34#42#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/models/WorkArea.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="114" column="100" selection-start-line="114" selection-start-column="100" selection-end-line="114" selection-end-column="100" />
+          <folding>
+            <element signature="e#34#42#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/views/user/_form_admin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="92" column="81" selection-start-line="92" selection-start-column="81" selection-end-line="92" selection-end-column="81" />
+          <folding>
+            <element signature="e#7#34#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/models/Municipal.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="821">
+          <caret line="79" selection-start-line="67" selection-start-column="3" selection-end-line="79" />
+          <folding>
+            <element signature="e#34#42#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/models/District.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1031">
+          <caret line="112" column="100" selection-start-line="112" selection-start-column="100" selection-end-line="112" selection-end-column="100" />
+          <folding>
+            <element signature="e#34#42#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/models/Street.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="70" selection-start-line="70" selection-end-line="73" selection-end-column="5" />
+          <folding>
+            <element signature="e#34#42#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/models/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="461">
+          <caret line="215" column="66" selection-start-line="215" selection-start-column="66" selection-end-line="215" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/views/user/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="47" column="35" selection-start-line="47" selection-start-column="35" selection-end-line="47" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/controllers/RegionController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="74" column="93" selection-start-line="74" selection-start-column="93" selection-end-line="74" selection-end-column="93" />
+          <folding>
+            <element signature="e#39#64#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/views/layouts/left.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="549">
+          <caret line="97" selection-start-line="97" selection-end-line="97" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/controllers/TicketTransactionController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="38" column="41" selection-start-line="38" selection-start-column="41" selection-end-line="38" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/models/TicketTransactionSearch.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="43" column="20" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/controllers/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2382">
+          <caret line="361" column="47" selection-start-line="361" selection-start-column="47" selection-end-line="361" selection-end-column="47" />
+          <folding>
+            <element signature="e#39#64#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

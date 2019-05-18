@@ -193,4 +193,27 @@ class User extends \common\models\User
     }
 
 
+    public function getDistrict0()
+    {
+        return $this->hasOne(District::className(), ['id' => 'district']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRegion0()
+    {
+        return $this->hasOne(Region::className(), ['id' => 'region']);
+    }
+
+    public function getMunicipal0()
+    {
+        return $this->hasOne(Municipal::className(), ['id' => 'municipal']);
+    }
+
+    public function getStreet0()
+    {
+        return $this->hasOne(Street::className(), ['id' => 'street']);
+    }
+
 }

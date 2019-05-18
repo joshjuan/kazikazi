@@ -1396,6 +1396,55 @@
         ]
     },
     {
+        "name": "kartik-v/dependent-dropdown",
+        "version": "v1.4.9",
+        "version_normalized": "1.4.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/dependent-dropdown.git",
+            "reference": "54a8806002ee21b744508a2edb95ed01d35c6cf9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/dependent-dropdown/zipball/54a8806002ee21b744508a2edb95ed01d35c6cf9",
+            "reference": "54a8806002ee21b744508a2edb95ed01d35c6cf9",
+            "shasum": ""
+        },
+        "time": "2019-03-09T10:53:11+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.4.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "kartik\\plugins\\depdrop\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kartik Visweswaran",
+                "email": "kartikv2@gmail.com",
+                "homepage": "http://www.krajee.com/"
+            }
+        ],
+        "description": "A multi level dependent dropdown JQuery plugin that allows nested dependencies.",
+        "homepage": "https://github.com/kartik-v/dependent-dropdown",
+        "keywords": [
+            "dependent",
+            "dropdown",
+            "jquery",
+            "option",
+            "select"
+        ]
+    },
+    {
         "name": "kartik-v/yii2-dialog",
         "version": "v1.0.5",
         "version_normalized": "1.0.5.0",
@@ -1832,6 +1881,62 @@
             "picker",
             "plugin",
             "select2",
+            "widget",
+            "yii2"
+        ]
+    },
+    {
+        "name": "kartik-v/yii2-widget-depdrop",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/yii2-widget-depdrop.git",
+            "reference": "ea347e3793fbd8273cc9bd1eb94c4b32bb55d318"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/yii2-widget-depdrop/zipball/ea347e3793fbd8273cc9bd1eb94c4b32bb55d318",
+            "reference": "ea347e3793fbd8273cc9bd1eb94c4b32bb55d318",
+            "shasum": ""
+        },
+        "require": {
+            "kartik-v/dependent-dropdown": "~1.4",
+            "kartik-v/yii2-krajee-base": ">=2.0.0"
+        },
+        "time": "2019-04-19T07:02:48+00:00",
+        "type": "yii2-extension",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "kartik\\depdrop\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kartik Visweswaran",
+                "email": "kartikv2@gmail.com",
+                "homepage": "http://www.krajee.com/"
+            }
+        ],
+        "description": "Widget that enables setting up dependent dropdowns with nested dependencies (sub repo split from yii2-widgets)",
+        "homepage": "https://github.com/kartik-v/yii2-widget-depdrop",
+        "keywords": [
+            "dependent",
+            "dropdown",
+            "extension",
+            "form",
+            "jquery",
+            "plugin",
             "widget",
             "yii2"
         ]
