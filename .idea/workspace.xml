@@ -2,31 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c32f151-f135-4b6e-92d4-ca8a4558f548" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/parking.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/parking.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/RegionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/RegionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/Region.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/Region.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/district/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/district/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/layouts/left.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/layouts/left.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/region/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/region/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/ticket-transaction/_search.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/ticket-transaction/_search.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/ticket-transaction/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/ticket-transaction/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/user/_form_admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/user/_form_admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/user/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/user/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/config/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/config/main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/installed.json" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/installed.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/kartik-v/yii2-grid" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kartik-v/yii2-grid" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-activeform" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-activeform" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-datepicker" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-datepicker" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-select2" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-select2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/yiisoft/extensions.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/yiisoft/extensions.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,22 +20,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/models/Region.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="108" column="40" selection-start-line="108" selection-start-column="40" selection-end-line="108" selection-end-column="40" />
-              <folding>
-                <element signature="e#34#42#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/controllers/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2382">
-              <caret line="361" column="47" selection-start-line="361" selection-start-column="47" selection-end-line="361" selection-end-column="47" />
+            <state relative-caret-position="597">
+              <caret line="232" column="50" selection-start-line="232" selection-start-column="50" selection-end-line="232" selection-end-column="50" />
               <folding>
                 <element signature="e#39#64#0#PHP" expanded="true" />
               </folding>
@@ -108,8 +76,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/models/TicketTransactionSearch.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="43" column="20" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
+            <state relative-caret-position="255">
+              <caret line="47" column="22" selection-start-line="47" selection-start-column="14" selection-end-line="47" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/backend/views/user/create-manager.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/backend/views/user/_form_manager.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="68" column="30" selection-start-line="68" selection-start-column="30" selection-end-line="68" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -148,7 +134,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/backend/controllers/RoleController.php" />
         <option value="$PROJECT_DIR$/backend/views/auth-assignment/_form.php" />
         <option value="$PROJECT_DIR$/backend/views/user/_form.php" />
         <option value="$PROJECT_DIR$/backend/models/AuthItem.php" />
@@ -199,6 +184,7 @@
         <option value="$PROJECT_DIR$/backend/controllers/RegionController.php" />
         <option value="$PROJECT_DIR$/backend/views/layouts/left.php" />
         <option value="$PROJECT_DIR$/backend/controllers/UserController.php" />
+        <option value="$PROJECT_DIR$/backend/views/user/_form_manager.php" />
       </list>
     </option>
   </component>
@@ -414,19 +400,19 @@
       <option name="presentableId" value="Default" />
       <updated>1557984776942</updated>
       <workItem from="1557984778232" duration="41753000" />
-      <workItem from="1558097906598" duration="39907000" />
+      <workItem from="1558097906598" duration="40687000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81660000" />
+    <option name="totallyTimeSpent" value="82440000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.31316188" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.31316188" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -439,7 +425,7 @@
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="10" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.32569557" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32569557" />
       <window_info anchor="right" id="Database" order="0" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
@@ -552,21 +538,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/views/user/_form_manager.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/views/user/_form_supervisor.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/views/user/_form_super_admin.php">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/backend/views/user/create-manager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/views/user/managers.php">
       <provider selected="true" editor-type-id="text-editor" />
@@ -824,6 +800,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/backend/controllers/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="597">
+          <caret line="232" column="50" selection-start-line="232" selection-start-column="50" selection-end-line="232" selection-end-column="50" />
+          <folding>
+            <element signature="e#39#64#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/backend/controllers/TicketTransactionController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -833,18 +819,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/models/TicketTransactionSearch.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="43" column="20" selection-start-line="43" selection-start-column="20" selection-end-line="43" selection-end-column="20" />
+        <state relative-caret-position="255">
+          <caret line="47" column="22" selection-start-line="47" selection-start-column="14" selection-end-line="47" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/controllers/UserController.php">
+    <entry file="file://$PROJECT_DIR$/backend/views/user/create-manager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2382">
-          <caret line="361" column="47" selection-start-line="361" selection-start-column="47" selection-end-line="361" selection-end-column="47" />
-          <folding>
-            <element signature="e#39#64#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="238">
+          <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/views/user/_form_manager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="68" column="30" selection-start-line="68" selection-start-column="30" selection-end-line="68" selection-end-column="30" />
         </state>
       </provider>
     </entry>
