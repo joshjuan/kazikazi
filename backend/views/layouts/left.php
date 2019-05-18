@@ -53,7 +53,7 @@ use dmstr\widgets\Menu;
                         ],
                     ],
                     [
-                        'label' => 'Zones Configuration',
+                        'label' => 'Area Configuration',
                         'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
                         'icon' => 'database text-orange',
                         'items' => [
@@ -100,7 +100,7 @@ use dmstr\widgets\Menu;
                                 ],
                             ],
                             [
-                                'label' => 'Municipal',
+                                'label' => 'Shehia',
                                 //  'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
                                 'icon' => 'sun-o text-orange',
                                 'items' => [
@@ -120,7 +120,7 @@ use dmstr\widgets\Menu;
                                 ],
                             ],
                             [
-                                'label' => 'Street',
+                                'label' => 'Zones',
                                 'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
                                 'icon' => 'sun-o text-orange',
                                 'items' => [
@@ -270,13 +270,13 @@ use dmstr\widgets\Menu;
                     ],
                     [
                         'label' => 'Settings',
-                        // 'visible' => Yii::$app->user->can('Administrator') || Yii::$app->user->can('Super_Administrator'),
+                        'visible' => (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')),
                         'icon' => 'cogs text-orange',
                         'items' => [
                             ['label' => 'Users', 'icon' => 'user text-orange', 'url' => ['/user'],],
 
                             [
-                                'visible' => (Yii::$app->user->identity->username == 'super_admin' || Yii::$app->user->identity->username == 'admin'),
+                                'visible' => (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')),
                                 'label' => Yii::t('app', 'Permissions'),
                                 'url' => ['/auth-item/index'],
                                 'icon' => 'fa fa-lock text-orange',
@@ -288,14 +288,14 @@ use dmstr\widgets\Menu;
                                 'url' => ['/auth-item-child'],
                             ],
                             [
-                                'visible' => (Yii::$app->user->identity->username == 'super_admin' || Yii::$app->user->identity->username == 'admin'),
+                                'visible' => (Yii::$app->user->can('super_admin')  || Yii::$app->user->can('admin')),
                                 'label' => Yii::t('app', 'Manage User Roles'),
                                 'url' => ['/role/index'],
                                 'icon' => 'fa fa-lock text-orange',
                             ],
                             [
                                 'label' => 'Assign Roles ',
-                                'visible' => (Yii::$app->user->identity->username == 'super_admin' || Yii::$app->user->identity->username == 'admin'),
+                                'visible' => (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')),
                                 'icon' => 'lock text-orange', 'url' => ['/auth-assignment'],
                             ],
                         ],

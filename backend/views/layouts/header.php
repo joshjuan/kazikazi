@@ -333,9 +333,7 @@ use yii\helpers\Html;
                 </li>
 
                 <!-- User Account: style can be found in dropdown.less -->
-                <li>
-                    <a href="#" "><i class="fa fa-gears"></i></a>
-                </li>
+
             </ul>
         </div>
     </nav>
