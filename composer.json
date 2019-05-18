@@ -31,7 +31,8 @@
         "kartik-v/yii2-mpdf": "dev-master",
         "2amigos/yii2-date-picker-widget": "~1.0",
         "kartik-v/yii2-dynagrid": "dev-master",
-        "kartik-v/yii2-widget-depdrop": "dev-master"
+        "kartik-v/yii2-widget-depdrop": "dev-master",
+        "nick-denry/yii2-filter-action-column": "^0.1.2"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

@@ -1,5 +1,8 @@
 <?php
 
+use backend\models\District;
+use backend\models\Municipal;
+use backend\models\Region;
 use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -16,7 +19,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'region')->widget(Select2::classname(), [
-        'data' => \backend\models\Region::getRegion(),
+        'data' => Region::getRegion(),
         'options' => ['placeholder' => 'Choose Region'],
         'pluginOptions' => [
             'allowClear' => true,
@@ -26,7 +29,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <?= $form->field($model, 'district')->widget(Select2::classname(), [
-        'data' => \backend\models\District::getDistrict(),
+        'data' => District::getDistrict(),
         'options' => ['placeholder' => 'Choose District'],
         'pluginOptions' => [
             'allowClear' => true,
@@ -35,7 +38,7 @@ use yii\widgets\ActiveForm;
     ]);
     ?>
     <?= $form->field($model, 'municipal')->widget(Select2::classname(), [
-        'data' => \backend\models\Municipal::getMunicipal(),
+        'data' => Municipal::getMunicipal(),
         'options' => ['placeholder' => 'Choose Municipal'],
         'pluginOptions' => [
             'allowClear' => true,

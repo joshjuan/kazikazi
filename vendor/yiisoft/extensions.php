@@ -238,4 +238,13 @@ return array (
       '@kartik/depdrop' => $vendorDir . '/kartik-v/yii2-widget-depdrop/src',
     ),
   ),
+  'nick-denry/yii2-filter-action-column' => 
+  array (
+    'name' => 'nick-denry/yii2-filter-action-column',
+    'version' => '0.1.2.0',
+    'alias' => 
+    array (
+      '@nickdenry/grid' => $vendorDir . '/nick-denry/yii2-filter-action-column/src',
+    ),
+  ),
 );

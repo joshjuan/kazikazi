@@ -45,8 +45,8 @@ class TicketTransactionSearch extends TicketTransaction
     {
         $query = TicketTransaction::find();
         $query->where(['region'=>\Yii::$app->user->identity->region])
-            ->orWhere(['district'=>\Yii::$app->user->identity->district])
-            ->orWhere(['municipal'=>\Yii::$app->user->identity->municipal]);
+            ->andWhere(['district'=>\Yii::$app->user->identity->district])
+            ->andWhere(['municipal'=>\Yii::$app->user->identity->municipal]);
 
 
         // add conditions that should always apply here

@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\LoginForm;
 use Yii;
 use backend\models\Municipal;
 use backend\models\MunicipalSearch;
@@ -64,17 +65,44 @@ class MunicipalController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Municipal();
-        $model->created_at=date('y-m-d H:i:s');
-        $model->created_by=Yii::$app->user->identity->username;
+        if (!Yii::$app->user->isGuest) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $model = new Municipal();
+            $model->created_at=date('y-m-d H:i:s');
+
+            $model->created_by=Yii::$app->user->identity->username;
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createMunicipal')) {
+
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+
+            }else{
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'title' => 'Notification',
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['index']);
+            }
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**

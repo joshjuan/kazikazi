@@ -60,12 +60,13 @@ use dmstr\widgets\Menu;
 
                             [
                                 'label' => 'Region',
-                                'visible' => Yii::$app->user->can('super_admin') ,
-                                'icon' => 'sun-o text-orange',
+                                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewRegion'),
+                                'icon' => 'map-marker text-orange',
                                 'items' => [
                                     [
                                         //  'visible' =>  yii::$app->user->can('auditSystem'),
                                         'label' => Yii::t('app', 'New Region'),
+                                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('createRegion'),
                                         'url' => ['/region/create'],
                                         'icon' => 'plus text-orange',
                                     ],
@@ -80,12 +81,13 @@ use dmstr\widgets\Menu;
                             ],
                             [
                                 'label' => 'District',
-                                  'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin'),
+                                  'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewDistrict'),
                                 'icon' => 'sun-o text-orange',
                                 'items' => [
                                     [
                                         //  'visible' =>  yii::$app->user->can('auditSystem'),
                                         'label' => Yii::t('app', 'New District'),
+                                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('createDistrict'),
                                         'url' => ['/district/create'],
                                         'icon' => 'plus text-orange',
                                     ],

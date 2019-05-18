@@ -12,6 +12,10 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [
+        'dynagrid'=> [
+            'class'=>'\kartik\dynagrid\Module',
+            // other module settings
+        ],
         'rbac' => [
             'class' => 'yii2mod\rbac\Module',
         ],
@@ -29,6 +33,7 @@ return [
 
         'response' => [
             'formatters' => [
+
                 'pdf' => [
                     'class' => 'robregonm\pdf\PdfResponseFormatter',
                     'mode' => '', // Optional

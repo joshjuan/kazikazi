@@ -1,19 +1,12 @@
 <?php
 
-use backend\models\User;
 use kartik\select2\Select2;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use kartik\form\ActiveForm;
-use yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\User */
-/* @var $form \yii\widgets\ActiveForm */
-
-
-$countries = ArrayHelper::map(\backend\models\Region::find()->asArray()->all(), 'id', 'name');
-$cities = ArrayHelper::map(\backend\models\District::find()->asArray()->all(), 'id', 'name');
+/* @var $form yii\widgets\ActiveForm */
 ?>
 <div class="employee-loans-index" style="padding-top: 25px">
     <div class="panel panel-default">
@@ -25,7 +18,7 @@ $cities = ArrayHelper::map(\backend\models\District::find()->asArray()->all(), '
                 ],
             ]); ?>
             <h2 class="page-header">
-                <i class="fa fa-list"></i> <?php echo Yii::t('app', 'Manager Details'); ?>
+                <i class="fa fa-list"></i> <?php echo Yii::t('app', 'Staff Details'); ?>
             </h2>
             <div class="box-body">
 
@@ -38,49 +31,35 @@ $cities = ArrayHelper::map(\backend\models\District::find()->asArray()->all(), '
                             <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
                         </div>
                         <div class="col-sm-4">
+                            <?= $form->field($model, 'region')->widget(Select2::classname(), [
+                                'data' => \backend\models\Region::getRegion(),
+                                'options' => ['placeholder' => 'Choose Region'],
+                                'pluginOptions' => [
+                                    'allowClear' => true,
 
-                            <?= $form->field($model, 'region')->dropDownList(
-                                $countries,
-                                [
-                                    'prompt' => 'Select Region',
-                                    'onchange' => '
-	                                    $.post("index.php?r=user/region-list&id="+$(this).val(), function( data ) {
-	                                   $( "select#city" ).html( data );
-	                                  });'
-                                ]
-                            ); ?>
+                                ],
+                            ]);
+                            ?>
+                            <?php //$form->field($model, 'region')->textInput(['maxlength' => true]) ?>
                         </div>
                     </div>
                     <div class="col-sm-12 no-padding">
                         <div class="col-sm-4">
-                            <?php echo $form->field($model, 'district')
-                                ->dropDownList(
-                                    $cities,
-                                    [
-                                        'prompt' => 'Select District', 'id' => 'city',
-                                        'onchange' => '
-	                                    $.post("index.php?r=user/district-list&id="+$(this).val(), function( data ) {
-	                                   $( "select#city1" ).html( data );
-	                                  });'
-                                    ]
-                                ); ?>
 
+                            <?= $form->field($model, 'district')->widget(Select2::classname(), [
+                                'data' => \backend\models\District::getDistrict(),
+                                'options' => ['placeholder' => 'Choose District'],
+                                'pluginOptions' => [
+                                    'allowClear' => true,
+
+                                ],
+                            ]);
+                            ?>
                         </div>
                         <div class="col-sm-4">
-
-                            <?php echo $form->field($model, 'municipal')
-                                ->dropDownList(
-                                    $cities,
-                                    [
-                                        'prompt' => 'Select District', 'id' => 'city1'
-                                    ]
-                                ); ?>
-
-                        </div>
-                        <div class="col-sm-4">
-                            <?= $form->field($model, 'street')->widget(Select2::classname(), [
-                                'data' => \backend\models\Street::getStreet(),
-                                'options' => ['placeholder' => 'Choose Street'],
+                            <?= $form->field($model, 'municipal')->widget(Select2::classname(), [
+                                'data' => \backend\models\Municipal::getMunicipal(),
+                                'options' => ['placeholder' => 'Choose Municipal'],
                                 'pluginOptions' => [
                                     'allowClear' => true,
 
@@ -90,21 +69,26 @@ $cities = ArrayHelper::map(\backend\models\District::find()->asArray()->all(), '
                         </div>
                     </div>
                     <div class="col-sm-12 no-padding">
-                        <div class="col-sm-4">
-                            <?= $form->field($model, 'work_area')->widget(Select2::classname(), [
-                                'data' => \backend\models\WorkArea::getWorkArea(),
-                                'options' => ['placeholder' => 'Choose work area'],
-                                'pluginOptions' => [
-                                    'allowClear' => true,
+                        <div class="col-sm-6">
 
-                                ],
-                            ]);
-                            ?>
+                            <?= $form->field($model, 'street')->passwordInput(['maxlength' => true]) ?>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
+                            <?= $form->field($model, 'street')->passwordInput(['maxlength' => true]) ?>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 no-padding">
+                        <div class="col-sm-6">
+
+                            <?= $form->field($model, 'work_area')->passwordInput(['maxlength' => true]) ?>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-12 no-padding">
+                        <div class="col-sm-6">
                             <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
                         </div>
                     </div>

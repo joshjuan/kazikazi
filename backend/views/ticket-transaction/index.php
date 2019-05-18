@@ -1,10 +1,13 @@
 <?php
 
-use kartik\dynagrid\DynaGrid;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
-use kartik\grid\GridView;
+
+
 use yii\widgets\Pjax;
+use yii\helpers\ArrayHelper;
+use kartik\helpers\Html;
+use kartik\grid\GridView;
+use kartik\widgets\DynaGrid;
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\TicketTransactionSearch */
@@ -19,7 +22,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
     <?php
     $pdfHeader = [
         'L' => [
-            'content' => 'ZUPS REPOTI',
+            'content' => 'PARKING REPOTI',
         ],
         'C' => [
             'content' => 'MALIPO YA WAZEE KIWILAYA KWA MWEZI WA ' . date('m'),

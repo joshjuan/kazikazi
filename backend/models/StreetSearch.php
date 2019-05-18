@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\Street;
@@ -43,9 +44,9 @@ class StreetSearch extends Street
         $query = Street::find();
 
         // add conditions that should always apply here
-        $query->where(['region'=>\Yii::$app->user->identity->region])
-            ->andWhere(['district'=>\Yii::$app->user->identity->district])
-            ->andWhere(['municipal'=>\Yii::$app->user->identity->municipal]);
+        $query->where(['region'=> Yii::$app->user->identity->region])
+            ->andWhere(['district'=> Yii::$app->user->identity->district])
+            ->andWhere(['municipal'=> Yii::$app->user->identity->municipal]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -5,13 +5,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\District */
 
-$this->title = 'Create District';
+$this->title = '';
 $this->params['breadcrumbs'][] = ['label' => 'Districts', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = 'District';
 ?>
 <div class="district-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,

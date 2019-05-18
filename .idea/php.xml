@@ -100,6 +100,11 @@
       <path value="$PROJECT_DIR$/vendor/kartik-v/yii2-mpdf" />
       <path value="$PROJECT_DIR$/vendor/bower-asset/bootstrap-datepicker" />
       <path value="$PROJECT_DIR$/vendor/2amigos/yii2-date-picker-widget" />
+      <path value="$PROJECT_DIR$/vendor/kartik-v/yii2-dynagrid" />
+      <path value="$PROJECT_DIR$/vendor/kartik-v/yii2-sortable" />
+      <path value="$PROJECT_DIR$/vendor/kartik-v/dependent-dropdown" />
+      <path value="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-depdrop" />
+      <path value="$PROJECT_DIR$/vendor/nick-denry/yii2-filter-action-column" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.4.0" />

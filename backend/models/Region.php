@@ -3,6 +3,8 @@
 namespace backend\models;
 
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -20,7 +22,7 @@ use yii\helpers\ArrayHelper;
  * @property User[] $users
  * @property WorkArea[] $workAreas
  */
-class Region extends \yii\db\ActiveRecord
+class Region extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -38,6 +40,7 @@ class Region extends \yii\db\ActiveRecord
         return [
             [['name', 'created_at', 'created_by'], 'required'],
             [['created_at'], 'safe'],
+            [['name'], 'unique'],
             [['name', 'created_by'], 'string', 'max' => 200],
         ];
     }
@@ -56,7 +59,7 @@ class Region extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getDistricts()
     {
@@ -64,7 +67,7 @@ class Region extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getMunicipals()
     {
@@ -72,7 +75,7 @@ class Region extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getStreets()
     {
@@ -80,7 +83,7 @@ class Region extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getTicketTransactions()
     {
@@ -88,7 +91,7 @@ class Region extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getUsers()
     {
@@ -96,7 +99,7 @@ class Region extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getWorkAreas()
     {

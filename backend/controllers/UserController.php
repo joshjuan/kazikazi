@@ -182,7 +182,7 @@ class UserController extends Controller
 
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createUser')) {
                 $model = new User();
 
                 //  $model->scenario = 'createUser';
@@ -226,7 +226,7 @@ class UserController extends Controller
 
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin') || Yii::$app->user->can('manager')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createUser') ) {
                 $model = new User();
 
                 //  $model->scenario = 'createUser';

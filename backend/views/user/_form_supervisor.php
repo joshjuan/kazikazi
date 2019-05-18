@@ -1,5 +1,10 @@
 <?php
 
+use backend\models\District;
+use backend\models\Municipal;
+use backend\models\Region;
+use backend\models\Street;
+use backend\models\User;
 use kartik\select2\Select2;
 use yii\helpers\Html;
 use kartik\form\ActiveForm;
@@ -32,7 +37,7 @@ use kartik\form\ActiveForm;
                         </div>
                         <div class="col-sm-4">
                             <?= $form->field($model, 'region')->widget(Select2::classname(), [
-                                'data' => \backend\models\Region::getRegion(),
+                                'data' => Region::getRegion(),
                                 'options' => ['placeholder' => 'Choose Region'],
                                 'pluginOptions' => [
                                     'allowClear' => true,
@@ -47,7 +52,7 @@ use kartik\form\ActiveForm;
                         <div class="col-sm-4">
 
                             <?= $form->field($model, 'district')->widget(Select2::classname(), [
-                                'data' => \backend\models\District::getDistrict(),
+                                'data' => District::getDistrict(),
                                 'options' => ['placeholder' => 'Choose District'],
                                 'pluginOptions' => [
                                     'allowClear' => true,
@@ -58,7 +63,7 @@ use kartik\form\ActiveForm;
                         </div>
                         <div class="col-sm-4">
                             <?= $form->field($model, 'municipal')->widget(Select2::classname(), [
-                                'data' => \backend\models\Municipal::getMunicipal(),
+                                'data' => Municipal::getMunicipal(),
                                 'options' => ['placeholder' => 'Choose Municipal'],
                                 'pluginOptions' => [
                                     'allowClear' => true,
@@ -69,7 +74,7 @@ use kartik\form\ActiveForm;
                         </div>
                         <div class="col-sm-4">
                             <?= $form->field($model, 'street')->widget(Select2::classname(), [
-                                'data' => \backend\models\Street::getStreet(),
+                                'data' => Street::getStreet(),
                                 'options' => ['placeholder' => 'Choose Street'],
                                 'pluginOptions' => [
                                     'allowClear' => true,
@@ -107,10 +112,10 @@ use kartik\form\ActiveForm;
                     <div class="col-sm-12 no-padding">
 
                         <div class="col-sm-6">
-                            <?= $form->field($model, 'role')->dropDownList(\backend\models\User::getRules(), ['prompt' => '-- select Role name --']) ?>
+                            <?= $form->field($model, 'role')->dropDownList(User::getRules(), ['prompt' => '-- select Role name --']) ?>
                         </div>
                         <div class="col-sm-6">
-                            <?= $form->field($model, 'status')->dropDownList(\backend\models\User::getArrayStatus()) ?>
+                            <?= $form->field($model, 'status')->dropDownList(User::getArrayStatus()) ?>
                         </div>
                     </div>
                     <div class="col-sm-12 no-padding">

@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\Audit;
+use backend\models\User;
 use common\models\LoginForm;
 use Yii;
 use backend\models\Region;
@@ -37,13 +38,21 @@ class RegionController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new RegionSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (!Yii::$app->user->isGuest) {
+            $searchModel = new RegionSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            Audit::setActivity(Yii::$app->user->identity->name . ' was looking general information of regions ', 'Region ', 'index', '', '');
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        } else {
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
     }
 
     /**
@@ -54,9 +63,37 @@ class RegionController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewRegion')) {
+                $model = $this->findModel($id);
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' was looking the information of ' . $model->name.' region', 'Region', 'View', '', '');
+                return $this->render('view', [
+                    'model' => $this->findModel($id),
+                ]);
+            } else {
+
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['index']);
+            }
+
+        } else {
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
+
     }
 
     /**
@@ -64,38 +101,42 @@ class RegionController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public
+    function actionCreate()
     {
         if (!Yii::$app->user->isGuest) {
-            if (Yii::$app->user->can('super_admin')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createRegion')) {
                 $model = new Region();
+
                 $model->created_at = date('y-m-d H:i:s');
                 $model->created_by = Yii::$app->user->identity->username;
+
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                    Audit::setActivity('New region successfully created ', 'Region ', 'create', '', '');
+
+                    Audit::setActivity('New region ' . $model->name . ' was successfully created by ' . Yii::$app->user->identity->name, 'Region ', 'create', '', '');
+
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
 
                 return $this->render('create', [
                     'model' => $model,
                 ]);
-            }
-            else
-            {
+
+            } else {
+
                 Yii::$app->session->setFlash('', [
                     'type' => 'warning',
                     'duration' => 3500,
+                    'title' => 'Notification',
                     'icon' => 'fa fa-warning',
                     'message' => 'You do not have permission',
                     'positonY' => 'top',
                     'positonX' => 'right'
                 ]);
 
-                return $this->redirect(['site/index']);
+                return $this->redirect(['index']);
             }
-        }
-
-        else{
+        } else {
             $model = new LoginForm();
             return $this->redirect(['site/login',
                 'model' => $model,
@@ -110,17 +151,55 @@ class RegionController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public
+    function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (!Yii::$app->user->isGuest) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('updateRegion')) {
+
+                $model = $this->findModel($id);
+
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                    Yii::$app->session->setFlash('', [
+                        'type' => 'success',
+                        'duration' => 1500,
+                        'title'=>'Notification',
+                        'icon' => 'fa fa-check',
+                        'message' => 'Region was successfully updated',
+                        'positonY' => 'top',
+                        'positonX' => 'right'
+                    ]);
+
+
+                    Audit::setActivity('Region was successfully updated to ' . $model->name, 'Update ', 'Index', '', '');
+
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            } else {
+
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'title' => 'Notification',
+                    'icon' => 'fa fa - warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['index']);
+            }
+        } else {
+            $model = new LoginForm();
+            return $this->redirect(['site / login',
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -130,11 +209,53 @@ class RegionController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public
+    function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (!Yii::$app->user->isGuest) {
 
-        return $this->redirect(['index']);
+            $model = $this->findModel($id);
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('deleteRegion')) {
+
+                if ($this->findModel($id)->delete()) {
+
+                    Yii::$app->session->setFlash('', [
+                        'type' => 'success',
+                        'duration' => 1500,
+                        'icon' => 'fa fa-check',
+                        'message' => 'Region was successfully deleted',
+                        'positonY' => 'top',
+                        'positonX' => 'right'
+                    ]);
+
+                    Audit::setActivity('The region ' . $model->name . ' was successfully deleted' . Yii::$app->user->identity->name, 'Region', 'Delete', '', '');
+
+                    return $this->redirect(['index']);
+                }
+
+                return $this->redirect(['index']);
+            } else {
+
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'title' => 'Notification',
+                    'icon' => 'fa fa - warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['index']);
+            }
+
+        } else {
+            $model = new LoginForm();
+            return $this->redirect(['site / login',
+                'model' => $model,
+            ]);
+        }
     }
 
     /**
@@ -144,12 +265,13 @@ class RegionController extends Controller
      * @return Region the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected
+    function findModel($id)
     {
         if (($model = Region::findOne($id)) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('The requested page does not exist . ');
     }
 }
