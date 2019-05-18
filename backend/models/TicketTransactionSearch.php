@@ -44,6 +44,10 @@ class TicketTransactionSearch extends TicketTransaction
     public function search($params)
     {
         $query = TicketTransaction::find();
+        $query->where(['region'=>\Yii::$app->user->identity->region])
+            ->andWhere(['district'=>\Yii::$app->user->identity->district])
+            ->andWhere(['municipal'=>\Yii::$app->user->identity->municipal]);
+
 
         // add conditions that should always apply here
 

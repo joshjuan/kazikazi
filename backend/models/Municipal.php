@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "municipal".
@@ -107,5 +108,10 @@ class Municipal extends \yii\db\ActiveRecord
     public function getWorkAreas()
     {
         return $this->hasMany(WorkArea::className(), ['municipal' => 'id']);
+    }
+
+    public static function getMunicipal()
+    {
+        return ArrayHelper::map(Municipal::find()->where(['district'=>Yii::$app->user->identity->district])->all(),'id','name');
     }
 }

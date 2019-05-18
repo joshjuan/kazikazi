@@ -8,7 +8,7 @@ use yii\helpers\Html;
 
 <header class="main-header">
 
-    <a href="#" class="logo">
+    <a href="" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>PARKING</b></span>
         <!-- logo for regular state and mobile devices -->
@@ -27,12 +27,12 @@ use yii\helpers\Html;
             <span class="sr-only">Toggle navigation</span>
 
             <?php
-            /*            if (!Yii::$app->user->isGuest) {
-                            echo 'Cheo: ';
+                        if (!Yii::$app->user->isGuest) {
+                            echo 'Role: ';
                             echo Yii::$app->user->identity->username;
                             echo ' @ ';
                             echo Yii::$app->user->identity->role;
-                        }*/ ?>
+                        } ?>
         </a>
 
 

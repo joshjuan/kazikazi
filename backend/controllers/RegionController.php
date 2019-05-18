@@ -2,6 +2,8 @@
 
 namespace backend\controllers;
 
+use backend\models\Audit;
+use common\models\LoginForm;
 use Yii;
 use backend\models\Region;
 use backend\models\RegionSearch;
@@ -64,15 +66,41 @@ class RegionController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Region();
+        if (!Yii::$app->user->isGuest) {
+            if (Yii::$app->user->can('super_admin')) {
+                $model = new Region();
+                $model->created_at = date('y-m-d H:i:s');
+                $model->created_by = Yii::$app->user->identity->username;
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    Audit::setActivity('New region successfully created ', 'Region ', 'create', '', '');
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+            }
+            else
+            {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
     }
 
     /**

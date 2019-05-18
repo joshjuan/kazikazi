@@ -3,6 +3,9 @@
 namespace backend\controllers;
 
 use backend\models\Audit;
+use backend\models\District;
+use backend\models\Municipal;
+use backend\models\Region;
 use common\models\LoginForm;
 use Yii;
 use backend\models\User;
@@ -42,6 +45,30 @@ class UserController extends Controller
 
         Audit::setActivity('Ameangalia orodha ya watumiaji wa mfumo ', 'User ', 'Index', '', '');
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionManagersList()
+    {
+        $searchModel = new UserSearch();
+        $dataProvider = $searchModel->searchManager(Yii::$app->request->queryParams);
+
+        Audit::setActivity('Ameangalia orodha ya watumiaji wa mfumo ', 'User ', 'Index', '', '');
+        return $this->render('managers', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionSupervisorsList()
+    {
+        $searchModel = new UserSearch();
+        $dataProvider = $searchModel->searchSupervisor(Yii::$app->request->queryParams);
+
+        Audit::setActivity('Ameangalia orodha ya watumiaji wa mfumo ', 'User ', 'Index', '', '');
+        return $this->render('supervisor', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -194,6 +221,91 @@ class UserController extends Controller
         }
 
     }
+    public function actionSupervisorCreate()
+    {
+
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin') || Yii::$app->user->can('manager')) {
+                $model = new User();
+
+                //  $model->scenario = 'createUser';
+                $model->user_type=User::SUPERVISOR;
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                    Audit::setActivity('New system supervisor successfully created ', 'User ', 'Create', '', '');
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+            else
+            {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
+
+
+        return $this->render('create-supervisor', [
+            'model' => $model,
+        ]);
+
+        }
+        else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
+    }
+
+    public function actionRegionList($id){
+
+            $count = District::find()
+                ->where(['region'=>$id,])
+                ->count();
+
+            $cities = District::find()
+                ->where(['region'=>$id])
+                ->orderBy('id DESC')
+                ->all();
+
+            if($count > 0){
+                foreach($cities as $city){
+                    echo "<option value='".$city->id."'>".$city->name."</option>";
+                }
+            }else{
+                echo "<option>-</option>";
+            }
+
+    }
+    public function actionDistrictList($id){
+
+            $count = Municipal::find()
+                ->where(['district'=>$id,])
+                ->count();
+
+            $cities = Municipal::find()
+                ->where(['district'=>$id])
+                ->orderBy('id DESC')
+                ->all();
+
+            if($count > 0){
+                foreach($cities as $city){
+                    echo "<option value='".$city->id."'>".$city->name."</option>";
+                }
+            }else{
+                echo "<option>-</option>";
+            }
+
+    }
     public function actionAdminCreate()
     {
 
@@ -203,7 +315,7 @@ class UserController extends Controller
                 $model = new User();
 
                 //  $model->scenario = 'createUser';
-
+                    $model->user_type=User::ADMIN;
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
                     Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
@@ -225,7 +337,51 @@ class UserController extends Controller
             }
 
 
-        return $this->render('create', [
+        return $this->render('create-admin', [
+            'model' => $model,
+        ]);
+
+        }
+        else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
+    }
+    public function actionManagerCreate()
+    {
+
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+                $model = new User();
+
+                //  $model->scenario = 'createUser';
+                $model->user_type=User::MANAGER;
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                    Audit::setActivity('New system manager successfully created ', 'User ', 'Create', '', '');
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+            else
+            {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
+
+
+        return $this->render('create-manager', [
             'model' => $model,
         ]);
 

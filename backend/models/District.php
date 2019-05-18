@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "district".
@@ -104,5 +105,11 @@ class District extends \yii\db\ActiveRecord
     public function getWorkAreas()
     {
         return $this->hasMany(WorkArea::className(), ['district' => 'id']);
+    }
+
+
+    public static function getDistrict()
+    {
+        return ArrayHelper::map(District::find()->where(['region'=>Yii::$app->user->identity->region])->all(),'id','name');
     }
 }

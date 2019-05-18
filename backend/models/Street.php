@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "street".
@@ -110,5 +111,10 @@ class Street extends \yii\db\ActiveRecord
     public function getWorkAreas()
     {
         return $this->hasMany(WorkArea::className(), ['street' => 'id']);
+    }
+
+    public static function getStreet()
+    {
+        return ArrayHelper::map(Street::find()->where(['municipal'=>Yii::$app->user->identity->municipal])->all(),'id','name');
     }
 }

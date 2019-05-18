@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
     ?>
     <div class="panel panel-warning" style="background: #EEE">
         <div class="panel panel-heading">
-            <a data-toggle="collapse" href="#collapse1"> Advance Search</a>
+            <a data-toggle="collapse" href="#collapse1"> Items Search</a>
         </div>
         <div id="collapse1" class="panel-collapse collapse">
             <div class="panel panel-body" style="background: #EEE">

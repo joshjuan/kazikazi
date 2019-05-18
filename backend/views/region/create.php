@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Region */
 
-$this->title = 'Create Region';
+$this->title = '';
 $this->params['breadcrumbs'][] = ['label' => 'Regions', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = 'Create Region';
 ?>
 <div class="region-create">
 

@@ -65,6 +65,8 @@ class MunicipalController extends Controller
     public function actionCreate()
     {
         $model = new Municipal();
+        $model->created_at=date('y-m-d H:i:s');
+        $model->created_by=Yii::$app->user->identity->username;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
