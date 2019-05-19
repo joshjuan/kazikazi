@@ -1,13 +1,10 @@
 <?php
 
-
-
-use yii\widgets\Pjax;
+use kartik\dynagrid\DynaGrid;
 use yii\helpers\ArrayHelper;
-use kartik\helpers\Html;
+use yii\helpers\Html;
 use kartik\grid\GridView;
-use kartik\widgets\DynaGrid;
-
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\TicketTransactionSearch */
@@ -22,7 +19,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
     <?php
     $pdfHeader = [
         'L' => [
-            'content' => 'PARKING REPOTI',
+            'content' => 'ZUPS REPOTI',
         ],
         'C' => [
             'content' => 'MALIPO YA WAZEE KIWILAYA KWA MWEZI WA ' . date('m'),
@@ -64,7 +61,6 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
         ],
         [
             'attribute' => 'user',
-            'value' => 'user0.name'
             /*            'vAlign' => 'middle',
                         'width' => '200px',
                         'value' => function ($model) {
@@ -90,28 +86,20 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
         ],
         [
             'attribute' => 'region',
-            'value' => 'region0.name'
-
         ],
         [
             'attribute' => 'district',
-            'value' => 'district0.name'
-
         ],
         [
             'attribute' => 'municipal',
-            'value' => 'municipal0.name'
-
         ],
+
         [
             'attribute' => 'street',
-            'value' => 'street0.name'
-
         ],
+
         [
             'attribute' => 'work_area',
-            'value' => 'workArea.name'
-
         ],
         [
             'attribute' => 'receipt_no',
@@ -126,6 +114,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
             'footer' => false,
 
         ],
+
 
     ];
     DynaGrid::begin([

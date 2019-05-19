@@ -1,9 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\web\View;
 
-/* @var $this View */
+/* @var $this \yii\web\View */
 /* @var $content string */
 ?>
 
@@ -28,29 +27,12 @@ use yii\web\View;
             <span class="sr-only">Toggle navigation</span>
 
             <?php
-            if (!Yii::$app->user->isGuest) {
-                echo 'Role: ';
-                echo Yii::$app->user->identity->username;
-                echo ' @ ';
-
-                if (Yii::$app->user->identity->region != 0) {
-
-                    echo \backend\models\User::getRegionNameByuserId(Yii::$app->user->identity->region);
-
-                } else {
-                    if (Yii::$app->user->identity->district != 0) {
-
-                        echo \backend\models\User::getDistrictNameByuserId(Yii::$app->user->identity->district);
-
-                    }else{
-
-
-                            echo \backend\models\User::getMunicipalNameByuserId(Yii::$app->user->identity->municipal);
-
-                    }
-                }
-
-            } ?>
+                        if (!Yii::$app->user->isGuest) {
+                            echo 'Role: ';
+                            echo Yii::$app->user->identity->username;
+                            echo ' @ ';
+                            echo Yii::$app->user->identity->role;
+                        } ?>
         </a>
 
 
@@ -59,7 +41,7 @@ use yii\web\View;
             <ul class="nav navbar-nav">
 
                 <?php if (Yii::$app->user->can('Super_Administrator') ||
-                    Yii::$app->user->can('Manager') ||
+                    Yii::$app->user->can('Manager')||
                     Yii::$app->user->can('Administrator')) { ?>
 
                     <!-- Messages: style can be found in dropdown.less-->
@@ -351,7 +333,9 @@ use yii\web\View;
                 </li>
 
                 <!-- User Account: style can be found in dropdown.less -->
-
+                <li>
+                    <a href="#" "><i class="fa fa-gears"></i></a>
+                </li>
             </ul>
         </div>
     </nav>

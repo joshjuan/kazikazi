@@ -2,8 +2,6 @@
 
 namespace backend\controllers;
 
-use backend\models\Audit;
-use common\models\LoginForm;
 use Yii;
 use backend\models\District;
 use backend\models\DistrictSearch;
@@ -37,25 +35,13 @@ class DistrictController extends Controller
      */
     public function actionIndex()
     {
-        if (!Yii::$app->user->isGuest) {
+        $searchModel = new DistrictSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-            $searchModel = new DistrictSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-            Audit::setActivity(Yii::$app->user->identity->name . ' was looking general information of districts ', 'District ', 'index', '', '');
-
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
-
-        } else {
-            $model = new LoginForm();
-            return $this->redirect(['site/login',
-                'model' => $model,
-            ]);
-        }
-
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
@@ -66,38 +52,9 @@ class DistrictController extends Controller
      */
     public function actionView($id)
     {
-        if (!Yii::$app->user->isGuest) {
-
-            $model = $this->findModel($id);
-
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewDistrict')) {
-
-                Audit::setActivity(Yii::$app->user->identity->name . ' was looking the information of  ' . $model->name.' district', 'District', 'View', '', '');
-
-                return $this->render('view', [
-                    'model' => $this->findModel($id),
-                ]);
-
-            }else{
-                Yii::$app->session->setFlash('', [
-                    'type' => 'warning',
-                    'duration' => 3500,
-                    'icon' => 'fa fa-warning',
-                    'title' => 'Notification',
-                    'message' => 'You do not have permission',
-                    'positonY' => 'top',
-                    'positonX' => 'right'
-                ]);
-                return $this->redirect(['index']);
-            }
-
-
-        }else{
-            $model = new LoginForm();
-            return $this->redirect(['site/login',
-                'model' => $model,
-            ]);
-        }
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
     }
 
     /**
@@ -107,48 +64,16 @@ class DistrictController extends Controller
      */
     public function actionCreate()
     {
-        if (!Yii::$app->user->isGuest) {
-
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createDistrict')) {
-
-                $model = new District();
-                $model->create_at=date('y-m-d H:i:s');
-                $model->created_by=Yii::$app->user->identity->username;
-
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-                    Audit::setActivity('New district ' . $model->name . ' was successfully created by ' . Yii::$app->user->identity->name, 'District ', 'create', '', '');
-
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-                return $this->render('create', [
-                    'model' => $model,
-                ]);
-
-            }else{
-
-                Yii::$app->session->setFlash('', [
-                    'type' => 'warning',
-                    'duration' => 3500,
-                    'title' => 'Notification',
-                    'icon' => 'fa fa-warning',
-                    'message' => 'You do not have permission',
-                    'positonY' => 'top',
-                    'positonX' => 'right'
-                ]);
-
-                return $this->redirect(['index']);
-
-            }
-
-        } else {
-            $model = new LoginForm();
-            return $this->redirect(['site/login',
-                'model' => $model,
-            ]);
+        $model = new District();
+        $model->create_at=date('y-m-d H:i:s');
+        $model->created_by=Yii::$app->user->identity->username;
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
-
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -160,53 +85,15 @@ class DistrictController extends Controller
      */
     public function actionUpdate($id)
     {
-        if (!Yii::$app->user->isGuest) {
+        $model = $this->findModel($id);
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('updateDistrict')) {
-
-                $model = $this->findModel($id);
-
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-                    Yii::$app->session->setFlash('', [
-                        'type' => 'success',
-                        'duration' => 1500,
-                        'icon' => 'fa fa-check',
-                        'title'=>'Notification',
-                        'message' => 'District was successfully updated',
-                        'positonY' => 'top',
-                        'positonX' => 'right'
-                    ]);
-
-
-                    Audit::setActivity('District was successfully updated to ' . $model->name, 'Update ', 'Index', '', '');
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-
-                return $this->render('update', [
-                    'model' => $model,
-                ]);
-
-            }else{
-                Yii::$app->session->setFlash('', [
-                    'type' => 'warning',
-                    'duration' => 3500,
-                    'title' => 'Notification',
-                    'icon' => 'fa fa - warning',
-                    'message' => 'You do not have permission',
-                    'positonY' => 'top',
-                    'positonX' => 'right'
-                ]);
-                return $this->redirect(['index']);
-            }
-
-        }else{
-            $model = new LoginForm();
-            return $this->redirect(['site/login',
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -218,47 +105,9 @@ class DistrictController extends Controller
      */
     public function actionDelete($id)
     {
-        if (!Yii::$app->user->isGuest) {
+        $this->findModel($id)->delete();
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('deleteDistrict')) {
-
-                $model = $this->findModel($id);
-
-                if ($this->findModel($id)->delete()) {
-
-                    Yii::$app->session->setFlash('', [
-                        'type' => 'success',
-                        'duration' => 1500,
-                        'icon' => 'fa fa-check',
-                        'message' => 'District was successfully deleted',
-                        'positonY' => 'top',
-                        'positonX' => 'right'
-                    ]);
-
-                    Audit::setActivity('The region ' . $model->name . ' was successfully deleted' . Yii::$app->user->identity->name, 'Region', 'Delete', '', '');
-
-                    return $this->redirect(['district\index']);
-                }
-
-            }else{
-                Yii::$app->session->setFlash('', [
-                    'type' => 'warning',
-                    'duration' => 3500,
-                    'title' => 'Notification',
-                    'icon' => 'fa fa - warning',
-                    'message' => 'You do not have permission',
-                    'positonY' => 'top',
-                    'positonX' => 'right'
-                ]);
-                return $this->redirect(['district/index']);
-            }
-
-        }else{
-            $model = new LoginForm();
-            return $this->redirect(['site/login',
-                'model' => $model,
-            ]);
-        }
+        return $this->redirect(['index']);
     }
 
     /**

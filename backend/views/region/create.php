@@ -11,6 +11,8 @@ $this->params['breadcrumbs'][] = 'Create Region';
 ?>
 <div class="region-create">
 
+    <h1><?= Html::encode($this->title) ?></h1>
+
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

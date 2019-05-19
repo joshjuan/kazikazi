@@ -57,7 +57,7 @@ class TicketTransaction extends \yii\db\ActiveRecord
             [['region'], 'exist', 'skipOnError' => true, 'targetClass' => Region::className(), 'targetAttribute' => ['region' => 'id']],
             [['street'], 'exist', 'skipOnError' => true, 'targetClass' => Street::className(), 'targetAttribute' => ['street' => 'id']],
             [['user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user' => 'id']],
-            [['work_area'], 'exist', 'skipOnError' => true, 'targetClass' => WorkArea::className(), 'targetAttribute' => ['work_area' => 'id']],
+            [['work_area'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['work_area' => 'id']],
         ];
     }
 
@@ -73,8 +73,8 @@ class TicketTransaction extends \yii\db\ActiveRecord
             'end_time' => 'End Time',
             'region' => 'Region',
             'district' => 'District',
-            'municipal' => 'shehia',
-            'street' => 'Zone',
+            'municipal' => 'Municipal',
+            'street' => 'Street',
             'work_area' => 'Work Area',
             'receipt_no' => 'Receipt No',
             'amount' => 'Amount',
@@ -131,6 +131,6 @@ class TicketTransaction extends \yii\db\ActiveRecord
      */
     public function getWorkArea()
     {
-        return $this->hasOne(WorkArea::className(), ['id' => 'work_area']);
+        return $this->hasOne(User::className(), ['id' => 'work_area']);
     }
 }

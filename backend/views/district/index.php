@@ -8,10 +8,9 @@ use yii\widgets\Pjax;
 /* @var $searchModel backend\models\DistrictSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '';
-$this->params['breadcrumbs'][] = 'Districts';
+$this->title = 'Districts';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<p style="padding-top: 10px"/>
 <div class="received-cash-index" style="padding-top: 10px">
 
     <?php Pjax::begin(); ?>
@@ -34,7 +33,7 @@ $this->params['breadcrumbs'][] = 'Districts';
     ];
 
     // the GridView widget (you must use kartik\grid\GridView)
-    echo GridView::widget([
+    echo \kartik\grid\GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => $gridColumns,

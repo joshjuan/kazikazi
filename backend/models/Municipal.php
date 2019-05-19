@@ -3,8 +3,6 @@
 namespace backend\models;
 
 use Yii;
-use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -24,7 +22,7 @@ use yii\helpers\ArrayHelper;
  * @property User[] $users
  * @property WorkArea[] $workAreas
  */
-class Municipal extends ActiveRecord
+class Municipal extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -65,7 +63,7 @@ class Municipal extends ActiveRecord
     }
 
     /**
-     * @return ActiveQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getDistrict0()
     {
@@ -73,7 +71,7 @@ class Municipal extends ActiveRecord
     }
 
     /**
-     * @return ActiveQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getRegion0()
     {
@@ -81,7 +79,7 @@ class Municipal extends ActiveRecord
     }
 
     /**
-     * @return ActiveQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getStreets()
     {
@@ -89,7 +87,7 @@ class Municipal extends ActiveRecord
     }
 
     /**
-     * @return ActiveQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTicketTransactions()
     {
@@ -97,7 +95,7 @@ class Municipal extends ActiveRecord
     }
 
     /**
-     * @return ActiveQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getUsers()
     {
@@ -105,7 +103,7 @@ class Municipal extends ActiveRecord
     }
 
     /**
-     * @return ActiveQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getWorkAreas()
     {

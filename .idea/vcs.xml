@@ -2,9 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/vendor1/kartik-v/yii2-grid" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/vendor1/kartik-v/yii2-widget-activeform" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/vendor1/kartik-v/yii2-widget-datepicker" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/vendor1/kartik-v/yii2-widget-select2" vcs="Git" />
   </component>
 </project>

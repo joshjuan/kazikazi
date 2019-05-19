@@ -1,10 +1,5 @@
 <?php
 
-use backend\models\District;
-use backend\models\Region;
-use backend\models\Street;
-use backend\models\User;
-use backend\models\WorkArea;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -15,8 +10,8 @@ use kartik\form\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 
 
-$countries = ArrayHelper::map(Region::find()->asArray()->all(), 'id', 'name');
-$cities = ArrayHelper::map(District::find()->asArray()->all(), 'id', 'name');
+$countries = ArrayHelper::map(\backend\models\Region::find()->asArray()->all(), 'id', 'name');
+$cities = ArrayHelper::map(\backend\models\District::find()->asArray()->all(), 'id', 'name');
 ?>
 <div class="employee-loans-index" style="padding-top: 25px">
     <div class="panel panel-default">
@@ -82,7 +77,7 @@ $cities = ArrayHelper::map(District::find()->asArray()->all(), 'id', 'name');
                         </div>
                         <div class="col-sm-4">
                             <?= $form->field($model, 'street')->widget(Select2::classname(), [
-                                'data' => Street::getStreet(),
+                                'data' => \backend\models\Street::getStreet(),
                                 'options' => ['placeholder' => 'Choose Street'],
                                 'pluginOptions' => [
                                     'allowClear' => true,
@@ -95,7 +90,7 @@ $cities = ArrayHelper::map(District::find()->asArray()->all(), 'id', 'name');
                     <div class="col-sm-12 no-padding">
                         <div class="col-sm-4">
                             <?= $form->field($model, 'work_area')->widget(Select2::classname(), [
-                                'data' => WorkArea::getWorkArea(),
+                                'data' => \backend\models\WorkArea::getWorkArea(),
                                 'options' => ['placeholder' => 'Choose work area'],
                                 'pluginOptions' => [
                                     'allowClear' => true,
@@ -115,10 +110,10 @@ $cities = ArrayHelper::map(District::find()->asArray()->all(), 'id', 'name');
                     <div class="col-sm-12 no-padding">
 
                         <div class="col-sm-6">
-                            <?= $form->field($model, 'role')->dropDownList(User::getRules(), ['prompt' => '-- select Role name --']) ?>
+                            <?= $form->field($model, 'role')->dropDownList(\backend\models\User::getRules(), ['prompt' => '-- select Role name --']) ?>
                         </div>
                         <div class="col-sm-6">
-                            <?= $form->field($model, 'status')->dropDownList(User::getArrayStatus()) ?>
+                            <?= $form->field($model, 'status')->dropDownList(\backend\models\User::getArrayStatus()) ?>
                         </div>
                     </div>
                     <div class="col-sm-12 no-padding">

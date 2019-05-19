@@ -121,12 +121,12 @@ class RoleController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
             if (yii::$app->user->can('admin')||yii::$app->user->can('super_admin')) {
-                if ($name == 'super_admin') {
+                if ($name == 'admin') {
                     Yii::$app->session->setFlash('', [
-                        'type' => 'warning',
-                        'duration' => 2500,
+                        'type' => 'success',
+                        'duration' => 1500,
                         'icon' => 'fa fa-check',
-                        'message' => Yii::t('app', 'Super Administrator can not be updated'),
+                        'message' => Yii::t('app', 'Role successfully updated'),
                         'positonY' => 'top',
                         'positonX' => 'right'
                     ]);

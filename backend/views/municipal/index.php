@@ -1,6 +1,5 @@
 <?php
 
-use nickdenry\grid\FilterContentActionColumn;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -8,55 +7,32 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\MunicipalSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '';
-$this->params['breadcrumbs'][] = 'Municipals';
+$this->title = 'Municipals';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="department-index">
+<div class="municipal-index">
 
-    <hr/>
-    <div class="row">
-        <div class="col-md-6">
-            <strong class="lead"  style="color: #01214d;font-family: Tahoma"> <i class="fa fa-check-square text-green"></i> PARKING MIS - LIST OF SHEHIA</strong>
-        </div>
-        <div class="col-md-2">
+    <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-        </div>
-        <div class="col-md-4">
+    <p>
+        <?= Html::a('Create Municipal', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
 
-           <?php if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createMunicipal')) {?>
-            <?= Html::a(Yii::t('app', '<i class="fa fa-file-o"></i> New Shehia'), ['create'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
-            <?= Html::a(Yii::t('app', '<i class="fa fa-th-list"></i> Sheshia List'), ['index'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
-<?php } ?>
-        </div>
-    </div>
-    <hr/>
-
-    <?= \fedemotta\datatables\DataTables::widget([
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-           // 'id',
+            'id',
             'name',
             'region',
             'district',
             'created_at',
             //'created_by',
 
-            [
-                'class' => FilterContentActionColumn::className(),
-                'header'=>'Actions',
-                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('deleteMunicipal')||Yii::$app->user->can('updateMunicipal')||Yii::$app->user->can('viewMunicipal'),
-                // Set custom classes
-                'buttonAdditionalOptions' => [
-                    'view' => ['class' => 'btn btn-sm btn-primary'],
-                    'update' => ['class' => 'btn btn-default btn-sm'],
-                    'delete' => ['class' => 'btn btn-danger btn-sm'],
-                ],
-
-                // Add your own filterContent
-            ],
+            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 </div>

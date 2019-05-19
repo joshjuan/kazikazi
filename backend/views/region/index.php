@@ -27,21 +27,6 @@ $this->params['breadcrumbs'][] = 'Regions';
         'name',
         'created_at',
         'created_by',
-        [
-            'header' => 'Actions',
-            'format' => 'raw',
-           // 'visible' => Yii::$app->user->can('super_admin') ,
-            'value' => function ($data) {
-
-                return
-                    Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'id' => $data->id], ['title' => 'view', 'class' => 'btn btn-info']) . ' ' .
-
-                    Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'id' => $data->id], ['title' => 'edit', 'class' => 'btn btn-info'], [//  Html::a('<span class="glyphicon glyphicon-trash"></span> Delete', ['delete', 'id' => $data->id], [
-                        'class' => 'btn btn-danger',
-                        'data' => ['confirm' => 'Are you sure you want to delete this item?',
-                            'method' => 'post',],]);
-            }
-        ],
 
     ];
 

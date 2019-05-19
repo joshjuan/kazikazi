@@ -1,9 +1,5 @@
 <?php
 
-use backend\models\District;
-use backend\models\Municipal;
-use backend\models\Region;
-use backend\models\Street;
 use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -22,7 +18,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'amount')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'region')->widget(Select2::classname(), [
-        'data' => Region::getRegion(),
+        'data' => \backend\models\Region::getRegion(),
         'options' => ['placeholder' => 'Choose Region'],
         'pluginOptions' => [
             'allowClear' => true,
@@ -32,7 +28,7 @@ use yii\widgets\ActiveForm;
     ?>
 
     <?= $form->field($model, 'district')->widget(Select2::classname(), [
-        'data' => District::getDistrict(),
+        'data' => \backend\models\District::getDistrict(),
         'options' => ['placeholder' => 'Choose District'],
         'pluginOptions' => [
             'allowClear' => true,
@@ -41,7 +37,7 @@ use yii\widgets\ActiveForm;
     ]);
     ?>
     <?= $form->field($model, 'municipal')->widget(Select2::classname(), [
-        'data' => Municipal::getMunicipal(),
+        'data' => \backend\models\Municipal::getMunicipal(),
         'options' => ['placeholder' => 'Choose Municipal'],
         'pluginOptions' => [
             'allowClear' => true,
@@ -50,7 +46,7 @@ use yii\widgets\ActiveForm;
     ]);
     ?>
     <?= $form->field($model, 'street')->widget(Select2::classname(), [
-        'data' => Street::getStreet(),
+        'data' => \backend\models\Street::getStreet(),
         'options' => ['placeholder' => 'Choose Street'],
         'pluginOptions' => [
             'allowClear' => true,

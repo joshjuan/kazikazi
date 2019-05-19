@@ -182,7 +182,7 @@ class UserController extends Controller
 
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createUser')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
                 $model = new User();
 
                 //  $model->scenario = 'createUser';
@@ -226,14 +226,14 @@ class UserController extends Controller
 
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createUser') ) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
                 $model = new User();
 
                 //  $model->scenario = 'createUser';
-                $model->user_type=User::SUPERVISOR;
+
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-                    Audit::setActivity('New system supervisor successfully created ', 'User ', 'Create', '', '');
+                    Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
             }
@@ -359,10 +359,10 @@ class UserController extends Controller
                 $model = new User();
 
                 //  $model->scenario = 'createUser';
-                $model->user_type=User::MANAGER;
+
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-                    Audit::setActivity('New system manager successfully created ', 'User ', 'Create', '', '');
+                    Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
             }
