@@ -448,7 +448,7 @@ class UserController extends Controller
 
     }
 
-    public function actionClerkCreate()
+    public function actionClerkCreate1()
     {
 
         if (!Yii::$app->user->isGuest) {

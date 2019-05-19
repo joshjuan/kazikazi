@@ -63,9 +63,9 @@ class TicketTransaction extends \yii\db\ActiveRecord
         return [
             [['ref_no', 'begin_time', 'end_time', 'region', 'district', 'municipal', 'street', 'work_area', 'receipt_no', 'amount', 'car_no', 'user', 'status', 'create_at', 'created_by'], 'required'],
             [['begin_time', 'end_time', 'create_at'], 'safe'],
-            [['region', 'district', 'municipal', 'street', 'work_area', 'receipt_no', 'user'], 'integer'],
+            [['region', 'district', 'municipal', 'street', 'work_area', 'user'], 'integer'],
             [['amount'], 'number'],
-            [['ref_no', 'car_no', 'status', 'created_by'], 'string', 'max' => 200],
+            [['ref_no', 'car_no', 'status','receipt_no', 'created_by'], 'string', 'max' => 200],
             [['district'], 'exist', 'skipOnError' => true, 'targetClass' => District::className(), 'targetAttribute' => ['district' => 'id']],
             [['municipal'], 'exist', 'skipOnError' => true, 'targetClass' => Municipal::className(), 'targetAttribute' => ['municipal' => 'id']],
             [['region'], 'exist', 'skipOnError' => true, 'targetClass' => Region::className(), 'targetAttribute' => ['region' => 'id']],
