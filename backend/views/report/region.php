@@ -85,76 +85,6 @@ $this->params['breadcrumbs'][] =Yii::t('app', 'Malipo');;
                 }
             ],
 
-           /* [
-                'label' => 'WALENGWA',
-                'pageSummary' => true,
-                'format' => ['decimal', 0],
-                'value' => function($model){
-                    $currentMonth = date('m');
-                    return \backend\models\Malipo::getCountPerKimkoa($model->id,$currentMonth);
-
-                }
-
-            ],*/
-         /*   [
-                'label' => 'WALIOLIPWA',
-                'format' => ['decimal', 0],
-                'pageSummary' => true,
-                'value' => function($model){
-                    $currentMonth = date('m');
-                    return \backend\models\Malipo::getCountPerKimkoaPaid($model->id,$currentMonth);
-
-                }
-
-            ],*/
-           /* [
-                'label' => 'WASIOLIPWA',
-                'pageSummary' => true,
-                'format' => ['decimal', 0],
-                'value' => function($model){
-                    $currentMonth = date('m');
-                    return \backend\models\Malipo::getCountPerKimkoaPending($model->id,$currentMonth);
-
-                }
-
-            ],*/
-          /*  [
-                'label' => 'ASILIMIA YA WALIOLIPWA (%)',
-                'format' => ['decimal', 2],
-                'value' => function($model){
-                    $currentMonth = date('m');
-                    if(\backend\models\Malipo::getCountPerKimkoa($model->id,$currentMonth) != 0) {
-                        return (100 * \backend\models\Malipo::getCountPerKimkoaPaid($model->id, $currentMonth) / \backend\models\Malipo::getCountPerKimkoa($model->id, $currentMonth));
-                    }else{
-                        return 0.00;
-                    }
-                }
-
-            ],*/
-     /*       [
-                'label' => 'FEDHA ZILIZOTAKIWA KULIPWA',
-                'pageSummary' => true,
-                'format' => ['decimal', 2],
-                'value' => function($model){
-                    $currentMonth = date('m');
-                    return \backend\models\KituoMonthlyBalances::getBalancePerKimkoa($model->id,$currentMonth);
-
-                }
-
-            ],*/
-         /*   [
-                'label' => 'ZILIZOLIPWA',
-                'pageSummary' => true,
-                'format' => ['decimal', 2],
-                'value' => function($model){
-                    $currentMonth = date('m');
-
-                    return \backend\models\KituoMonthlyBalances::getBalancePerKimkoaPaid($model->id,$currentMonth);
-
-                }
-
-            ],*/
-
 
 
             //['class' => 'yii\grid\ActionColumn','header' => 'Actions'],
@@ -164,7 +94,7 @@ $this->params['breadcrumbs'][] =Yii::t('app', 'Malipo');;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $pdfHeader = [
             'L' => [
-                'content' => 'ZUPS REPOTI',
+                'content' => 'PARKING MIS REPORT',
             ],
             'C' => [
                 'content' => 'IDADI YA WAZEE WALIOLIPWA NA ASILIMIA ZAO KIMKOA',
@@ -181,7 +111,7 @@ $this->params['breadcrumbs'][] =Yii::t('app', 'Malipo');;
 
         $pdfFooter = [
             'L' => [
-                'content' => '&copy; ZUPS',
+                'content' => '&copy; PARKING MIS',
                 'font-size' => 10,
                 'color' => '#333333',
                 'font-family' => 'arial',
@@ -214,10 +144,10 @@ $this->params['breadcrumbs'][] =Yii::t('app', 'Malipo');;
             'showPageSummary' => true,
             'hover'=>true,
             'toolbar' =>  [
-            ['content'=>
+          /*  ['content'=>
                 Html::button('<i class="fas fa-plus"></i>', ['type'=>'button', 'title'=>'Add Book', 'class'=>'btn btn-success', 'onclick'=>'alert("This will launch the book creation form.\n\nDisabled for this demo!");']) . ' '.
                 Html::a('<i class="fas fa-repeat"></i>', ['dynagrid-demo'], ['data-pjax'=>0, 'class' => 'btn btn-outline-secondary', 'title'=>'Reset Grid'])
-            ],
+            ],*/
             ['content'=>'{dynagridFilter}{dynagridSort}{dynagrid}'],
             '{export}',
             ],
@@ -232,8 +162,8 @@ $this->params['breadcrumbs'][] =Yii::t('app', 'Malipo');;
             ],
             'panel' => [
                 'type' => GridView::TYPE_INFO,
-                'heading' => 'RIPOTI YA IDADI YA WAZEE WALIOLIPWA NA ASILIMIA ZAO KIMKOA',
-                'before'=>'<span class="text text-primary">Hii ripoti inaonesha jinsi malipo yalivofanyika kwa mwezi huu wa : '.date('m').'</span>',
+                'heading' => 'REPORT BASED ON RIGON ',
+                'before'=>'<span class="text text-primary"><!--Hii ripoti inaonesha jinsi malipo yalivofanyika kwa mwezi huu wa : '.date('m').'--></span>',
             ],
 
             'persistResize' => false,

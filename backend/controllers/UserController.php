@@ -158,6 +158,46 @@ class UserController extends Controller
 
     }
 
+    public function actionClerk()
+    {
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+
+                $searchModel = new UserSearch();
+                $dataProvider = $searchModel->searchClerk(Yii::$app->request->queryParams);
+
+                Audit::setActivity('Ameangalia orodha ya watumiaji wa mfumo ', 'User ', 'Index', '', '');
+                return $this->render('admin', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+
+            }
+            else
+            {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
+        }
+        else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
+
+    }
+
     /**
      * Displays a single User model.
      * @param integer $id
@@ -395,6 +435,51 @@ class UserController extends Controller
 
 
         return $this->render('create-manager', [
+            'model' => $model,
+        ]);
+
+        }
+        else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
+    }
+
+    public function actionClerkCreate()
+    {
+
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+                $model = new User();
+
+                //  $model->scenario = 'createUser';
+
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                    Audit::setActivity('New system clerk user successfully created ', 'User ', 'Index', '', '');
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+            else
+            {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
+
+
+        return $this->render('create-clerk', [
             'model' => $model,
         ]);
 

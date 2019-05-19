@@ -121,7 +121,8 @@ class RoleController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
             if (yii::$app->user->can('admin')||yii::$app->user->can('super_admin')) {
-                if ($name == 'admin') {
+                if ($name == 'super_admin') {
+
                     Yii::$app->session->setFlash('', [
                         'type' => 'success',
                         'duration' => 1500,

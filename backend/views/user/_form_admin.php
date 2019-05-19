@@ -110,7 +110,7 @@ $cities = ArrayHelper::map(\backend\models\District::find()->asArray()->all(), '
                     <div class="col-sm-12 no-padding">
 
                         <div class="col-sm-6">
-                            <?= $form->field($model, 'role')->dropDownList(\backend\models\User::getRules(), ['prompt' => '-- select Role name --']) ?>
+                            <?= $form->field($model, 'role')->dropDownList(\backend\models\User::getRulesAdmin(), ['prompt' => '-- select Role name --']) ?>
                         </div>
                         <div class="col-sm-6">
                             <?= $form->field($model, 'status')->dropDownList(\backend\models\User::getArrayStatus()) ?>

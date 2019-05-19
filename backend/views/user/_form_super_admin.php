@@ -91,7 +91,15 @@ use kartik\form\ActiveForm;
                     <div class="col-sm-12 no-padding">
                         <div class="col-sm-6">
 
-                            <?= $form->field($model, 'work_area')->passwordInput(['maxlength' => true]) ?>
+                            <?= $form->field($model, 'work_area')->widget(Select2::classname(), [
+                                'data' => \backend\models\WorkArea::getWorkArea(),
+                                'options' => ['placeholder' => 'Choose work area'],
+                                'pluginOptions' => [
+                                    'allowClear' => true,
+
+                                ],
+                            ]);
+                            ?>
                         </div>
 
                     </div>
