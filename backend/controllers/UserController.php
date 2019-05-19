@@ -4,8 +4,11 @@ namespace backend\controllers;
 
 use backend\models\Audit;
 use backend\models\District;
+use backend\models\FansRequestSearch;
 use backend\models\Municipal;
 use backend\models\Region;
+use backend\models\WorkArea;
+use backend\models\WorkAreaSearch;
 use common\models\LoginForm;
 use Yii;
 use backend\models\User;
@@ -177,7 +180,7 @@ class UserController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionClerkCreate()
     {
 
         if (!Yii::$app->user->isGuest) {
@@ -186,10 +189,20 @@ class UserController extends Controller
                 $model = new User();
 
                 //  $model->scenario = 'createUser';
+                $model->user_type=User::CLERK;
 
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                if ($model->load(Yii::$app->request->post())) {
+                    $amount = WorkAreaSearch::find()->select('amount')->where(['id' => $model->work_area])->one();;
+
+                //    print_r($amount['amount']);
+                  //  exit;
+                   $model->amount=$amount['amount'];
+                   // $model->getErrors();
+                   // exit;
 
                     Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
+                    $model->save();
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
             }
@@ -208,7 +221,7 @@ class UserController extends Controller
             }
 
 
-        return $this->render('create', [
+        return $this->render('create-clerk', [
             'model' => $model,
         ]);
 

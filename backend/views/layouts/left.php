@@ -290,7 +290,7 @@ use dmstr\widgets\Menu;
                                     [
                                         'label' => 'New Clerk',
                                         'icon' => 'plus text-green',
-                                        'url' => ['/user/clerks']
+                                        'url' => ['/user/clerk-create']
                                     ],
                                     [
                                         'label' => 'Clerk List',

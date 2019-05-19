@@ -1,30 +1,41 @@
 <?php
+
 namespace backend\models;
 
-use frontend\models\Client;
-use kartik\password\StrengthValidator;
 use Yii;
-use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 
 /**
- * User model
+ * This is the model class for table "user".
  *
- * @property integer $id
+ * @property int $id
+ * @property string $name
  * @property string $username
+ * @property string $mobile
+ * @property string $auth_key
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $email
- * @property string $mobile
- * @property string $auth_key
- * @property integer $role
- * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $password write-only password
+ * @property int $region
+ * @property int $district
+ * @property int $municipal
+ * @property int $street
+ * @property int $work_area
+ * @property int $amount
+ * @property int $user_type
+ * @property string $status
+ * @property string $role
+ * @property int $created_at
+ * @property int $updated_at
+ * @property string $last_login
+ *
+ * @property TicketTransaction[] $ticketTransactions
  */
 class User extends \common\models\User
+
 {
+
+
     public $password;
     public $repassword;
     private $_statusLabel;
@@ -40,6 +51,7 @@ class User extends \common\models\User
     const MANAGER=2;
     const SUPERVISOR=3;
     const CLERK=4;
+
 
 
     /**
@@ -82,63 +94,65 @@ class User extends \common\models\User
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
+    public static function tableName()
+    {
+        return 'user';
+    }
 
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [
-
-            [['username','name','password','repassword','status','mobile','role'], 'required',],
-            [['username', 'password', 'repassword'], 'trim'],
-            [['password', 'repassword'], 'string', 'min' => 4, 'max' => 30],
-            [['name','mobile'], 'string', 'max' => 255],
-            [[ 'email'], 'unique'],
-            [[ 'username'], 'unique'],
-            ['username', 'string', 'min' => 3, 'max' => 30],
-            ['email', 'string', 'max' => 100],
-            ['email', 'email'],
-            ['user_id', 'integer'],
-            //  [['password'], StrengthValidator::className(), 'preset'=>'normal', 'userAttribute'=>'username'],
-            ['repassword', 'compare', 'compareAttribute' => 'password'],
-            //['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]], ['repassword', 'compare', 'compareAttribute' => 'password'],
-            //['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
-
+          //  [['name', 'username', 'mobile', 'auth_key', 'password_hash', 'email', 'region', 'district', 'municipal', 'street', 'work_area', 'user_type', 'role', 'created_at', 'updated_at'], 'required'],
+            [['region', 'district', 'municipal', 'street', 'work_area', 'amount', 'user_type', 'created_at', 'updated_at'], 'integer'],
+            [['last_login'], 'safe'],
+            [['name', 'username', 'mobile', 'password_hash', 'password_reset_token', 'email', 'status', 'role'], 'string', 'max' => 255],
+            [['auth_key'], 'string', 'max' => 32],
+            [['username'], 'unique'],
+            [['email'], 'unique'],
+            [['password_reset_token'], 'unique'],
         ];
     }
 
     /**
-     * @inheritdoc
-     */
-    public function scenarios()
-    {
-        return [
-            'default' => ['username','name','mobile', 'email', 'password', 'repassword', 'status', 'role'],
-            'createUser' => ['username','name','mobile', 'email', 'password', 'repassword', 'status', 'role'],
-            'admin-update' => ['username','name','mobile', 'email', 'password', 'repassword', 'status', 'role']
-        ];
-    }
-
-
-
-    /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
-        $labels = parent::attributeLabels();
+        return [
+            'id' => 'ID',
+            'name' => 'Name',
+            'username' => 'Username',
+            'mobile' => 'Mobile',
+            'auth_key' => 'Auth Key',
+            'password_hash' => 'Password Hash',
+            'password_reset_token' => 'Password Reset Token',
+            'email' => 'Email',
+            'region' => 'Region',
+            'district' => 'District',
+            'municipal' => 'Municipal',
+            'street' => 'Street',
+            'work_area' => 'Work Area',
+            'amount' => 'Amount',
+            'user_type' => 'User Type',
+            'status' => 'Status',
+            'role' => 'Role',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+            'last_login' => 'Last Login',
+        ];
+    }
 
-        return array_merge(
-            $labels,
-            [
-                'password' => Yii::t('app', 'Password'),
-                'name' => Yii::t('app', 'Name'),
-                'mobile' => Yii::t('app', 'Mobile'),
-                'repassword' => Yii::t('app', 'Repassword')
-            ]
-        );
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTicketTransactions()
+    {
+        return $this->hasMany(TicketTransaction::className(), ['user' => 'id']);
     }
 
 
@@ -281,5 +295,4 @@ class User extends \common\models\User
         }
 
     }
-
 }

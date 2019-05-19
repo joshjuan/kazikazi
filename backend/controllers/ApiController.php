@@ -34,6 +34,9 @@ class ApiController extends \yii\rest\ActiveController
 
     public $modelClass = 'backend\models\User';
 
+
+
+
     public function actionLogin()
     {
         \Yii::$app->response->format = \yii\web\Response:: FORMAT_JSON;
@@ -46,6 +49,9 @@ class ApiController extends \yii\rest\ActiveController
 
         $user = \backend\models\User::findByUsername($model->username);
 
+
+
+
         if (!empty($user)) {
 
             if ($model->login()) {
@@ -54,18 +60,7 @@ class ApiController extends \yii\rest\ActiveController
                 $response['message'] = 'You are now logged in';
                 $response['user'] = \common\models\User::findByUsername($model->username);
                 //return [$response,$model];
-              //  return $response;
-
-                $query = new Query;
-                $query->select(['user.id','user.name','username','mobile','email','user.region','user.district','user.municipal','user.street','user.work_area','user_type','status','amount'])
-                    ->from('user')
-                    ->join('join',
-                        'work_area',
-                        'user.work_area =work_area.id')
-                 ->where(['username' => $params['username']])->one();
-                $command = $query->createCommand();
-                $items = $command->queryAll();
-                return    $items ;
+                return $response;
 
             } else {
                 $response['error'] = false;
@@ -92,8 +87,9 @@ class ApiController extends \yii\rest\ActiveController
         $sale = new TicketTransaction();
         $sale->attributes = \yii::$app->request->post();
         $sale->create_at = date('Y-m-d');
-      //  $sale->created_by = Yii::$app->user->identity->username;
-        $sale->ref_no = Reference::findLast();
+        $sale->created_by = Yii::$app->user->identity->username;
+        $sale->status=0;
+        $sale->receipt_no = Reference::findLast();
 
         if ($sale->validate()) {
             $sale->save();
@@ -111,6 +107,7 @@ class ApiController extends \yii\rest\ActiveController
 
         }
     }
+
 
 }
 
