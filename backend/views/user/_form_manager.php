@@ -3,11 +3,21 @@
 use kartik\select2\Select2;
 use yii\helpers\Html;
 use kartik\form\ActiveForm;
+use yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\User */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form \yii\widgets\ActiveForm */
 ?>
+
+<p style="padding-top: 15px"/>
+<center>
+    <h3>
+        <i class="fa fa-th text-default">
+            <strong> MANAGER FORM</strong>
+        </i>
+    </h3>
+</center>
 <div class="employee-loans-index" style="padding-top: 25px">
     <div class="panel panel-default">
         <div class="user-index" style="padding-top: 40px;padding-left: 10px">
@@ -24,13 +34,13 @@ use kartik\form\ActiveForm;
 
                 <div class="col-xs-12 col-lg-12 col-sm-12">
                     <div class="col-sm-12 no-padding">
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <?= $form->field($model, 'region')->widget(Select2::classname(), [
                                 'data' => \backend\models\Region::getRegion(),
                                 'options' => ['placeholder' => 'Choose Region'],
@@ -42,9 +52,9 @@ use kartik\form\ActiveForm;
                             ?>
                             <?php //$form->field($model, 'region')->textInput(['maxlength' => true]) ?>
                         </div>
-                    </div>
-                    <div class="col-sm-12 no-padding">
-                        <div class="col-sm-4">
+
+
+                        <div class="col-sm-3">
 
                             <?= $form->field($model, 'district')->widget(Select2::classname(), [
                                 'data' => \backend\models\District::getDistrict(),
@@ -56,7 +66,9 @@ use kartik\form\ActiveForm;
                             ]);
                             ?>
                         </div>
-                        <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-12 no-padding">
+                        <div class="col-sm-3">
                             <?= $form->field($model, 'municipal')->widget(Select2::classname(), [
                                 'data' => \backend\models\Municipal::getMunicipal(),
                                 'options' => ['placeholder' => 'Choose Municipal'],
@@ -67,7 +79,7 @@ use kartik\form\ActiveForm;
                             ]);
                             ?>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <?= $form->field($model, 'street')->widget(Select2::classname(), [
                                 'data' => \backend\models\Street::getStreet(),
                                 'options' => ['placeholder' => 'Choose Street'],
@@ -78,38 +90,37 @@ use kartik\form\ActiveForm;
                             ]);
                             ?>
                         </div>
-                    </div>
-                    <div class="col-sm-12 no-padding">
-                        <div class="col-sm-6">
 
-                            <?= $form->field($model, 'street')->passwordInput(['maxlength' => true]) ?>
-                        </div>
-                        <div class="col-sm-6">
-                            <?= $form->field($model, 'street')->passwordInput(['maxlength' => true]) ?>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 no-padding">
-                        <div class="col-sm-6">
 
-                            <?= $form->field($model, 'work_area')->passwordInput(['maxlength' => true]) ?>
-                        </div>
+                        <div class="col-sm-3">
 
-                    </div>
-                    <div class="col-sm-12 no-padding">
-                        <div class="col-sm-6">
+                            <?= $form->field($model, 'work_area')->widget(Select2::classname(), [
+                                'data' => \backend\models\WorkArea::getWorkArea(),
+                                'options' => ['placeholder' => 'Choose work area'],
+                                'pluginOptions' => [
+                                    'allowClear' => true,
+
+                                ],
+                            ]);
+                            ?>
+                        </div>
+                        <div class="col-sm-3">
                             <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>
                         </div>
+                    </div>
+
+
+                    <div class="col-sm-12 no-padding">
+
                         <div class="col-sm-6">
                             <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
                         </div>
-                    </div>
 
-                    <div class="col-sm-12 no-padding">
 
-                        <div class="col-sm-6">
-                            <?= $form->field($model, 'role')->dropDownList(\backend\models\User::getRules(), ['prompt' => '-- select Role name --']) ?>
+                        <div class="col-sm-3">
+                            <?= $form->field($model, 'role')->dropDownList(\backend\models\User::getRulesManager(), ['prompt' => '-- select Role name --']) ?>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-3">
                             <?= $form->field($model, 'status')->dropDownList(\backend\models\User::getArrayStatus()) ?>
                         </div>
                     </div>

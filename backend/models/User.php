@@ -194,6 +194,26 @@ class User extends \common\models\User
         return ArrayHelper::map(AuthItem::find()->where(['type'=> 1])->all(),'name','name');
     }
 
+    public static function getRulesManager()
+    {
+        return ArrayHelper::map(AuthItem::find()->where(['type'=> 1,'name'=>'manager'])->all(),'name','name');
+    }
+
+ public static function getRulesAdmin()
+    {
+        return ArrayHelper::map(AuthItem::find()->where(['type'=> 1,'name'=>'admin'])->all(),'name','name');
+    }
+
+    public static function getRulesSupervisor()
+    {
+        return ArrayHelper::map(AuthItem::find()->where(['type'=> 1,'name'=>'supervisor'])->all(),'name','name');
+    }
+
+    public static function getRulesClerk()
+    {
+        return ArrayHelper::map(AuthItem::find()->where(['type'=> 1,'name'=>'clerk'])->all(),'name','name');
+    }
+
 
     public function getDistrict0()
     {

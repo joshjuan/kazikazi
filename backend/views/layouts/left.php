@@ -65,7 +65,7 @@ use dmstr\widgets\Menu;
                                 'items' => [
                                     ['label' => 'Shehia reports',  'icon' => 'file-o text-green', 'url' => ['/report/shehia'],],
                                     ['label' => 'Region Report',  'icon' => 'file-o text-green', 'url' => ['/report/region'],],
-                                    ['label' => 'Wazee waliofariki kiwilaya',  'icon' => 'file-o', 'url' => ['/report/new-dead'],],
+                                   // ['label' => 'Wazee waliofariki kiwilaya',  'icon' => 'file-o', 'url' => ['/report/new-dead'],],
                                 ],
 
                             ],
@@ -290,12 +290,12 @@ use dmstr\widgets\Menu;
                                     [
                                         'label' => 'New Clerk',
                                         'icon' => 'plus text-green',
-                                        'url' => ['/user/clerks']
+                                        'url' => ['/user/clerk-create']
                                     ],
                                     [
                                         'label' => 'Clerk List',
                                         'icon' => 'users text-green',
-                                        'url' => ['/user/clerks-list']
+                                        'url' => ['/user/clerk']
                                     ],
                                 ],
                             ],
