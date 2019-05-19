@@ -114,4 +114,16 @@ class Municipal extends \yii\db\ActiveRecord
     {
         return ArrayHelper::map(Municipal::find()->where(['district'=>Yii::$app->user->identity->district])->all(),'id','name');
     }
+
+    public static function getMunicipalCout($id)
+    {
+
+        $municipalID = Municipal::find()->count();
+        if($municipalID != null){
+            return $municipalID;
+        }else{
+            return 0;
+        }
+
+    }
 }

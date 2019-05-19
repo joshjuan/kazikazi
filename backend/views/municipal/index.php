@@ -16,17 +16,18 @@ $this->params['breadcrumbs'][] = 'Municipals';
     <hr/>
     <div class="row">
         <div class="col-md-6">
-            <strong class="lead"  style="color: #01214d;font-family: Tahoma"> <i class="fa fa-check-square text-green"></i> PARKING MIS - LIST OF SHEHIA</strong>
+            <strong class="lead" style="color: #01214d;font-family: Tahoma"> <i
+                        class="fa fa-check-square text-green"></i> PARKING MIS - LIST OF SHEHIA</strong>
         </div>
         <div class="col-md-2">
 
         </div>
         <div class="col-md-4">
 
-           <?php if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createMunicipal')) {?>
-            <?= Html::a(Yii::t('app', '<i class="fa fa-file-o"></i> New Shehia'), ['create'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
-            <?= Html::a(Yii::t('app', '<i class="fa fa-th-list"></i> Sheshia List'), ['index'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
-<?php } ?>
+            <?php if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createMunicipal')) { ?>
+                <?= Html::a(Yii::t('app', '<i class="fa fa-file-o"></i> New Shehia'), ['create'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
+                <?= Html::a(Yii::t('app', '<i class="fa fa-th-list"></i> Sheshia List'), ['index'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
+            <?php } ?>
         </div>
     </div>
     <hr/>
@@ -37,17 +38,24 @@ $this->params['breadcrumbs'][] = 'Municipals';
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-           // 'id',
+            // 'id',
             'name',
-            'region',
-            'district',
+            [
+                'attribute' => 'region',
+                'value' => 'region.name',
+            ],
+            [
+                'attribute' => 'district',
+                'value' => 'district.name',
+            ],
+
             'created_at',
-            //'created_by',
+            'created_by',
 
             [
                 'class' => FilterContentActionColumn::className(),
-                'header'=>'Actions',
-                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('deleteMunicipal')||Yii::$app->user->can('updateMunicipal')||Yii::$app->user->can('viewMunicipal'),
+                'header' => 'Actions',
+                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('deleteMunicipal') || Yii::$app->user->can('updateMunicipal') || Yii::$app->user->can('viewMunicipal'),
                 // Set custom classes
                 'buttonAdditionalOptions' => [
                     'view' => ['class' => 'btn btn-sm btn-primary'],

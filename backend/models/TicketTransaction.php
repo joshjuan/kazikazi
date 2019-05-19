@@ -147,4 +147,9 @@ class TicketTransaction extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'work_area']);
     }
+
+    public static function getSum($id)
+    {
+        return TicketTransaction::find()->sum('amount');
+    }
 }
