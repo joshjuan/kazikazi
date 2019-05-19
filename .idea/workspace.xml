@@ -2,69 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c32f151-f135-4b6e-92d4-ca8a4558f548" name="Default Changelist" comment="From Josh">
-      <change beforePath="$PROJECT_DIR$/.idea/parking.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/parking.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/config/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config/main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/DistrictController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/DistrictController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/MunicipalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/MunicipalController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/RegionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/RegionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/RoleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/RoleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/AuthItem.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/AuthItem.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/District.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/District.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/DistrictSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/DistrictSearch.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/Municipal.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/Municipal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/MunicipalSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/MunicipalSearch.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/Region.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/Region.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/Street.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/Street.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/StreetSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/StreetSearch.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/TicketTransaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/TicketTransaction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/TicketTransactionSearch.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/TicketTransactionSearch.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/WorkArea.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/WorkArea.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/district/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/district/_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/district/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/district/create.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/district/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/district/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/district/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/district/update.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/district/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/district/view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/layouts/content.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/layouts/content.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/layouts/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/layouts/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/layouts/left.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/layouts/left.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/layouts/main-login.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/layouts/main-login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/municipal/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/municipal/_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/municipal/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/municipal/create.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/municipal/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/municipal/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/municipal/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/municipal/update.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/region/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/region/_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/region/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/region/create.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/region/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/region/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/region/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/region/update.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/region/view.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/region/view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/site/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/site/login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/street/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/street/_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/ticket-transaction/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/ticket-transaction/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/user/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/user/_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/user/_form_admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/user/_form_admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/user/_form_manager.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/user/_form_manager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/user/_form_super_admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/user/_form_super_admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/user/_form_supervisor.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/user/_form_supervisor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/user/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/user/update.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/views/work-area/_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/views/work-area/_form.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/config/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/config/main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/installed.json" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/installed.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/kartik-v/yii2-grid" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kartik-v/yii2-grid" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-activeform" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-activeform" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-datepicker" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-datepicker" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-select2" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/kartik-v/yii2-widget-select2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/nick-denry/yii2-filter-action-column/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/nick-denry/yii2-filter-action-column/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/nick-denry/yii2-filter-action-column/composer.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/nick-denry/yii2-filter-action-column/src/FilterContentActionColumn.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/yiisoft/extensions.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/yiisoft/extensions.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -418,11 +360,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81259000" />
+    <option name="totallyTimeSpent" value="82012000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.31316188" />
