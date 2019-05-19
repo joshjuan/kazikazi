@@ -2,6 +2,8 @@
 
 namespace backend\controllers;
 
+use backend\models\Audit;
+use common\models\LoginForm;
 use Yii;
 use backend\models\WorkArea;
 use backend\models\WorkAreaSearch;
@@ -35,13 +37,25 @@ class WorkAreaController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new WorkAreaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (!Yii::$app->user->isGuest) {
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            $searchModel = new WorkAreaSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            Audit::setActivity(Yii::$app->user->identity->name . ' was view general information of work area ', 'WorkArea ', 'index', '', '');
+
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+
+        } else {
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
 
     /**
@@ -52,9 +66,40 @@ class WorkAreaController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewWorkArea')) {
+
+                $model = $this->findModel($id);
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' was view the information of  ' . $model->name . ' work area', 'WorkArea', 'View', '', '');
+
+                return $this->render('view', [
+                    'model' => $this->findModel($id),
+                ]);
+
+
+            } else {
+
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['index']);
+            }
+
+        } else {
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
 
     /**
@@ -64,16 +109,45 @@ class WorkAreaController extends Controller
      */
     public function actionCreate()
     {
-        $model = new WorkArea();
-        $model->created_at=date('y-m-d H:i:s');
-        $model->created_by=Yii::$app->user->identity->username;
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createWorkArea')) {
+
+                $model = new WorkArea();
+                $model->created_at = date('y-m-d H:i:s');
+                $model->created_by = Yii::$app->user->identity->username;
+
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                    Audit::setActivity('New Work Area ' . $model->name . ' was successfully created by ' . Yii::$app->user->identity->name, 'WorkArea ', 'create', '', '');
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+
+            } else {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'title' => 'Notification',
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['index']);
+            }
+
+        } else {
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -85,15 +159,46 @@ class WorkAreaController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (!Yii::$app->user->isGuest) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('updateWorkArea')) {
+
+                $model = $this->findModel($id);
+
+                Yii::$app->session->setFlash('', [
+                    'type' => 'success',
+                    'duration' => 1500,
+                    'icon' => 'fa fa-check',
+                    'title' => 'Notification',
+                    'message' => 'District was successfully updated',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+
+                Audit::setActivity('Work area was successfully updated to ' . $model->name, 'WorkArea ', 'Update', '', '');
+                return $this->redirect(['view', 'id' => $model->id]);
+
+            } else {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'title' => 'Notification',
+                    'icon' => 'fa fa - warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['index']);
+            }
+
+        } else {
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -105,9 +210,47 @@ class WorkAreaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (!Yii::$app->user->isGuest) {
 
-        return $this->redirect(['index']);
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('deleteWorkArea')) {
+
+                $model = $this->findModel($id);
+
+                if ($this->findModel($id)->delete()) {
+
+                    Yii::$app->session->setFlash('', [
+                        'type' => 'success',
+                        'duration' => 1500,
+                        'icon' => 'fa fa-check',
+                        'message' => 'District was successfully deleted',
+                        'positonY' => 'top',
+                        'positonX' => 'right'
+                    ]);
+
+                    Audit::setActivity('Work area ' . $model->name . ' was successfully deleted' . Yii::$app->user->identity->name, 'District', 'Delete', '', '');
+
+                    return $this->redirect(['index']);
+                }
+            } else {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'title' => 'Notification',
+                    'icon' => 'fa fa - warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['index']);
+            }
+
+        } else {
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
 
     /**

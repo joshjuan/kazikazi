@@ -17,6 +17,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/bower-asset/punycode" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bower-asset/typeahead.js" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bower-asset/yii2-pjax" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/bsadnu/yii2-googlecharts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cebe/markdown" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cebe/yii2-gravatar" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/codeception/base" />
@@ -47,6 +48,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/kartik-v/yii2-widget-depdrop" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/kartik-v/yii2-widget-growl" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/kartik-v/yii2-widget-select2" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/miloschuman/yii2-highcharts-widget" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mpdf/mpdf" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/myclabs/deep-copy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/paragonie/random_compat" />

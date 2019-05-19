@@ -2,6 +2,8 @@
 
 namespace backend\controllers;
 
+use backend\models\Audit;
+use common\models\LoginForm;
 use Yii;
 use backend\models\Street;
 use backend\models\StreetSearch;
@@ -35,13 +37,25 @@ class StreetController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new StreetSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (!Yii::$app->user->isGuest) {
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            $searchModel = new StreetSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            Audit::setActivity(Yii::$app->user->identity->name . ' was view general information of zones ', 'Street ', 'index', '', '');
+
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
 
     /**
@@ -52,6 +66,38 @@ class StreetController extends Controller
      */
     public function actionView($id)
     {
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewZone')) {
+
+                $model = $this->findModel($id);
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' was view the information of  ' . $model->name.' zone', 'Street', 'View', '', '');
+
+                return $this->render('view', [
+                    'model' => $this->findModel($id),
+                ]);
+
+            }else{
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['index']);
+            }
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -64,16 +110,45 @@ class StreetController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Street();
-        $model->created_at=date('y-m-d H:i:s');
-        $model->created_by=Yii::$app->user->identity->username;
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createZone')) {
+
+                $model = new Street();
+                $model->created_at=date('y-m-d H:i:s');
+                $model->created_by=Yii::$app->user->identity->username;
+
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                    Audit::setActivity('New zone ' . $model->name . ' was successfully created by ' . Yii::$app->user->identity->name, 'Street ', 'create', '', '');
+
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+
+            }else{
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['index']);
+            }
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -85,15 +160,54 @@ class StreetController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (!Yii::$app->user->isGuest) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('updateZone')) {
+
+
+                $model = $this->findModel($id);
+
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                    Yii::$app->session->setFlash('', [
+                        'type' => 'success',
+                        'duration' => 1500,
+                        'icon' => 'fa fa-check',
+                        'title'=>'Notification',
+                        'message' => 'District was successfully updated',
+                        'positonY' => 'top',
+                        'positonX' => 'right'
+                    ]);
+
+
+                    Audit::setActivity('Zone was successfully updated to ' . $model->name, 'Street ', 'Update', '', '');
+
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+
+            }else{
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['index']);
+            }
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -105,9 +219,48 @@ class StreetController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (!Yii::$app->user->isGuest) {
 
-        return $this->redirect(['index']);
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('deleteZone')) {
+
+                $model = $this->findModel($id);
+
+                if ($this->findModel($id)->delete()) {
+
+                    Yii::$app->session->setFlash('', [
+                        'type' => 'success',
+                        'duration' => 1500,
+                        'icon' => 'fa fa-check',
+                        'message' => 'Zone was successfully deleted',
+                        'positonY' => 'top',
+                        'positonX' => 'right'
+                    ]);
+
+                    Audit::setActivity('Zone ' . $model->name . ' was successfully deleted' . Yii::$app->user->identity->name, 'Street', 'Delete', '', '');
+
+                    return $this->redirect(['index']);
+                }
+
+            } else{
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['index']);
+            }
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
 
     /**

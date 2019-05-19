@@ -4,6 +4,7 @@ namespace backend\models;
 use frontend\models\Client;
 use kartik\password\StrengthValidator;
 use Yii;
+use yii\db\ActiveQuery;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -93,6 +94,7 @@ class User extends \common\models\User
             [['password', 'repassword'], 'string', 'min' => 4, 'max' => 30],
             [['name','mobile'], 'string', 'max' => 255],
             [[ 'email'], 'unique'],
+            [[ 'username'], 'unique'],
             ['username', 'string', 'min' => 3, 'max' => 30],
             ['email', 'string', 'max' => 100],
             ['email', 'email'],
@@ -199,7 +201,7 @@ class User extends \common\models\User
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getRegion0()
     {
@@ -214,6 +216,57 @@ class User extends \common\models\User
     public function getStreet0()
     {
         return $this->hasOne(Street::className(), ['id' => 'street']);
+    }
+
+    public static function getRegionNameByuserId($user_id)
+    {
+        $mfanyakazi = User::findOne($user_id);
+        if($mfanyakazi != null){
+            $zone = Region::findOne($mfanyakazi->region);
+            if($zone != null) {
+                return $zone->name;
+            }else{
+                return ' ';
+            }
+        }else{
+            return '';
+        }
+    }
+
+    public static function getDistrictNameByuserId($user_id)
+    {
+        $mfanyakazi = User::findOne($user_id);
+        if($mfanyakazi != null){
+            $zone = District::findOne($mfanyakazi->district);
+            if($zone != null) {
+                return $zone->name;
+            }else{
+                return ' ';
+            }
+        }else{
+            return '';
+        }
+    }
+
+    public static function getMunicipalNameByuserId($user_id)
+    {
+        $mfanyakazi = User::findOne($user_id);
+        if($mfanyakazi != null){
+            $zone = Municipal::findOne($mfanyakazi->municipal);
+            if($zone != null) {
+                return $zone->name;
+            }else{
+                return ' ';
+            }
+        }else{
+            return '';
+        }
+    }
+
+
+    public function getWorkAreas()
+    {
+        return $this->hasOne(WorkArea::className(), ['id' => 'work_area']);
     }
 
 }

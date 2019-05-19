@@ -8,9 +8,10 @@ use yii\widgets\Pjax;
 /* @var $searchModel backend\models\DistrictSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Districts';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = '';
+$this->params['breadcrumbs'][] = 'Districts';
 ?>
+<p style="padding-top: 10px"/>
 <div class="received-cash-index" style="padding-top: 10px">
 
     <?php Pjax::begin(); ?>
@@ -29,11 +30,26 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'create_at',
         'created_by',
+        [
+            'header' => 'Actions',
+            'format' => 'raw',
+            // 'visible' => Yii::$app->user->can('super_admin') ,
+            'value' => function ($data) {
+
+                return
+                    Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['view', 'id' => $data->id], ['title' => 'view', 'class' => 'btn btn-info']) . ' ' .
+
+                    Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['update', 'id' => $data->id], ['title' => 'edit', 'class' => 'btn btn-info'], [//  Html::a('<span class="glyphicon glyphicon-trash"></span> Delete', ['delete', 'id' => $data->id], [
+                        'class' => 'btn btn-danger',
+                        'data' => ['confirm' => 'Are you sure you want to delete this item?',
+                            'method' => 'post',],]);
+            }
+        ],
 
     ];
 
     // the GridView widget (you must use kartik\grid\GridView)
-    echo \kartik\grid\GridView::widget([
+    echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => $gridColumns,

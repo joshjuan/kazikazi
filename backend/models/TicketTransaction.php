@@ -41,6 +41,20 @@ class TicketTransaction extends \yii\db\ActiveRecord
         return 'ticket_transaction';
     }
 
+    public static function getTodayTotal()
+    {
+        $date=date('Y-m-d');
+        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['status'=>0])->sum('amount');
+        if ($applications > 0) {
+            $amount_paid_today = number_format($applications, 2, '.', ',');
+            return $amount_paid_today;
+        } else {
+            $applications=0;
+            $amount_paid_today = number_format($applications, 2, '.', ',');
+            return $amount_paid_today;
+        }
+    }
+
     /**
      * {@inheritdoc}
      */
