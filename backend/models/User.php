@@ -263,4 +263,16 @@ class User extends \common\models\User
         }
     }
 
+    public static function getClerkInMkoaCount($id)
+    {
+
+        $shehia = User::find()->where(['user_type' => 4])->count();
+        if($shehia != null){
+            return $shehia;
+        }else{
+            return 0;
+        }
+
+    }
+
 }

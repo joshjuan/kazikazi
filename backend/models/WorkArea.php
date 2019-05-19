@@ -114,4 +114,17 @@ class WorkArea extends \yii\db\ActiveRecord
     {
         return ArrayHelper::map(WorkArea::find()->where(['street'=>Yii::$app->user->identity->street])->all(),'id','name');
     }
+
+    public static function getWorkAreaCout($id)
+    {
+
+        $workAreaID = WorkArea::find()->count();
+        if($workAreaID != null){
+            return $workAreaID;
+        }else{
+            return 0;
+        }
+
+    }
+
 }

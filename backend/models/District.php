@@ -112,4 +112,16 @@ class District extends \yii\db\ActiveRecord
     {
         return ArrayHelper::map(District::find()->where(['region'=>Yii::$app->user->identity->region])->all(),'id','name');
     }
+
+    public static function getDistrictCout($id)
+    {
+
+        $districtID = District::find()->count();
+        if($districtID != null){
+            return $districtID;
+        }else{
+            return 0;
+        }
+
+    }
 }
