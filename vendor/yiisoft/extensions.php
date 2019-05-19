@@ -238,4 +238,31 @@ return array (
       '@kartik/depdrop' => $vendorDir . '/kartik-v/yii2-widget-depdrop/src',
     ),
   ),
+  'nick-denry/yii2-filter-action-column' => 
+  array (
+    'name' => 'nick-denry/yii2-filter-action-column',
+    'version' => '0.1.2.0',
+    'alias' => 
+    array (
+      '@nickdenry/grid' => $vendorDir . '/nick-denry/yii2-filter-action-column/src',
+    ),
+  ),
+  'miloschuman/yii2-highcharts-widget' => 
+  array (
+    'name' => 'miloschuman/yii2-highcharts-widget',
+    'version' => '5.0.2.0',
+    'alias' => 
+    array (
+      '@miloschuman/highcharts' => $vendorDir . '/miloschuman/yii2-highcharts-widget/src',
+    ),
+  ),
+  'bsadnu/yii2-googlecharts' => 
+  array (
+    'name' => 'bsadnu/yii2-googlecharts',
+    'version' => '1.2.0.0',
+    'alias' => 
+    array (
+      '@bsadnu/googlecharts' => $vendorDir . '/bsadnu/yii2-googlecharts',
+    ),
+  ),
 );

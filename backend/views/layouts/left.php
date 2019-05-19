@@ -39,7 +39,7 @@ use dmstr\widgets\Menu;
                     ['label' => 'Home', 'icon' => 'home text-orange', 'url' => ['/'],],
                     [
                         'label' => 'Ticket Transactions',
-                        'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewTicket') ,
                         'icon' => 'money text-orange',
                         'items' => [
 
@@ -53,19 +53,44 @@ use dmstr\widgets\Menu;
                         ],
                     ],
                     [
-                        'label' => 'Area Configuration aaa',
-                        'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                        'label' => 'Reports',
+                        'visible' => Yii::$app->user->can('viewReport') || Yii::$app->user->can('super_admin') ,
+                        'icon' => 'folder-open text-orange',
+                        'items' => [
+
+                            [
+                                'label' => Yii::t('app', 'Custom Report'),
+                                'url' => ['/ '],
+                                'icon' => 'folder-open-o text-green',
+                            ],
+                            [
+                                'label' => Yii::t('app', 'Graph Report'),
+                                'url' => ['index'],
+                                'icon' => 'folder-open-o text-green',
+                            ],
+                            [
+                                'label' => Yii::t('app', 'General Report'),
+                                'url' => ['/'],
+                                'icon' => 'folder-open-o text-green',
+                            ],
+
+                        ],
+                    ],
+                    [
+                        'label' => 'Area Configuration',
+                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewZone') || Yii::$app->user->can('viewMunicipal')||Yii::$app->user->can('viewRegion')||Yii::$app->user->can('viewWorkArea')||Yii::$app->user->can('viewWorkArea'),
                         'icon' => 'database text-orange',
                         'items' => [
 
                             [
                                 'label' => 'Region',
-                                'visible' => Yii::$app->user->can('super_admin') ,
-                                'icon' => 'sun-o text-orange',
+                                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewRegion'),
+                                'icon' => 'map-marker text-orange',
                                 'items' => [
                                     [
                                         //  'visible' =>  yii::$app->user->can('auditSystem'),
                                         'label' => Yii::t('app', 'New Region'),
+                                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('createRegion'),
                                         'url' => ['/region/create'],
                                         'icon' => 'plus text-orange',
                                     ],
@@ -80,12 +105,13 @@ use dmstr\widgets\Menu;
                             ],
                             [
                                 'label' => 'District',
-                                //  'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                                  'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewDistrict'),
                                 'icon' => 'sun-o text-orange',
                                 'items' => [
                                     [
                                         //  'visible' =>  yii::$app->user->can('auditSystem'),
                                         'label' => Yii::t('app', 'New District'),
+                                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('createDistrict'),
                                         'url' => ['/district/create'],
                                         'icon' => 'plus text-orange',
                                     ],
@@ -100,13 +126,14 @@ use dmstr\widgets\Menu;
                                 ],
                             ],
                             [
-                                'label' => 'Municipal',
-                                //  'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                                'label' => 'Shehia',
+                                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewMunicipal'),
                                 'icon' => 'sun-o text-orange',
                                 'items' => [
                                     [
                                         //  'visible' =>  yii::$app->user->can('auditSystem'),
-                                        'label' => Yii::t('app', 'Add New Municipal'),
+                                        'label' => Yii::t('app', 'Add New Shehia'),
+                                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('createMunicipal'),
                                         'url' => ['/municipal/create'],
                                         'icon' => 'plus text-orange',
                                     ],
@@ -120,12 +147,12 @@ use dmstr\widgets\Menu;
                                 ],
                             ],
                             [
-                                'label' => 'Street',
-                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                                'label' => 'Zones',
+                                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewZone'),
                                 'icon' => 'sun-o text-orange',
                                 'items' => [
                                     [
-                                        //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('createZone'),
                                         'label' => Yii::t('app', 'Add New Street'),
                                         'url' => ['/street/create'],
                                         'icon' => 'plus text-orange',
@@ -142,12 +169,13 @@ use dmstr\widgets\Menu;
                             [
                                 //  'visible' =>  yii::$app->user->can('auditSystem'),
                                 'label' => Yii::t('app', 'Work Area'),
-                                //'url' => [''],
+                                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewWorkArea'),
                                 'icon' => 'lock text-orange',
                                 'items' => [
                                     [
                                         //  'visible' =>  yii::$app->user->can('auditSystem'),
                                         'label' => Yii::t('app', 'Add Wok Area'),
+                                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('createWorkArea'),
                                         'url' => ['/work-area/create'],
                                         'icon' => 'plus text-orange',
                                     ],
@@ -270,13 +298,13 @@ use dmstr\widgets\Menu;
                     ],
                     [
                         'label' => 'Settings',
-                        // 'visible' => Yii::$app->user->can('Administrator') || Yii::$app->user->can('Super_Administrator'),
+                        'visible' => (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')),
                         'icon' => 'cogs text-orange',
                         'items' => [
                             ['label' => 'Users', 'icon' => 'user text-orange', 'url' => ['/user'],],
 
                             [
-                                'visible' => (Yii::$app->user->identity->username == 'super_admin' || Yii::$app->user->identity->username == 'admin'),
+                                'visible' => (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')),
                                 'label' => Yii::t('app', 'Permissions'),
                                 'url' => ['/auth-item/index'],
                                 'icon' => 'fa fa-lock text-orange',
@@ -288,14 +316,14 @@ use dmstr\widgets\Menu;
                                 'url' => ['/auth-item-child'],
                             ],
                             [
-                                'visible' => (Yii::$app->user->identity->username == 'super_admin' || Yii::$app->user->identity->username == 'admin'),
+                                'visible' => (Yii::$app->user->can('super_admin')  || Yii::$app->user->can('admin')),
                                 'label' => Yii::t('app', 'Manage User Roles'),
                                 'url' => ['/role/index'],
                                 'icon' => 'fa fa-lock text-orange',
                             ],
                             [
                                 'label' => 'Assign Roles ',
-                                'visible' => (Yii::$app->user->identity->username == 'super_admin' || Yii::$app->user->identity->username == 'admin'),
+                                'visible' => (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')),
                                 'icon' => 'lock text-orange', 'url' => ['/auth-assignment'],
                             ],
                         ],

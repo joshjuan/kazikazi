@@ -1,5 +1,6 @@
 <?php
 
+use nickdenry\grid\FilterContentActionColumn;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -7,35 +8,72 @@ use yii\grid\GridView;
 /* @var $searchModel backend\models\WorkAreaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Work Areas';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = '';
+$this->params['breadcrumbs'][] = 'Work Areas'
 ?>
-<div class="work-area-index">
+<div class="department-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <hr/>
+    <div class="row">
+        <div class="col-md-6">
+            <strong class="lead" style="color: #01214d;font-family: Tahoma"> <i
+                        class="fa fa-check-square text-green"></i> PARKING MIS - LIST OF WORK AREA</strong>
+        </div>
+        <div class="col-md-2">
 
-    <p>
-        <?= Html::a('Create Work Area', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+        </div>
+        <div class="col-md-4">
 
-    <?= GridView::widget([
+            <?php if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createWorkArea')) { ?>
+                <?= Html::a(Yii::t('app', '<i class="fa fa-file-o"></i> New work area'), ['create'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
+                <?= Html::a(Yii::t('app', '<i class="fa fa-th-list"></i> Work Area List'), ['index'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
+            <?php } ?>
+        </div>
+    </div>
+    <hr/>
+
+    <?= \fedemotta\datatables\DataTables::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            // 'id',
             'name',
             'amount',
-            'region',
-            'district',
-            //'municipal',
-            //'street',
-            //'created_by',
-            //'created_at',
+            [
+                'attribute' => 'region',
+                'value' => 'region.name',
+            ],
+            [
+                'attribute' => 'district',
+                'value' => 'district.name',
+            ],
+            [
+                'attribute' => 'municipal',
+                'value' => 'municipal.name',
+            ],
+            [
+                'attribute' => 'street',
+                'value' => 'street.name',
+            ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            'created_by',
+            'created_at',
+
+            [
+                'class' => FilterContentActionColumn::className(),
+                'header' => 'Actions',
+                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('deleteWorkArea') || Yii::$app->user->can('updateWorkArea') || Yii::$app->user->can('viewWorkArea'),
+                // Set custom classes
+                'buttonAdditionalOptions' => [
+                    'view' => ['class' => 'btn btn-sm btn-primary'],
+                    'update' => ['class' => 'btn btn-default btn-sm'],
+                    'delete' => ['class' => 'btn btn-danger btn-sm'],
+                ],
+
+                // Add your own filterContent
+            ],
         ],
     ]); ?>
 </div>
