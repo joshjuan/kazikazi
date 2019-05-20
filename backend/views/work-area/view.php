@@ -13,32 +13,52 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="work-area-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+          //  'id',
             'name',
             'amount',
-            'region',
-            'district',
-            'municipal',
-            'street',
+           [
+                   'attribute'=>'region',
+                   'value'=>$model->region0->name,
+            ],
+            [
+                   'attribute'=>'district',
+                   'value'=>$model->district0->name,
+            ],
+            [
+                   'attribute'=>'municipal',
+                   'value'=>$model->municipal0->name,
+            ],
+            [
+                   'attribute'=>'street',
+                   'value'=>$model->street0->name,
+            ],
+
+
             'created_by',
             'created_at',
         ],
     ]) ?>
+
+    <p>
+        <?php if (Yii::$app->user->can('updateWorkArea') || Yii::$app->user->can('super_admin')) { ?>
+            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php } ?>
+
+        <?= Html::a('Cancel', ['index', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
+
+
+        <?php if (Yii::$app->user->can('deleteWorkArea') || Yii::$app->user->can('super_admin')) { ?>
+            <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => 'Are you sure you want to delete this item?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+        <?php } ?>
+    </p>
 
 </div>

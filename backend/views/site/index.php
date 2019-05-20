@@ -59,8 +59,11 @@ $this->title = '';
 
                     <div class="info-box-content">
                         <span class="info-box-text">MAGHARIBI A TOTAL</span>
-                        <span class="info-box-number"> <?= \backend\models\TicketTransaction::getTodayTotalMaghalibiliA() ?></span>
 
+                        <span class="info-box-number">
+
+                           <?= \backend\models\TicketTransaction::getTodayTotalMaghalibiliA() ?>
+                        </span>
                         <div class="progress">
                             <div class="progress-bar" style="width: 20%"></div>
                         </div>
@@ -78,7 +81,10 @@ $this->title = '';
 
                     <div class="info-box-content">
                         <span class="info-box-text">MAGHARIBI B TOTAL</span>
-                        <span class="info-box-number"><?= \backend\models\TicketTransaction::getTodayTotalMaghalibiliB() ?></span>
+
+                        <span class="info-box-number">
+                            <?= \backend\models\TicketTransaction::getTodayTotalMaghalibiliB() ?>
+                        </span>
 
                         <div class="progress">
                             <div class="progress-bar" style="width: 70%"></div>
@@ -153,9 +159,8 @@ $this->title = '';
                     'id' => 'my-pie-chart-id',
                     'data' => [
                         ['Major', 'Degrees'],
-                        ['MAGHALIBI A', $val1],
-                        ['MAGHALIBI B', $val2],
-                        //  ['Dodoma', 66],
+                        ['MAGHALIBI A', 19],
+                        ['MAGHALIBI B', 29],
 
 
                     ],
@@ -213,10 +218,10 @@ $this->title = '';
                         ],
                         'series' => [
                             ['name' => 'MAGHALIBI A',
-                                'data' => [$val1]
+                                'data' => [48]
                             ],
                             ['name' => 'MAGHALIBI B',
-                                'data' => [$val2]
+                                'data' => [98]
                             ],
 
 

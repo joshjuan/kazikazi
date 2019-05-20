@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Roles');
     </p>
 
     <?= \fedemotta\datatables\DataTables::widget([
+
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
         'columns' => [
@@ -35,7 +36,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Roles');
             [
 
                 'class' => 'yii\grid\ActionColumn', 'header' => 'Actions',
-                'visible'=>Yii::$app->user->can('sup1er_admin'),
+                'visible'=>Yii::$app->user->can('super_admin'),
                 'urlCreator' => function ($action, $model, $key, $index) {
                     $link = '#';
                     switch ($action) {

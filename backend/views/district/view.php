@@ -40,7 +40,10 @@ $this->params['breadcrumbs'][] = $model->name;
         'attributes' => [
           //  'id',
             'name',
-            'region',
+            [
+                    'attribute'=>'region',
+            'value'=>$model->region0->name,
+            ],
             'create_at',
             'created_by',
         ],

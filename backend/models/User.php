@@ -76,9 +76,6 @@ class User extends \common\models\User
         return ArrayHelper::map(User::find()->where(['user_type'=> User::CLERK])->all(),'id','username');
     }
 
-
-
-
     public function getRoleLabel()
     {
 

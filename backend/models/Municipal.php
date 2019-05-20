@@ -112,7 +112,7 @@ class Municipal extends \yii\db\ActiveRecord
 
     public static function getMunicipal()
     {
-        return ArrayHelper::map(Municipal::find()->where(['district'=>Yii::$app->user->identity->district])->all(),'id','name');
+        return ArrayHelper::map(Municipal::find()->all(),'id','name');
     }
 
     public static function getMunicipalCout($id)

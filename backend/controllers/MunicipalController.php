@@ -36,13 +36,22 @@ class MunicipalController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new MunicipalSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (!Yii::$app->user->isGuest) {
+            $searchModel = new MunicipalSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        } else {
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
+
     }
 
     /**
@@ -53,9 +62,19 @@ class MunicipalController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if (!Yii::$app->user->isGuest) {
+
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+
+        } else {
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
 
     /**
@@ -68,9 +87,9 @@ class MunicipalController extends Controller
         if (!Yii::$app->user->isGuest) {
 
             $model = new Municipal();
-            $model->created_at=date('y-m-d H:i:s');
+            $model->created_at = date('y-m-d H:i:s');
 
-            $model->created_by=Yii::$app->user->identity->username;
+            $model->created_by = Yii::$app->user->identity->username;
 
             if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createMunicipal')) {
 
@@ -82,7 +101,7 @@ class MunicipalController extends Controller
                     'model' => $model,
                 ]);
 
-            }else{
+            } else {
                 Yii::$app->session->setFlash('', [
                     'type' => 'warning',
                     'duration' => 3500,
@@ -96,7 +115,7 @@ class MunicipalController extends Controller
                 return $this->redirect(['index']);
             }
 
-        }else{
+        } else {
             $model = new LoginForm();
             return $this->redirect(['site/login',
                 'model' => $model,
@@ -114,15 +133,40 @@ class MunicipalController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (!Yii::$app->user->isGuest) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('updateMunicipal')) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+                $model = $this->findModel($id);
+
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+
+
+            } else {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['index']);
+            }
+
+        } else {
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -134,9 +178,34 @@ class MunicipalController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (!Yii::$app->user->isGuest) {
 
-        return $this->redirect(['index']);
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('deleteMunicipal')) {
+
+                $this->findModel($id)->delete();
+
+                return $this->redirect(['index']);
+            } else {
+
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['index']);
+            }
+
+        } else {
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
 
     /**

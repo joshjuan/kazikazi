@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = 'Streets';
         </div>
         <div class="col-md-4">
 
-            <?php if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createZone')) { ?>
+            <?php if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createStreet')) { ?>
                 <?= Html::a(Yii::t('app', '<i class="fa fa-file-o"></i> New zone'), ['create'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
                 <?= Html::a(Yii::t('app', '<i class="fa fa-th-list"></i> Zone List'), ['index'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
             <?php } ?>
@@ -38,18 +38,28 @@ $this->params['breadcrumbs'][] = 'Streets';
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-           // 'id',
+            // 'id',
             'name',
-            'region',
-            'district',
-            'municipal',
+            [
+                'attribute' => 'region',
+                'value' => 'region0.name',
+            ],
+            [
+                'attribute' => 'district',
+                'value' => 'district0.name',
+            ],
+            [
+                'attribute' => 'municipal',
+                'value' => 'municipal0.name',
+            ],
+
             'created_at',
             'created_by',
 
             [
                 'class' => FilterContentActionColumn::className(),
-                'header'=>'Actions',
-                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('deleteMunicipal')||Yii::$app->user->can('updateMunicipal')||Yii::$app->user->can('viewMunicipal'),
+                'header' => 'Actions',
+                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('deleteStreet') || Yii::$app->user->can('updateMunicipal') || Yii::$app->user->can('viewStreet'),
                 // Set custom classes
                 'buttonAdditionalOptions' => [
                     'view' => ['class' => 'btn btn-sm btn-primary'],

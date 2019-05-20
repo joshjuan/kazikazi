@@ -110,7 +110,7 @@ class District extends \yii\db\ActiveRecord
 
     public static function getDistrict()
     {
-        return ArrayHelper::map(District::find()->where(['region'=>Yii::$app->user->identity->region])->all(),'id','name');
+        return ArrayHelper::map(District::find()->all(),'id','name');
     }
 
     public static function getDistrictCout($id)

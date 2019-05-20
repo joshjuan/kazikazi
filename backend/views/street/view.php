@@ -15,14 +15,14 @@ $this->params['breadcrumbs'][] = $model->name;
 
 
     <p>
-        <?php if (Yii::$app->user->can('updateZone') || Yii::$app->user->can('super_admin')) { ?>
+        <?php if (Yii::$app->user->can('updateStreet') || Yii::$app->user->can('super_admin')) { ?>
             <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?php } ?>
 
         <?= Html::a('Cancel', ['index', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
 
 
-        <?php if (Yii::$app->user->can('deleteZone') || Yii::$app->user->can('super_admin')) { ?>
+        <?php if (Yii::$app->user->can('deleteStreet') || Yii::$app->user->can('super_admin')) { ?>
             <?= Html::a('Delete', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [
@@ -38,9 +38,19 @@ $this->params['breadcrumbs'][] = $model->name;
         'attributes' => [
            // 'id',
             'name',
-            'region',
-            'district',
-            'municipal',
+            [
+                    'attribute'=>'region',
+                    'value'=>$model->region0->name,
+            ],
+            [
+                    'attribute'=>'district',
+                    'value'=>$model->district0->name,
+            ],
+            [
+                    'attribute'=>'municipal',
+                    'value'=>$model->municipal0->name,
+            ],
+
             'created_at',
             'created_by',
         ],

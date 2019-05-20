@@ -43,19 +43,20 @@ $this->params['breadcrumbs'][] = 'Work Areas'
             'amount',
             [
                 'attribute' => 'region',
-                'value' => 'region.name',
+                'value' => 'region0.name',
             ],
             [
                 'attribute' => 'district',
-                'value' => 'district.name',
+                'value' => 'district0.name',
             ],
             [
                 'attribute' => 'municipal',
-                'value' => 'municipal.name',
+                'value' => 'municipal0.name',
             ],
+
             [
                 'attribute' => 'street',
-                'value' => 'street.name',
+                'value' => 'street0.name',
             ],
 
             'created_by',

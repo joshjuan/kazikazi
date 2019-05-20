@@ -42,11 +42,11 @@ $this->params['breadcrumbs'][] = 'Municipals';
             'name',
             [
                 'attribute' => 'region',
-                'value' => 'region.name',
+                'value' => 'region0.name',
             ],
             [
                 'attribute' => 'district',
-                'value' => 'district.name',
+                'value' => 'district0.name',
             ],
 
             'created_at',

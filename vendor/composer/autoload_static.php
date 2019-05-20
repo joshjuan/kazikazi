@@ -35,6 +35,7 @@ class ComposerStaticInit9c4ae0f1e3be1063039c0f96f3fd7424
         ),
         's' => 
         array (
+            'sjaakp\\gcharts\\' => 15,
             'setasign\\Fpdi\\' => 14,
         ),
         'r' => 
@@ -44,6 +45,14 @@ class ComposerStaticInit9c4ae0f1e3be1063039c0f96f3fd7424
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
+        ),
+        'n' => 
+        array (
+            'nickdenry\\grid\\' => 15,
+        ),
+        'm' => 
+        array (
+            'miloschuman\\highcharts\\' => 23,
         ),
         'k' => 
         array (
@@ -75,6 +84,10 @@ class ComposerStaticInit9c4ae0f1e3be1063039c0f96f3fd7424
         'c' => 
         array (
             'cebe\\markdown\\' => 14,
+        ),
+        'b' => 
+        array (
+            'bsadnu\\googlecharts\\' => 20,
         ),
         'W' => 
         array (
@@ -167,6 +180,10 @@ class ComposerStaticInit9c4ae0f1e3be1063039c0f96f3fd7424
         array (
             0 => __DIR__ . '/..' . '/yii2mod/yii2-rbac',
         ),
+        'sjaakp\\gcharts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sjaakp/yii2-gcharts',
+        ),
         'setasign\\Fpdi\\' => 
         array (
             0 => __DIR__ . '/..' . '/setasign/fpdi/src',
@@ -180,6 +197,14 @@ class ComposerStaticInit9c4ae0f1e3be1063039c0f96f3fd7424
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'nickdenry\\grid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nick-denry/yii2-filter-action-column/src',
+        ),
+        'miloschuman\\highcharts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/miloschuman/yii2-highcharts-widget/src',
         ),
         'kartik\\sortable\\' => 
         array (
@@ -256,6 +281,10 @@ class ComposerStaticInit9c4ae0f1e3be1063039c0f96f3fd7424
         'cebe\\markdown\\' => 
         array (
             0 => __DIR__ . '/..' . '/cebe/markdown',
+        ),
+        'bsadnu\\googlecharts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bsadnu/yii2-googlecharts',
         ),
         'Webmozart\\Assert\\' => 
         array (

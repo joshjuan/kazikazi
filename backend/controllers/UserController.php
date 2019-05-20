@@ -221,6 +221,57 @@ class UserController extends Controller
      * @return mixed
      */
 
+
+
+    public function actionClerkCreate()
+    {
+
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+                $model = new User();
+
+                //  $model->scenario = 'createUser';
+                $model->user_type=User::CLERK;
+
+
+                if ($model->load(Yii::$app->request->post())) {
+                    $amount = WorkAreaSearch::find()->select('amount')->where(['id' => $model->work_area])->one();;
+                    $model->amount=intval($amount['amount']);
+                    Audit::setActivity('New data clerk successfully created ', 'Clerk ', 'Index', '', '');
+                    $model->save();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+            else
+            {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
+
+
+        return $this->render('create-clerk', [
+            'model' => $model,
+        ]);
+
+        }
+        else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
+    }
+
     public function actionSupervisorCreate()
     {
 
@@ -445,7 +496,8 @@ class UserController extends Controller
 
     }
 
-    public function actionClerkCreate()
+
+    public function actionClerkCreate1()
     {
 
         if (!Yii::$app->user->isGuest) {
@@ -454,7 +506,7 @@ class UserController extends Controller
                 $model = new User();
 
                 //  $model->scenario = 'createUser';
-                $model->user_type=User::CLERK;
+                $model->user_type = User::CLERK;
 
 
                 if ($model->load(Yii::$app->request->post())) {
@@ -462,21 +514,19 @@ class UserController extends Controller
 
                     //    print_r($amount['amount']);
                     //  exit;
-                    $model->amount=$amount['amount'];
+                    $model->amount = $amount['amount'];
                     // $model->getErrors();
                     // exit;
 
                     Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
                     $model->save();
 
-                  //  print_r($model->id);
+                    //  print_r($model->id);
                     //exit();
                     //return $this->redirect(['view', 'id' => $model->id,]);
                     return $this->redirect(['clerk']);
                 }
-            }
-            else
-            {
+            } else {
                 Yii::$app->session->setFlash('', [
                     'type' => 'warning',
                     'duration' => 3500,
@@ -494,15 +544,14 @@ class UserController extends Controller
                 'model' => $model,
             ]);
 
-        }
-        else{
+        } else {
             $model = new LoginForm();
             return $this->redirect(['site/login',
                 'model' => $model,
             ]);
         }
-
     }
+
 
 
 
