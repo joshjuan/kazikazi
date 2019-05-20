@@ -96,10 +96,16 @@ class TicketTransaction extends \yii\db\ActiveRecord
         return [
             [['ref_no', 'begin_time', 'end_time', 'region', 'district', 'municipal', 'street', 'work_area', 'receipt_no', 'amount', 'car_no', 'user', 'status', 'create_at'], 'required'],
             [['begin_time', 'end_time', 'create_at'], 'safe'],
+<<<<<<< HEAD
             [['user','status'], 'integer'],
             [['ref_no','receipt_no'], 'unique'],
             [['amount'], 'number'],
             [['ref_no', 'car_no', 'created_by','receipt_no','region', 'district', 'municipal', 'street', 'work_area'], 'string', 'max' => 200],
+=======
+            [['region', 'district', 'municipal', 'street', 'work_area', 'user'], 'integer'],
+            [['amount'], 'number'],
+            [['ref_no', 'car_no', 'status','receipt_no', 'created_by'], 'string', 'max' => 200],
+>>>>>>> 6a5cbd0b079b389d446d4f3ae2cf5de6ae7b2fc2
             [['district'], 'exist', 'skipOnError' => true, 'targetClass' => District::className(), 'targetAttribute' => ['district' => 'id']],
             [['municipal'], 'exist', 'skipOnError' => true, 'targetClass' => Municipal::className(), 'targetAttribute' => ['municipal' => 'id']],
             [['region'], 'exist', 'skipOnError' => true, 'targetClass' => Region::className(), 'targetAttribute' => ['region' => 'id']],

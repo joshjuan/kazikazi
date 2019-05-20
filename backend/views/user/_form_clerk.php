@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6a5cbd0b079b389d446d4f3ae2cf5de6ae7b2fc2
 <?php
 
 use kartik\select2\Select2;

@@ -83,20 +83,26 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
         ],
         [
             'attribute' => 'region',
+            'value'=>'region0.name',
         ],
         [
             'attribute' => 'district',
+            'value'=>'district0.name',
         ],
         [
             'attribute' => 'municipal',
+            'value'=>'municipal0.name',
         ],
 
         [
             'attribute' => 'street',
+            'value'=>'street0.name',
+
         ],
 
         [
             'attribute' => 'work_area',
+            'value'=>'workArea.name',
         ],
         [
             'attribute' => 'receipt_no',
