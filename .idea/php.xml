@@ -107,6 +107,7 @@
       <path value="$PROJECT_DIR$/vendor/nick-denry/yii2-filter-action-column" />
       <path value="$PROJECT_DIR$/vendor/miloschuman/yii2-highcharts-widget" />
       <path value="$PROJECT_DIR$/vendor/bsadnu/yii2-googlecharts" />
+      <path value="$PROJECT_DIR$/vendor/sjaakp/yii2-gcharts" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.4.0" />

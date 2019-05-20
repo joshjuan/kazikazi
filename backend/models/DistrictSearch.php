@@ -41,7 +41,7 @@ class DistrictSearch extends District
     public function search($params)
     {
         $query = District::find();
-        $query->where(['region'=>\Yii::$app->user->identity->region]);
+      //  $query->where(['region'=>\Yii::$app->user->identity->region]);
 
         // add conditions that should always apply here
 

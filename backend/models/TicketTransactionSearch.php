@@ -190,4 +190,21 @@ class TicketTransactionSearch extends TicketTransaction
 
         return $dataProvider;
     }
+
+
+    public function Chart()
+    {
+        $query = TicketTransaction::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $pagination = false;
+        $current_day = date("Y-m-d");
+        $query->select(['municipal, sum(amount) as  amount'])->where(['date(create_at)' => $current_day])->groupBy(['municipal'])->all();
+
+        return $dataProvider;
+
+    }
 }

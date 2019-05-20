@@ -100,134 +100,47 @@ $this->title = '';
     </div>
 </div>
 
-<div class="row" style="padding-top: 30px" />
-
-    <div class="col-md-6">
-        <div class="box box-solid bg-light-blue-gradient ">
-            <div class="box-header ui-sortable-handle" style="cursor: move;">
-                <i class="fa fa-th"></i>
-
-                <h3 class="box-title">PARKING MIS -  </h3>
-
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="box-body border-radius-none">
-                <?php
-
-                 $val1 =\backend\models\TicketTransaction::getTodayTotalMaghalibiliA() ;
-                $val2= \backend\models\TicketTransaction::getTodayTotalMaghalibiliB() ;
-
-
-                echo PieChart::widget([
-                    'id' => 'my-pie-chart-id',
-                    'data' => [
-                        ['Major', 'MAGHALIBI A'],
-                        ['Income Sources', 13],
-                        ['All Expenses', 14],
-
-                    ],
-
-                ]) ?>
-            </div>
-            <!-- /.box-body -->
-
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="box box-solid bg-light-blue-gradient">
-            <div class="box-header ui-sortable-handle" style="cursor: move;">
-                <i class="fa fa-th"></i>
-
-                <h3 class="box-title">PARKING MIS - </h3>
-
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="box-body border-radius-none">
-                <?php
-
-                $val1 =\backend\models\TicketTransaction::getTodayTotalMaghalibiliA() ;
-                $val2= \backend\models\TicketTransaction::getTodayTotalMaghalibiliB() ;
-
-
-                echo PieChart::widget([
-                    'id' => 'my-pie-chart-id',
-                    'data' => [
-                        ['Major', 'Degrees'],
-                        ['MAGHALIBI A', 19],
-                        ['MAGHALIBI B', 29],
-
-
-                    ],
-
-
-                ]) ?>
-            </div>
-            <!-- /.box-body -->
-
-        </div>
-    </div>
-</div>
 <div class="row">
     <div class="col-md-12">
-        <div class="box box-solid bg-light-blue-gradient">
-            <div class="box-header ui-sortable-handle" style="cursor: move;">
-                <i class="fa fa-th"></i>
-
-                <h3 class="box-title">PARKING MIS - Total work area per zone </h3>
-
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title"><i
+                            class="fa fa-bar-chart"></i> <?php echo Yii::t('app', 'Chati ya Masaa 24 kwa tarehe ');
+                    echo date('d Y'); ?>
+                </h3>
+                <div class="box-tools">
+                    <button class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
                 </div>
+
             </div>
-            <div class="box-body border-radius-none">
+            <div class="box-body">
                 <?php
+                $searchModel1 = new \backend\models\TicketTransactionSearch();
+                $dataProvider1 = $searchModel1->Chart();
+                ?>
+                <?=
+                \sjaakp\gcharts\ColumnChart::widget([
+                    'height' => '400px',
+                    'dataProvider' => $dataProvider1,
+                    'columns' => [
 
-                $val1 =\backend\models\TicketTransaction::getTodayTotalMaghalibiliA() ;
-                $val2= \backend\models\TicketTransaction::getTodayTotalMaghalibiliB() ;
+                        [
+                            'attribute' => 'municipal',
+                            'value' => function ($model) {
+                                if ($model->municipal0->name != null) {
+                                    return $model->municipal0->name;
+                                } else {
+                                    return '';
+                                }
+                            },
 
-
-                echo Highcharts::widget([
-                    'options' => [
-                        'title' => '',
-                        'xAxis' => [
-                            'categories' => ['']
+                            'type' => 'string',
                         ],
-                        'yAxis' => [
-                            'title' => ['text' => '']
-                        ],
-                        'credits' => [
-                            'enabled' => false
-                        ],
-                        'chart' => [
-                            'type' => 'column',
-                            'margin' => 80,
-                            'options3d' => [
-                                'enabled' => true,
-                                'alpha' => 0,
-                                'beta' => 0,
-                                'depth' => 100
-                            ],
+                        'amount',
+                    ],
 
-                        ],
-                        'series' => [
-                            ['name' => 'MAGHALIBI A',
-                                'data' => [48]
-                            ],
-                            ['name' => 'MAGHALIBI B',
-                                'data' => [98]
-                            ],
-
-
-                        ]
-                    ]
-                ]);
+                ])
                 ?>
             </div>
             <!-- /.box-body -->
