@@ -106,15 +106,9 @@ class Region extends \yii\db\ActiveRecord
 
     public static function getRegion()
     {
-        if (Yii::$app->user->can('super_admin')){
-            return ArrayHelper::map(Region::find()->all(),'id','name');
-        }
-        else{
-            return ArrayHelper::map(Region::find()->where(['id'=>Yii::$app->user->identity->region])->all(),'id','name');
-        }
 
+        return ArrayHelper::map(Region::find()->all(), 'id', 'name');
     }
-
 
 
 }

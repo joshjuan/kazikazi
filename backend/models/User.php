@@ -83,6 +83,11 @@ class User extends \common\models\User
         return ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'description');
     }
 
+    public static function getClerk()
+    {
+        return ArrayHelper::map(User::find()->where(['user_type'=> User::CLERK])->all(),'id','username');
+    }
+
     public function getRoleLabel()
     {
 

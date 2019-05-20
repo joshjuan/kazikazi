@@ -124,4 +124,27 @@ class TicketTransactionController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
+    public function actionDateRange()
+    {
+        $searchModel = new TicketTransactionSearch();
+        $dataProvider = $searchModel->searchDateRange(Yii::$app->request->queryParams);
+
+        return $this->render('date_range', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionClerkReport()
+    {
+        $searchModel = new TicketTransactionSearch();
+        $dataProvider = $searchModel->searchClerk(Yii::$app->request->queryParams);
+
+        return $this->render('clerks_report', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 }

@@ -14,7 +14,7 @@ $this->title = '';
 $this->params['breadcrumbs'][] = 'Ticket Transactions';
 ?>
 <div class="received-cash-index" style="padding-top: 10px">
-    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search_date_range', ['model' => $searchModel]); ?>
 
     <?php
     $pdfHeader = [
@@ -58,45 +58,39 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
         ['class' => 'kartik\grid\SerialColumn'],
 
         [
-            'attribute' => 'receipt_no',
-        ],
-        [
-            'attribute' => 'begin_time',
-        ],
-        [
-            'attribute' => 'end_time',
-        ],
-        [
             'attribute' => 'region',
             'value'=>'region0.name',
+            'group'=>true,
         ],
         [
             'attribute' => 'district',
             'value'=>'district0.name',
+            'group'=>true,
         ],
         [
             'attribute' => 'municipal',
             'value'=>'municipal0.name',
+            'group'=>true,
         ],
 
         [
             'attribute' => 'street',
             'value'=>'street0.name',
+            'group'=>true,
 
         ],
 
         [
             'attribute' => 'work_area',
             'value'=>'workArea.name',
+            'group'=>true,
         ],
-        [
+/*        [
             'attribute' => 'user',
             'value'=>'user0.username',
             'label'=>'Clerk',
-        ],
-
-     //   'status',
-        'create_at',
+           // 'group'=>true,
+        ],*/
         [
             'attribute' => 'amount',
             'format' => ['decimal', 2],
@@ -136,7 +130,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
             ],
             'panel' => [
                 'type' => GridView::TYPE_INFO,
-                'heading' => '<strong class="lead"  style="color: #01214d;font-family: Tahoma"> <i class="fa fa-check-square text-green"></i> LIST OF TICKET PRINTED TRANSACTIONS </strong>',
+                'heading' => '<strong class="lead"  style="color: #01214d;font-family: Tahoma"> <i class="fa fa-check-square text-green"></i> CUSTOM REPORT </strong>',
                 // 'before' => '<span class="text text-red"> *Eligible*</span>'
             ],
             'persistResize' => false,

@@ -20,12 +20,12 @@ class Reference
         $model = TicketTransaction::find()->all();
 
         if ($model != null) {
-                $reference =date('Ymd').'TMG'.sprintf("%08d", count($model) + 1);
+                $reference =date('Ymd').'SMZ'.sprintf("%06d", count($model) + 1);
             return $reference;
         }
         else {
 
-            $reference =date('Ymd').'TMG'.'000000001';
+            $reference =date('Ymd').'SMZ'.'0000001';
             return $reference;
 
         }

@@ -115,6 +115,6 @@ class Street extends \yii\db\ActiveRecord
 
     public static function getStreet()
     {
-        return ArrayHelper::map(Street::find()->where(['municipal'=>Yii::$app->user->identity->municipal])->all(),'id','name');
+        return ArrayHelper::map(Street::find()->all(),'id','name');
     }
 }

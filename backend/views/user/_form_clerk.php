@@ -94,7 +94,15 @@ use kartik\form\ActiveForm;
 
                         <div class="col-sm-3">
 
-                            <?= $form->field($model, 'work_area')->passwordInput(['maxlength' => true]) ?>
+                            <?= $form->field($model, 'work_area')->widget(Select2::classname(), [
+                                'data' => \backend\models\WorkArea::getWorkArea(),
+                                'options' => ['placeholder' => 'Choose work area'],
+                                'pluginOptions' => [
+                                    'allowClear' => true,
+
+                                ],
+                            ]);
+                            ?>
                         </div>
                         <div class="col-sm-3">
                             <?= $form->field($model, 'mobile')->textInput(['maxlength' => true]) ?>

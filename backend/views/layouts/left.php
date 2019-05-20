@@ -63,19 +63,13 @@ use dmstr\widgets\Menu;
                                 'url' => ['#'],
                                 'icon' => 'clock-o text-green',
                                 'items' => [
-                                    ['label' => 'Shehia reports',  'icon' => 'file-o text-green', 'url' => ['/report/shehia'],],
-                                    ['label' => 'Region Report',  'icon' => 'file-o text-green', 'url' => ['/report/region'],],
-                                   // ['label' => 'Wazee waliofariki kiwilaya',  'icon' => 'file-o', 'url' => ['/report/new-dead'],],
+                                    ['label' => 'Clerks Report',  'icon' => 'file-o text-green', 'url' => ['/ticket-transaction/clerk-report'],],
+                                    ['label' => 'Date Range Report',  'icon' => 'file-o text-green', 'url' => ['/ticket-transaction/date-range'],],
                                 ],
 
                             ],
                             [
                                 'label' => Yii::t('app', 'Graph Report'),
-                                'url' => ['index'],
-                                'icon' => 'folder-open-o text-green',
-                            ],
-                            [
-                                'label' => Yii::t('app', 'General Report'),
                                 'url' => ['/'],
                                 'icon' => 'folder-open-o text-green',
                             ],
@@ -307,11 +301,11 @@ use dmstr\widgets\Menu;
                         'visible' => (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')),
                         'icon' => 'cogs text-orange',
                         'items' => [
-                            ['label' => 'Users', 'icon' => 'user text-orange', 'url' => ['/user'],],
+                            ['label' => 'All Users', 'icon' => 'user text-orange', 'url' => ['/user'],],
 
                             [
                                 'visible' => (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')),
-                                'label' => Yii::t('app', 'Permissions'),
+                                'label' => Yii::t('app', 'Permissions List'),
                                 'url' => ['/auth-item/index'],
                                 'icon' => 'fa fa-lock text-orange',
                             ],
@@ -323,7 +317,7 @@ use dmstr\widgets\Menu;
                             ],
                             [
                                 'visible' => (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')),
-                                'label' => Yii::t('app', 'Manage User Roles'),
+                                'label' => Yii::t('app', 'User Roles List'),
                                 'url' => ['/role/index'],
                                 'icon' => 'fa fa-lock text-orange',
                             ],
@@ -338,7 +332,6 @@ use dmstr\widgets\Menu;
                 ],
             ]
         ) ?>
-
     </section>
 
 </aside>
