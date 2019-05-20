@@ -63,7 +63,7 @@ use dmstr\widgets\Menu;
                                 'url' => ['#'],
                                 'icon' => 'clock-o text-green',
                                 'items' => [
-                                    ['label' => 'Shehia reports',  'icon' => 'file-o text-green', 'url' => ['/report/shehia'],],
+                                    ['label' => 'Shehia reports',  'icon' => 'file-o text-green', 'url' => ['/'],],
                                     ['label' => 'Region Report',  'icon' => 'file-o text-green', 'url' => ['/report/region'],],
                                    // ['label' => 'Wazee waliofariki kiwilaya',  'icon' => 'file-o', 'url' => ['/report/new-dead'],],
                                 ],
