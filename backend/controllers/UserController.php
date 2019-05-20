@@ -235,7 +235,7 @@ class UserController extends Controller
                 if ($model->load(Yii::$app->request->post())) {
                     $amount = WorkAreaSearch::find()->select('amount')->where(['id' => $model->work_area])->one();;
                     $model->amount=intval($amount['amount']);
-                    Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
+                    Audit::setActivity('New data clerk successfully created ', 'Clerk ', 'Index', '', '');
                     $model->save();
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
@@ -442,51 +442,6 @@ class UserController extends Controller
 
     }
 
-<<<<<<< HEAD
-=======
-    public function actionClerkCreate1()
-    {
-
-        if (!Yii::$app->user->isGuest) {
-
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
-                $model = new User();
-
-                //  $model->scenario = 'createUser';
-
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-                    Audit::setActivity('New system clerk user successfully created ', 'User ', 'Index', '', '');
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-            }
-            else
-            {
-                Yii::$app->session->setFlash('', [
-                    'type' => 'warning',
-                    'duration' => 3500,
-                    'icon' => 'fa fa-warning',
-                    'message' => 'You do not have permission',
-                    'positonY' => 'top',
-                    'positonX' => 'right'
-                ]);
-
-                return $this->redirect(['site/index']);
-            }
-
-
-        return $this->render('create-clerk', [
-            'model' => $model,
-        ]);
-
-        }
-        else{
-            $model = new LoginForm();
-            return $this->redirect(['site/login',
-                'model' => $model,
-            ]);
-        }
->>>>>>> 6a5cbd0b079b389d446d4f3ae2cf5de6ae7b2fc2
 
 
     /**
