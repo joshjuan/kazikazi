@@ -25,15 +25,15 @@ $this->params['breadcrumbs'][] = 'Users';
 
         </div>
         <div class="col-md-2">
-
+            <?php if (Yii::$app->user->can('super_admin')) { ?>
                 <?= Html::a(Yii::t('app', '<i class="fa fa-user"></i> New User'), ['create'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
                 <?= Html::a(Yii::t('app', '<i class="fa fa-th-list"></i> User List'), ['index'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
-
+            <?php } ?>
         </div>
     </div>
     <hr/>
 
-    <?= GridView::widget([
+    <?= \fedemotta\datatables\DataTables::widget([
         'dataProvider' => $dataProvider,
         //  'filterModel' => $searchModel,
         'columns' => [
@@ -63,6 +63,7 @@ $this->params['breadcrumbs'][] = 'Users';
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Actions',
+                'visible'=>Yii::$app->user->can('super_admin'),
                 'template' => '{view}',
                 'buttons' => [
                     'view' => function ($url, $model) {

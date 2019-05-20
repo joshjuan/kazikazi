@@ -317,7 +317,7 @@ use dmstr\widgets\Menu;
                             ],
                             [
                                 'label' => 'Super Roles',
-                                'visible' => Yii::$app->user->can('super_admin'),
+                                'visible' => Yii::$app->user->can('super_admin1'),
                                 'icon' => 'lock text-orange',
                                 'url' => ['/auth-item-child'],
                             ],

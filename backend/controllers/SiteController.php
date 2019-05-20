@@ -1,4 +1,5 @@
 <?php
+
 namespace backend\controllers;
 
 use backend\models\Audit;
@@ -63,24 +64,24 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-       if(Yii::$app->user->can('super_admin')){
 
-           return $this->render('index');
+        if (Yii::$app->user->can('super_admin')) {
 
-       }elseif (Yii::$app->user->can('admin')){
+            return $this->render('index');
 
-           return $this->render('indexAdministrator');
+        } elseif (Yii::$app->user->can('admin')) {
 
-       }
-       elseif (Yii::$app->user->can('manager')){
+            return $this->render('indexAdministrator');
 
-           return $this->render('indexManager');
+        } elseif (Yii::$app->user->can('manager')) {
 
-       }elseif (Yii::$app->user->can('clerk')){
+            return $this->render('indexManager');
 
-           return $this->render('indexClerk');
+        } elseif (Yii::$app->user->can('clerk')) {
 
-       }
+            return $this->render('indexClerk');
+
+        }
     }
 
     /**
@@ -93,32 +94,52 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
 
             return $this->goHome();
-        }
-
-        $model = new LoginForm();
-
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-
-            Audit::setActivity('New Login at '.date('Y-m-d H:i:s'),'ULG','Login','','');
-            Yii::$app->session->setFlash('', [
-                'type' => 'success',
-                'duration' => 6000,
-                'icon' => 'fa fa-check',
-                'title'=>'Notification',
-                'message' =>Yii::$app->user->identity->name. ', Last Login at: '. Yii::$app->user->identity->last_login,
-                'positonY' => 'top',
-                'positonX' => 'center'
-            ]);
-            User::updateAll(['last_login' => date('Y-m-d H:i:s'),],['username' => Yii::$app->user->identity->username]);
-            return $this->goBack();
         } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
+
+            $model = new LoginForm();
+
+            if ($model->load(Yii::$app->request->post()) && $model->login()) {
+
+                if(Yii::$app->user->identity->role=='super_admin'){
+
+                    Audit::setActivity('New Login at ' . date('Y-m-d H:i:s'), 'ULG', 'Login', '', '');
+
+                    Yii::$app->session->setFlash('', [
+                        'type' => 'success',
+                        'duration' => 6000,
+                        'icon' => 'fa fa-check',
+                        'title' => 'Notification',
+                        'message' => Yii::$app->user->identity->name . ', Last Login at: ' . Yii::$app->user->identity->last_login,
+                        'positonY' => 'top',
+                        'positonX' => 'center'
+                    ]);
+
+                    User::updateAll(['last_login' => date('Y-m-d H:i:s'),], ['username' => Yii::$app->user->identity->username]);
+                    return $this->goBack();
+                }else{
+                    Yii::$app->session->setFlash('', [
+                        'type' => 'warning',
+                        'duration' => 3500,
+                        'icon' => 'fa fa-warning',
+                        'title' => 'Notification',
+                        'message' => 'You do not have permission',
+                        'positonY' => 'top',
+                        'positonX' => 'right'
+                    ]);
+                    return $this->render('login', [
+                        'model' => $model,
+                    ]);
+                }
+
+            } else {
+
+                return $this->render('login', [
+                    'model' => $model,
+                ]);
+            }
         }
+
     }
-
-
 
 
     /**
@@ -129,7 +150,7 @@ class SiteController extends Controller
     public function actionLogout()
     {
         //User::updateAll(['username' => Yii::$app->user->identity->username]);
-        Audit::setActivity(Yii::$app->user->identity->username. ' Logout at ' .date('Y-m-d H:i:s'),'ULG','Logout','','');
+        Audit::setActivity(Yii::$app->user->identity->username . ' Logout at ' . date('Y-m-d H:i:s'), 'ULG', 'Logout', '', '');
         Yii::$app->user->logout();
         return $this->goHome();
     }

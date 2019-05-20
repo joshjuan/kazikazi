@@ -168,7 +168,7 @@ class UserController extends Controller
                 $dataProvider = $searchModel->searchClerk(Yii::$app->request->queryParams);
 
                 Audit::setActivity('Ameangalia orodha ya watumiaji wa mfumo ', 'User ', 'Index', '', '');
-                return $this->render('admin', [
+                return $this->render('clerk', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
                 ]);
@@ -220,60 +220,7 @@ class UserController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionClerkCreate()
-    {
 
-        if (!Yii::$app->user->isGuest) {
-
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
-                $model = new User();
-
-                //  $model->scenario = 'createUser';
-                $model->user_type=User::CLERK;
-
-
-                if ($model->load(Yii::$app->request->post())) {
-                    $amount = WorkAreaSearch::find()->select('amount')->where(['id' => $model->work_area])->one();;
-
-                //    print_r($amount['amount']);
-                  //  exit;
-                   $model->amount=$amount['amount'];
-                   // $model->getErrors();
-                   // exit;
-
-                    Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
-                    $model->save();
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-            }
-            else
-            {
-                Yii::$app->session->setFlash('', [
-                    'type' => 'warning',
-                    'duration' => 3500,
-                    'icon' => 'fa fa-warning',
-                    'message' => 'You do not have permission',
-                    'positonY' => 'top',
-                    'positonX' => 'right'
-                ]);
-
-                return $this->redirect(['site/index']);
-            }
-
-
-        return $this->render('create-clerk', [
-            'model' => $model,
-        ]);
-
-        }
-        else{
-            $model = new LoginForm();
-            return $this->redirect(['site/login',
-                'model' => $model,
-            ]);
-        }
-
-    }
     public function actionSupervisorCreate()
     {
 
@@ -282,9 +229,10 @@ class UserController extends Controller
             if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
                 $model = new User();
 
-                //  $model->scenario = 'createUser';
+                 $model->user_type = 3;
 
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
 
                     Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
                     return $this->redirect(['view', 'id' => $model->id]);
@@ -339,6 +287,8 @@ class UserController extends Controller
             }
 
     }
+
+
     public function actionDistrictList($id){
 
             $count = Municipal::find()
@@ -359,6 +309,52 @@ class UserController extends Controller
             }
 
     }
+
+    public function actionCreate()
+    {
+
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+                $model = new User();
+
+                //  $model->scenario = 'createUser';
+                    $model->user_type=User::ADMIN;
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                    Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+            else
+            {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['index']);
+            }
+
+
+        return $this->render('create-admin', [
+            'model' => $model,
+        ]);
+
+        }
+        else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
+    }
+
     public function actionAdminCreate()
     {
 
@@ -403,6 +399,7 @@ class UserController extends Controller
         }
 
     }
+
     public function actionManagerCreate()
     {
 
@@ -411,7 +408,7 @@ class UserController extends Controller
             if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
                 $model = new User();
 
-                //  $model->scenario = 'createUser';
+                $model->user_type = 2;
 
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -448,7 +445,7 @@ class UserController extends Controller
 
     }
 
-    public function actionClerkCreate1()
+    public function actionClerkCreate()
     {
 
         if (!Yii::$app->user->isGuest) {
@@ -457,11 +454,25 @@ class UserController extends Controller
                 $model = new User();
 
                 //  $model->scenario = 'createUser';
+                $model->user_type=User::CLERK;
 
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-                    Audit::setActivity('New system clerk user successfully created ', 'User ', 'Index', '', '');
-                    return $this->redirect(['view', 'id' => $model->id]);
+                if ($model->load(Yii::$app->request->post())) {
+                    $amount = WorkAreaSearch::find()->select('amount')->where(['id' => $model->work_area])->one();;
+
+                    //    print_r($amount['amount']);
+                    //  exit;
+                    $model->amount=$amount['amount'];
+                    // $model->getErrors();
+                    // exit;
+
+                    Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
+                    $model->save();
+
+                  //  print_r($model->id);
+                    //exit();
+                    //return $this->redirect(['view', 'id' => $model->id,]);
+                    return $this->redirect(['clerk']);
                 }
             }
             else
@@ -479,9 +490,9 @@ class UserController extends Controller
             }
 
 
-        return $this->render('create-clerk', [
-            'model' => $model,
-        ]);
+            return $this->render('create-clerk', [
+                'model' => $model,
+            ]);
 
         }
         else{
@@ -493,6 +504,8 @@ class UserController extends Controller
 
     }
 
+
+
     /**
      * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -503,7 +516,7 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->scenario="admin-update";
+      //  $model->scenario="admin-update";
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -538,6 +551,15 @@ class UserController extends Controller
     protected function findModel($id)
     {
         if (($model = User::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function findModelClerk($id,$user_type)
+    {
+        if (($model = User::findOne($id)) !== null ) {
             return $model;
         }
 

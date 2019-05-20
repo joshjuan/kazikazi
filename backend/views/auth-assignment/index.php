@@ -45,10 +45,42 @@ $this->params['breadcrumbs'][] = 'Auth Assignments';
                             // 'created_at',
 
 
-                            ['class' => 'yii\grid\ActionColumn',
+                            [
+                                'class' => 'yii\grid\ActionColumn',
+                                'header' => 'Actions',
                                 'visible' => yii::$app->user->can('removeRole') || yii::$app->user->can('super_admin') ,
-                                'header' => 'Actions'
+                                'template' => '{view} {delete}',
+                                'buttons' => [
+                                    'view' => function ($url, $model) {
+                                        $url = ['update', 'item_name' => $model->item_name, 'user_id' => $model->user_id];
+                                        return Html::a('<span class="fa fa-arrow-right"></span>', $url, [
+                                            'title' => 'Update',
+                                            'data-toggle' => 'tooltip', 'data-original-title' => 'Save',
+                                            'class' => 'btn btn-primary',
+
+                                        ]);
+
+
+                                    },
+                                    'delete' => function ($url, $model) {
+                                        $url = ['delete', 'item_name' => $model->item_name, 'user_id' => $model->user_id];
+                                        return Html::a('<span class="fa fa-trash"></span>', $url, [
+                                            'title' => 'Delete',
+                                            'class' => 'btn btn-danger',
+                                            'data' => [
+                                                'confirm' => 'Are you sure you want to delete this item?',
+                                                'method' => 'post',
+                                            ]
+
+                                        ]);
+
+
+                                    },
+
+
+                                ]
                             ],
+
                         ],
                     ]); ?>
                     </div>
