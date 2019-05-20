@@ -57,7 +57,10 @@ $this->title = '';
 
                     <div class="info-box-content">
                         <span class="info-box-text">MAGHARIBI A TOTAL</span>
-                        <span class="info-box-number">92,050</span>
+                        <span class="info-box-number">
+
+                           <?= \backend\models\TicketTransaction::getTodayMagharibiATotal() ?>
+                        </span>
 
                         <div class="progress">
                             <div class="progress-bar" style="width: 20%"></div>
@@ -76,7 +79,9 @@ $this->title = '';
 
                     <div class="info-box-content">
                         <span class="info-box-text">MAGHARIBI B TOTAL</span>
-                        <span class="info-box-number">114,381</span>
+                        <span class="info-box-number">
+                            <?= \backend\models\TicketTransaction::getTodayMagharibiBTotal() ?>
+                        </span>
 
                         <div class="progress">
                             <div class="progress-bar" style="width: 70%"></div>

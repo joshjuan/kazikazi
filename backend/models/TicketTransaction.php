@@ -55,23 +55,57 @@ class TicketTransaction extends \yii\db\ActiveRecord
         }
     }
 
+    public static function getTodayMagharibiATotal()
+    {
+        $date=date('Y-m-d');
+        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['status'=>0])->andWhere(['region'=>1])->sum('amount');
+        if ($applications > 0) {
+            $amount_paid_today = number_format($applications, 2, '.', ',');
+            return $amount_paid_today;
+        } else {
+            $applications=0;
+            $amount_paid_today = number_format($applications, 2, '.', ',');
+            return $amount_paid_today;
+        }
+    }
+
+    public static function getTodayMagharibiBTotal()
+    {
+        $date=date('Y-m-d');
+        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['status'=>0])->andWhere(['region'=>2])->sum('amount');
+        if ($applications > 0) {
+            $amount_paid_today = number_format($applications, 2, '.', ',');
+            return $amount_paid_today;
+        } else {
+            $applications=0;
+            $amount_paid_today = number_format($applications, 2, '.', ',');
+            return $amount_paid_today;
+        }
+    }
+
+
+    public static function getSum($id)
+    {
+        return TicketTransaction::find()->sum('amount');
+    }
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['ref_no', 'begin_time', 'end_time', 'region', 'district', 'municipal', 'street', 'work_area', 'receipt_no', 'amount', 'car_no', 'user', 'status', 'create_at', 'created_by'], 'required'],
+            [['ref_no', 'begin_time', 'end_time', 'region', 'district', 'municipal', 'street', 'work_area', 'receipt_no', 'amount', 'car_no', 'user', 'status', 'create_at'], 'required'],
             [['begin_time', 'end_time', 'create_at'], 'safe'],
-            [['region', 'district', 'municipal', 'street', 'work_area', 'receipt_no', 'user'], 'integer'],
+            [['user','status'], 'integer'],
+            [['ref_no','receipt_no'], 'unique'],
             [['amount'], 'number'],
-            [['ref_no', 'car_no', 'status', 'created_by'], 'string', 'max' => 200],
+            [['ref_no', 'car_no', 'created_by','receipt_no','region', 'district', 'municipal', 'street', 'work_area'], 'string', 'max' => 200],
             [['district'], 'exist', 'skipOnError' => true, 'targetClass' => District::className(), 'targetAttribute' => ['district' => 'id']],
             [['municipal'], 'exist', 'skipOnError' => true, 'targetClass' => Municipal::className(), 'targetAttribute' => ['municipal' => 'id']],
             [['region'], 'exist', 'skipOnError' => true, 'targetClass' => Region::className(), 'targetAttribute' => ['region' => 'id']],
             [['street'], 'exist', 'skipOnError' => true, 'targetClass' => Street::className(), 'targetAttribute' => ['street' => 'id']],
             [['user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user' => 'id']],
-            [['work_area'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['work_area' => 'id']],
+            [['work_area'], 'exist', 'skipOnError' => true, 'targetClass' => WorkArea::className(), 'targetAttribute' => ['work_area' => 'id']],
         ];
     }
 
@@ -146,10 +180,5 @@ class TicketTransaction extends \yii\db\ActiveRecord
     public function getWorkArea()
     {
         return $this->hasOne(User::className(), ['id' => 'work_area']);
-    }
-
-    public static function getSum($id)
-    {
-        return TicketTransaction::find()->sum('amount');
     }
 }

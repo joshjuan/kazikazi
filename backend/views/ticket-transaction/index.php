@@ -19,24 +19,24 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
     <?php
     $pdfHeader = [
         'L' => [
-            'content' => 'ZUPS REPOTI',
+            'content' => 'TICKET PRINTED',
         ],
         'C' => [
-            'content' => 'MALIPO YA WAZEE KIWILAYA KWA MWEZI WA ' . date('m'),
+            'content' => 'ALL TICKET PRINTED TRANSACTIONS ',
             'font-size' => 10,
             'font-style' => 'B',
             'font-family' => 'arial',
             'color' => '#333333'
         ],
         'R' => [
-            'content' => 'Imepakuliwa:' . date('Y-m-d H:i:s'),
+            'content' => 'receipts:' . date('Y-m-d H:i:s'),
         ],
         'line' => true,
     ];
 
     $pdfFooter = [
         'L' => [
-            'content' => '&copy; ZUPS',
+            'content' => '&copy; PARKING',
             'font-size' => 10,
             'color' => '#333333',
             'font-family' => 'arial',
@@ -56,9 +56,6 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
     <?php
     $gridColumns = [
         ['class' => 'kartik\grid\SerialColumn'],
-        [
-            'attribute' => 'ref_no',
-        ],
         [
             'attribute' => 'user',
             /*            'vAlign' => 'middle',
@@ -160,7 +157,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
                     'showPageSummary' => true,
                     'showFooter' => true,
                     'showCaption' => true,
-                    'filename' => Yii::t('kvgrid', 'Zups - Repoti ya wazee'),
+                    'filename' => Yii::t('kvgrid', 'RECEIPT TRANSACTIONS'),
                     'alertMsg' => Yii::t('kvgrid', 'The PDF export file will be generated for download.'),
                     'options' => ['title' => Yii::t('kvgrid', 'Portable Document Format')],
                     'mime' => 'application/pdf',
@@ -201,8 +198,8 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
                 ],
                 GridView::CSV => [
                     'label' => 'CSV',
-                    'filename' => 'ZUPS - RIPOTI YA WAZEE',
-                    'options' => ['title' => 'Repoti ya wazee'],
+                    'filename' => Yii::t('kvgrid', 'RECEIPT TRANSACTIONS'),
+                    'options' => ['title' => 'Receipts'],
                 ],
             ],
         ],

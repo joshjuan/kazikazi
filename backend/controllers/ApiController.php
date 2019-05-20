@@ -86,8 +86,8 @@ class ApiController extends \yii\rest\ActiveController
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $sale = new TicketTransaction();
         $sale->attributes = \yii::$app->request->post();
-        $sale->create_at = date('Y-m-d');
-        $sale->created_by = Yii::$app->user->identity->username;
+      //  $sale->create_at = date('Y-m-d');
+       // $sale->created_by = Yii::$app->user->identity->username;
         $sale->status=0;
         $sale->receipt_no = Reference::findLast();
 
@@ -96,7 +96,6 @@ class ApiController extends \yii\rest\ActiveController
             return array('receipt' => [
                 'reference_no' => $sale->ref_no,
                 'receipt_number' => $sale->receipt_no,
-                'clerk' => $sale->receipt_no,
                 'status' => '200'
             ]);
         } else {

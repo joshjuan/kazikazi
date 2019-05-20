@@ -234,13 +234,7 @@ class UserController extends Controller
 
                 if ($model->load(Yii::$app->request->post())) {
                     $amount = WorkAreaSearch::find()->select('amount')->where(['id' => $model->work_area])->one();;
-
-                //    print_r($amount['amount']);
-                  //  exit;
-                   $model->amount=$amount['amount'];
-                   // $model->getErrors();
-                   // exit;
-
+                    $model->amount=intval($amount['amount']);
                     Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
                     $model->save();
                     return $this->redirect(['view', 'id' => $model->id]);
@@ -448,50 +442,7 @@ class UserController extends Controller
 
     }
 
-    public function actionClerkCreate()
-    {
 
-        if (!Yii::$app->user->isGuest) {
-
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
-                $model = new User();
-
-                //  $model->scenario = 'createUser';
-
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-                    Audit::setActivity('New system clerk user successfully created ', 'User ', 'Index', '', '');
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-            }
-            else
-            {
-                Yii::$app->session->setFlash('', [
-                    'type' => 'warning',
-                    'duration' => 3500,
-                    'icon' => 'fa fa-warning',
-                    'message' => 'You do not have permission',
-                    'positonY' => 'top',
-                    'positonX' => 'right'
-                ]);
-
-                return $this->redirect(['site/index']);
-            }
-
-
-        return $this->render('create-clerk', [
-            'model' => $model,
-        ]);
-
-        }
-        else{
-            $model = new LoginForm();
-            return $this->redirect(['site/login',
-                'model' => $model,
-            ]);
-        }
-
-    }
 
     /**
      * Updates an existing User model.
