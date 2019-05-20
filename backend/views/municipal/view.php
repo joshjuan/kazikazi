@@ -18,8 +18,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             //'id',
             'name',
-            'region',
-            'district',
+
+
+            [
+                'attribute'=>'region',
+                'value'=>$model->region0->name,
+            ],
+            [
+                'attribute'=>'district',
+                'value'=>$model->district0->name,
+            ],
+
+
+
             'created_at',
             'created_by',
         ],

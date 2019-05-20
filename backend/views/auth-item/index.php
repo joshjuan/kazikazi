@@ -10,13 +10,16 @@ use yii\grid\GridView;
 $this->title = '';
 $this->params['breadcrumbs'][] = 'Permissions';
 ?>
+<div style="padding-top: 15px"/>
 <div class="auth-item-index">
 
     <h1><?php // Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Add Permission', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php if (Yii::$app->user->can('super_admin')) { ?>
+            <?= Html::a('Add Permission', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php } ?>
     </p>
 
     <?= \fedemotta\datatables\DataTables::widget([
@@ -33,7 +36,7 @@ $this->params['breadcrumbs'][] = 'Permissions';
             // 'created_at',
             // 'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn','header'=>'Actions'],
+            ['class' => 'yii\grid\ActionColumn', 'header' => 'Actions'],
         ],
     ]); ?>
 

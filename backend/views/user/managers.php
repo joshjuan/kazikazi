@@ -26,8 +26,8 @@ $this->params['breadcrumbs'][] = 'Users';
         </div>
         <div class="col-md-2">
 
-                <?= Html::a(Yii::t('app', '<i class="fa fa-user"></i> New User'), ['create'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
-                <?= Html::a(Yii::t('app', '<i class="fa fa-th-list"></i> User List'), ['index'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
+                <?= Html::a(Yii::t('app', '<i class="fa fa-user"></i> New Manager'), ['manager-create'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
+                <?= Html::a(Yii::t('app', '<i class="fa fa-th-list"></i> Manager List'), ['managers-list'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
 
         </div>
     </div>

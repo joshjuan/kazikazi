@@ -33,8 +33,8 @@ use yii\web\View;
                     echo 'Role: ';
                     echo Yii::$app->user->identity->username;
                     echo ' @ ';
-
-                    if (Yii::$app->user->identity->region != 0) {
+                    echo Yii::$app->user->identity->role;
+                   /* if (Yii::$app->user->identity->region != 0) {
 
                         echo \backend\models\User::getRegionNameByuserId(Yii::$app->user->identity->region);
 
@@ -49,7 +49,7 @@ use yii\web\View;
                             echo \backend\models\User::getMunicipalNameByuserId(Yii::$app->user->identity->municipal);
 
                         }
-                    }
+                    }*/
 
                 }
                 ?>

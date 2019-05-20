@@ -39,6 +39,7 @@ class AuthItem extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
+            [['name'], 'unique'],
             [['type', 'created_at', 'updated_at'], 'integer'],
             [['description', 'data'], 'string'],
             [['name', 'rule_name'], 'string', 'max' => 64]

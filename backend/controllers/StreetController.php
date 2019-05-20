@@ -68,7 +68,7 @@ class StreetController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewZone')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewStreet')) {
 
                 $model = $this->findModel($id);
 
@@ -112,7 +112,7 @@ class StreetController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createZone')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createStreet')) {
 
                 $model = new Street();
                 $model->created_at=date('y-m-d H:i:s');
@@ -162,7 +162,7 @@ class StreetController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('updateZone')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('updateStreet')) {
 
 
                 $model = $this->findModel($id);
@@ -221,7 +221,7 @@ class StreetController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('deleteZone')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('deleteStreet')) {
 
                 $model = $this->findModel($id);
 

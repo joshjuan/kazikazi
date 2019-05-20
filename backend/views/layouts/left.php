@@ -148,11 +148,11 @@ use dmstr\widgets\Menu;
                             ],
                             [
                                 'label' => 'Zones',
-                                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewZone'),
+                                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewStreet'),
                                 'icon' => 'sun-o text-orange',
                                 'items' => [
                                     [
-                                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('createZone'),
+                                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('createStreet'),
                                         'label' => Yii::t('app', 'Add New Street'),
                                         'url' => ['/street/create'],
                                         'icon' => 'plus text-orange',
@@ -194,7 +194,7 @@ use dmstr\widgets\Menu;
 
                     [
                         'label' => 'System Logs',
-                        'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                        'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager')||Yii::$app->user->can('supervisor'),
                         'icon' => 'sun-o text-orange',
                         'items' => [
 
@@ -215,18 +215,20 @@ use dmstr\widgets\Menu;
                     ],
                     [
                         'label' => 'System User',
-
+                        'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager')||Yii::$app->user->can('supervisor'),
                         'icon' => 'folder-open-o text-orange',
                         'url' => [''],
                         'items' => [
                             [
                                 'label' => 'Super Admins',
+                                 'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
                                 'icon' => 'user text-green',
                                 'url' => ['/user/super-admin'],
                             ],
 
                             [
                                 'label' => 'Admins',
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
                                 'icon' => 'user text-green',
                                 'url' => '',
                                 'items' => [
@@ -244,6 +246,7 @@ use dmstr\widgets\Menu;
                             ],
                             [
                                 'label' => 'Manager',
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
                                 'icon' => 'user text-green',
                                 'url' => '',
                                 'items' => [
@@ -261,6 +264,7 @@ use dmstr\widgets\Menu;
                             ],
                             [
                                 'label' => 'Supervisors',
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
                                 'icon' => 'user text-green',
                                 'url' => '',
                                 'items' => [
@@ -278,6 +282,7 @@ use dmstr\widgets\Menu;
                             ],
                             [
                                 'label' => 'Clerks',
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager')||Yii::$app->user->can('supervisor'),
                                 'icon' => 'users text-green',
                                 'url' => '',
                                 'items' => [

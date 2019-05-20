@@ -77,9 +77,11 @@ class UserSearch extends User
     public function searchAdmin($params)
     {
         $query = User::find();
+        $query2 = User::find();
 
         // add conditions that should always apply here
         $query->where(['user_type'=>User::ADMIN])->andWhere(['region'=>Yii::$app->user->identity->region]);
+
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -144,10 +146,11 @@ class UserSearch extends User
 
         return $dataProvider;
     }
+
     public function searchManager($params)
     {
         $query = User::find();
-        $query->where(['user_type'=>Yii::$app->user->identity->user_type]);
+        $query->where(['user_type'=>User::MANAGER])->andWhere(['region'=>Yii::$app->user->identity->region]);
 
         // add conditions that should always apply here
 
@@ -179,10 +182,11 @@ class UserSearch extends User
 
         return $dataProvider;
     }
+
     public function searchSupervisor($params)
     {
         $query = User::find();
-        $query->where(['user_type'=>Yii::$app->user->identity->user_type]);
+        $query->where(['user_type'=>Yii::$app->user->identity->user_type,'role'=>'supervisor']);
 
         // add conditions that should always apply here
 
@@ -218,7 +222,7 @@ class UserSearch extends User
     public function searchClerk($params)
     {
         $query = User::find();
-        $query->where(['user_type'=>Yii::$app->user->identity->user_type]);
+        $query->where(['user_type'=>User::CLERK])->andWhere(['region'=>Yii::$app->user->identity->region]);
 
         // add conditions that should always apply here
 
