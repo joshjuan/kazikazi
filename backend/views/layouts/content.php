@@ -39,6 +39,6 @@ use dmstr\widgets\Alert;
     <div class="pull-right hidden-xs">
         <b>Version</b> 2.0
     </div>
-    <strong><center>Copyright &copy; PARKING - MIS <?= date('Y') ?>   All rights </center></strong>
+    <strong><center ><p style="color: white">Copyright &copy; PARKING - MIS <?= date('Y') ?>   All rights </p></center></strong>
 </footer>
 

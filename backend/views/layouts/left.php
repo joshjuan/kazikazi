@@ -207,13 +207,13 @@ use dmstr\widgets\Menu;
                         'items' => [
 
                             [
-                                'visible' => yii::$app->user->can('auditSystem'),
+                                //'visible' => yii::$app->user->can('auditSystem'),
                                 'label' => Yii::t('app', 'Audit Trail'),
                                 'url' => ['/audit/index/'],
                                 'icon' => 'lock text-orange',
                             ],
                             [
-                                'visible' => yii::$app->user->can('auditSystem'),
+                               // 'visible' => yii::$app->user->can('auditSystem'),
                                 'label' => Yii::t('app', 'Mobile Logs'),
                                 'url' => ['/mobile-logs/index'],
                                 'icon' => 'lock text-orange',

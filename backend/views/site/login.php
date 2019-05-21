@@ -70,7 +70,7 @@ $fieldOptions2 = [
          <a href="register.html" class="text-center">Register a new membership</a>-->
 
     </div>
-    <center> <strong style="color: black; alignment: center"> Copyright &copy; PARKING - MIS <?= date('Y') ?>   </strong></center>
+    <center> <strong style="color: white; alignment: center"> Copyright &copy; PARKING - MIS <?= date('Y') ?>   </strong></center>
 
     <!-- /.login-box-body -->
 </div><!-- /.login-box -->
