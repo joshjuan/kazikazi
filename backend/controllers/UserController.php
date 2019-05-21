@@ -254,7 +254,7 @@ class UserController extends Controller
                     'positonX' => 'right'
                 ]);
 
-                return $this->redirect(['site/index']);
+                return $this->redirect(['clerk']);
             }
 
 

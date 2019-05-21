@@ -64,7 +64,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-
         if (Yii::$app->user->can('super_admin')) {
 
             return $this->render('index');
@@ -100,36 +99,21 @@ class SiteController extends Controller
 
             if ($model->load(Yii::$app->request->post()) && $model->login()) {
 
-                if(Yii::$app->user->identity->role=='super_admin'){
 
-                    Audit::setActivity('New Login at ' . date('Y-m-d H:i:s'), 'ULG', 'Login', '', '');
+                Audit::setActivity('New Login at ' . date('Y-m-d H:i:s'), 'ULG', 'Login', '', '');
 
-                    Yii::$app->session->setFlash('', [
-                        'type' => 'success',
-                        'duration' => 6000,
-                        'icon' => 'fa fa-check',
-                        'title' => 'Notification',
-                        'message' => Yii::$app->user->identity->name . ', Last Login at: ' . Yii::$app->user->identity->last_login,
-                        'positonY' => 'top',
-                        'positonX' => 'center'
-                    ]);
+                Yii::$app->session->setFlash('', [
+                    'type' => 'success',
+                    'duration' => 6000,
+                    'icon' => 'fa fa-check',
+                    'title' => 'Notification',
+                    'message' => Yii::$app->user->identity->name . ', Last Login at: ' . Yii::$app->user->identity->last_login,
+                    'positonY' => 'top',
+                    'positonX' => 'center'
+                ]);
 
-                    User::updateAll(['last_login' => date('Y-m-d H:i:s'),], ['username' => Yii::$app->user->identity->username]);
-                    return $this->goBack();
-                }else{
-                    Yii::$app->session->setFlash('', [
-                        'type' => 'warning',
-                        'duration' => 3500,
-                        'icon' => 'fa fa-warning',
-                        'title' => 'Notification',
-                        'message' => 'You do not have permission',
-                        'positonY' => 'top',
-                        'positonX' => 'right'
-                    ]);
-                    return $this->render('login', [
-                        'model' => $model,
-                    ]);
-                }
+                User::updateAll(['last_login' => date('Y-m-d H:i:s'),], ['username' => Yii::$app->user->identity->username]);
+                return $this->goBack();
 
             } else {
 
