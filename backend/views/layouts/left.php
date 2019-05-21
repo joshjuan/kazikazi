@@ -68,11 +68,6 @@ use dmstr\widgets\Menu;
                                 ],
 
                             ],
-                            [
-                                'label' => Yii::t('app', 'Graph Report'),
-                                'url' => ['/'],
-                                'icon' => 'folder-open-o text-green',
-                            ],
 
                         ],
                     ],

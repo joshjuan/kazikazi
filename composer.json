@@ -35,7 +35,8 @@
         "nick-denry/yii2-filter-action-column": "^0.1.2",
         "miloschuman/yii2-highcharts-widget": "^5.0",
         "bsadnu/yii2-googlecharts": "*",
-        "sjaakp/yii2-gcharts": "*"
+        "sjaakp/yii2-gcharts": "*",
+        "kartik-v/yii2-editable": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
