@@ -69,6 +69,13 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
             'footer' => false,
 
         ],
+        [
+            'attribute' => 'deni',
+            'format' => ['decimal', 2],
+            'pageSummary' => true,
+            'footer' => false,
+
+        ],
 
 
     ];

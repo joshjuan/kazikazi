@@ -63,8 +63,16 @@ use dmstr\widgets\Menu;
                                 'url' => ['#'],
                                 'icon' => 'clock-o text-green',
                                 'items' => [
-                                    ['label' => 'Clerks Report',  'icon' => 'file-o text-green', 'url' => ['/ticket-transaction/clerk-report'],],
-                                    ['label' => 'Date Range Report',  'icon' => 'file-o text-green', 'url' => ['/ticket-transaction/date-range'],],
+                                    [
+                                        'label' => 'Clerks Report',
+                                        'icon' => 'file-o text-green',
+                                        'url' => ['/ticket-transaction/clerk-report'],
+                                        'items'=>[
+                                            ['label' => 'Daily Clerk Report', 'icon' => 'money text-green', 'url' => ['/ticket-transaction/clerk-report'],],
+                                            ['label' => 'Repoti ya Deni', 'icon' => 'money text-green', 'url' => ['/clerk-deni'],],
+                                        ]
+                                    ],
+                                    ['label' => 'Date Range Report', 'icon' => 'file-o text-green', 'url' => ['/ticket-transaction/date-range'],],
                                 ],
 
                             ],
@@ -199,13 +207,13 @@ use dmstr\widgets\Menu;
                         'items' => [
 
                             [
-                                 'visible' =>  yii::$app->user->can('auditSystem'),
+                                'visible' => yii::$app->user->can('auditSystem'),
                                 'label' => Yii::t('app', 'Audit Trail'),
                                 'url' => ['/audit/index/'],
                                 'icon' => 'lock text-orange',
                             ],
                             [
-                                'visible' =>  yii::$app->user->can('auditSystem'),
+                                'visible' => yii::$app->user->can('auditSystem'),
                                 'label' => Yii::t('app', 'Mobile Logs'),
                                 'url' => ['/mobile-logs/index'],
                                 'icon' => 'lock text-orange',
@@ -215,13 +223,13 @@ use dmstr\widgets\Menu;
                     ],
                     [
                         'label' => 'System User',
-                        'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager')||Yii::$app->user->can('supervisor'),
+                        'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager') || Yii::$app->user->can('supervisor'),
                         'icon' => 'folder-open-o text-orange',
                         'url' => [''],
                         'items' => [
                             [
                                 'label' => 'Super Admins',
-                                 'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
                                 'icon' => 'user text-green',
                                 'url' => ['/user/super-admin'],
                             ],
@@ -282,7 +290,7 @@ use dmstr\widgets\Menu;
                             ],
                             [
                                 'label' => 'Clerks',
-                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager')||Yii::$app->user->can('supervisor'),
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager') || Yii::$app->user->can('supervisor'),
                                 'icon' => 'users text-green',
                                 'url' => '',
                                 'items' => [

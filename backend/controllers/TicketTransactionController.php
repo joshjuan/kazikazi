@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\TicketTransaction;
 use backend\models\TicketTransactionSearch;
+use yii\base\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -33,10 +34,24 @@ class TicketTransactionController extends Controller
      * Lists all TicketTransaction models.
      * @return mixed
      */
+
     public function actionIndex()
     {
+        $model = new Model;
         $searchModel = new TicketTransactionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        if (isset($_POST['hasEditable'])) {
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+            if ($model->load($_POST)) {
+                $value = $model->status;
+                return ['output'=>$value, 'message'=>''];
+            }
+            else {
+                return ['output'=>'', 'message'=>''];
+            }
+        }
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -143,6 +158,16 @@ class TicketTransactionController extends Controller
         $dataProvider = $searchModel->searchClerk(Yii::$app->request->queryParams);
 
         return $this->render('clerks_report', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionClerkDeni()
+    {
+        $searchModel = new TicketTransactionSearch();
+        $dataProvider = $searchModel->searchClerk(Yii::$app->request->queryParams);
+
+        return $this->render('clerks_deni1', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
