@@ -3,7 +3,10 @@
 namespace backend\controllers;
 
 
+use backend\models\ClerkDeni;
+use backend\models\ClerkDeniSearch;
 use backend\models\FansRequest;
+use backend\models\FansRequestSearch;
 use backend\models\NotificationsSearch;
 use backend\models\Reference;
 use backend\models\SalesTransactions;
@@ -80,6 +83,24 @@ class ApiController extends \yii\rest\ActiveController
         }
     }
 
+    public function actionDeni()
+    {
+
+        $params = Yii::$app->request->post();
+        $name = $params['user_id'];
+        $amount = ClerkDeniSearch::find()->where(['name' => $name])->sum('deni');
+        if ($amount != '') {
+            return array(
+                'deni' => $amount,
+            );
+        } else {
+            return array('statusCode ' => [
+               // $amount->getErrors(),
+                'status' => 'No results',
+            ]);
+
+        }
+    }
 
     public function actionCollection()
     {

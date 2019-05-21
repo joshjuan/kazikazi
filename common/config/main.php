@@ -21,7 +21,7 @@ return [
         'rules' => [
             [
                 'allow' => true,
-                'actions' => ['login','collection'],
+                'actions' => ['login','collection','deni'],
             ],
             [
                 'allow' => true,

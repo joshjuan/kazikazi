@@ -1,6 +1,7 @@
 <?php
 
 use kartik\date\DatePicker;
+use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -13,7 +14,15 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput() ?>
+    <?= $form->field($model, 'name')->widget(Select2::classname(), [
+        'data' => \backend\models\User::getClerkFullName(),
+        'options' => ['placeholder' => 'Choose clerk'],
+        'pluginOptions' => [
+            'allowClear' => true,
+
+        ],
+    ]);
+    ?>
 
     <?= $form->field($model, 'collected_amount')->hiddenInput(['maxlength' => true])->label(false) ?>
 

@@ -76,6 +76,11 @@ class User extends \common\models\User
         return ArrayHelper::map(User::find()->where(['user_type'=> User::CLERK])->all(),'id','username');
     }
 
+    public static function getClerkFullName()
+    {
+        return ArrayHelper::map(User::find()->where(['user_type'=> User::CLERK])->all(),'id','name');
+    }
+
     public function getRoleLabel()
     {
 
@@ -141,7 +146,9 @@ class User extends \common\models\User
                 'password' => Yii::t('app', 'Password'),
                 'name' => Yii::t('app', 'Name'),
                 'mobile' => Yii::t('app', 'Mobile'),
-                'repassword' => Yii::t('app', 'Repassword')
+                'municipal' => Yii::t('app', 'Shehia'),
+                'street' => Yii::t('app', 'Zone'),
+                'work_area' => Yii::t('app', 'Work Area'),
             ]
         );
     }
