@@ -32,7 +32,7 @@ $this->title = '';
 
     <div class="site-index" id="grid" style="padding-top: 10px">
         <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="col-md-3 col-sm-5 col-xs-8">
                 <div class="info-box bg-yellow">
                     <span class="info-box-icon"><i class="fa fa-ios-pricetag-outline"></i></span>
 
@@ -53,7 +53,7 @@ $this->title = '';
                 </div>
                 <!-- /.info-box -->
             </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="col-md-3 col-sm-5 col-xs-8">
                 <div class="info-box bg-green">
                     <span class="info-box-icon"><i class="ion ion-ios-heart-outline"></i></span>
 
@@ -74,7 +74,7 @@ $this->title = '';
                     <!-- /.info-box-content -->
                 </div>
             </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="col-md-3 col-sm-5 col-xs-8">
                 <!-- /.info-box -->
                 <div class="info-box bg-red">
                     <span class="info-box-icon"><i class="ion ion-ios-cloud-download-outline"></i></span>
@@ -96,10 +96,33 @@ $this->title = '';
                     <!-- /.info-box-content -->
                 </div>
             </div>
+
+            <div class="col-md-3 col-sm-5 col-xs-8">
+                <!-- /.info-box -->
+                <div class="info-box bg-aqua">
+                    <span class="info-box-icon"><i class="ion ion-ios-cloud-download-outline"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">MJINI MAGHALIBI TOTAL</span>
+
+                        <span class="info-box-number">
+                            <?= \backend\models\TicketTransaction::getTodayTotalMjiniMaghalibili() ?>
+                        </span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 54%"></div>
+                        </div>
+                        <span class="progress-description">
+                      24 Hours collection amount
+                  </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
+<p style="padding-top: 20px"/>
 <div class="row">
     <div class="col-md-12">
         <div class="box box-success">

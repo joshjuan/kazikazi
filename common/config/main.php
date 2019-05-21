@@ -5,9 +5,15 @@ return [
         '@npm'   => '@vendor/npm-asset',
     ],
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
+    'TimeZone' => 'Africa/Nairobi',
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
+        ],
+        'session' => [
+            // this is the name of the session cookie used for login on the backend
+            'name' => 'advanced-backend',
+            'timeout' => 1800,
         ],
     ],
     'as beforeRequest' => [

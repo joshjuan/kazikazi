@@ -36,7 +36,11 @@ $this->params['breadcrumbs'][] = 'Permissions';
             // 'created_at',
             // 'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn', 'header' => 'Actions'],
+            [
+                    'class' => 'yii\grid\ActionColumn',
+                'header' => 'Actions',
+                'visible'=>Yii::$app->user->can('super_admin'),
+            ],
         ],
     ]); ?>
 

@@ -62,7 +62,7 @@ class TicketTransaction extends \yii\db\ActiveRecord
 
     {
         $date=date('Y-m-d');
-        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['status'=>0])->andWhere(['region'=>1])->sum('amount');
+        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['district'=>1])->sum('amount');
         if ($applications > 0) {
             $amount_paid_today = number_format($applications, 2, '.', ',');
             return $amount_paid_today;
@@ -78,7 +78,21 @@ class TicketTransaction extends \yii\db\ActiveRecord
 
     {
         $date=date('Y-m-d');
-        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['status'=>0])->andWhere(['region'=>2])->sum('amount');
+        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['district'=>2])->sum('amount');
+        if ($applications > 0) {
+            $amount_paid_today = number_format($applications, 2, '.', ',');
+            return $amount_paid_today;
+        } else {
+            $applications=0;
+            $amount_paid_today = number_format($applications, 2, '.', ',');
+            return $amount_paid_today;
+        }
+    }
+    public static function getTodayTotalMjiniMaghalibili()
+
+    {
+        $date=date('Y-m-d');
+        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['district'=>3])->sum('amount');
         if ($applications > 0) {
             $amount_paid_today = number_format($applications, 2, '.', ',');
             return $amount_paid_today;

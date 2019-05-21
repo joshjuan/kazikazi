@@ -140,7 +140,7 @@ use dmstr\widgets\Menu;
 
                                     [
                                         //  'visible' =>  yii::$app->user->can('auditSystem'),
-                                        'label' => Yii::t('app', 'Municipal List'),
+                                        'label' => Yii::t('app', 'Shehia List'),
                                         'url' => ['/municipal/index'],
                                         'icon' => 'list text-orange',
                                     ],
@@ -194,18 +194,18 @@ use dmstr\widgets\Menu;
 
                     [
                         'label' => 'System Logs',
-                        'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager')||Yii::$app->user->can('supervisor'),
+                        'visible' => Yii::$app->user->can('auditSystem') || Yii::$app->user->can('super_admin'),
                         'icon' => 'sun-o text-orange',
                         'items' => [
 
                             [
-                                //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                 'visible' =>  yii::$app->user->can('auditSystem'),
                                 'label' => Yii::t('app', 'Audit Trail'),
                                 'url' => ['/audit/index/'],
                                 'icon' => 'lock text-orange',
                             ],
                             [
-                                //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                'visible' =>  yii::$app->user->can('auditSystem'),
                                 'label' => Yii::t('app', 'Mobile Logs'),
                                 'url' => ['/mobile-logs/index'],
                                 'icon' => 'lock text-orange',

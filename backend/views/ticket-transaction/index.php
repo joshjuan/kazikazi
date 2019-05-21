@@ -67,36 +67,136 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
             'attribute' => 'end_time',
         ],
         [
+            'attribute' => 'car_no',
+
+        ],
+        [
             'attribute' => 'region',
-            'value'=>'region0.name',
+            'vAlign' => 'middle',
+            'width' => '80px',
+            'contentOptions' => ['class' => 'truncate'],
+            'value' => function ($model) {
+                if ($model->region0->name != '') {
+                    return Html::a($model->region0->name);
+                } else {
+                    return '';
+                }
+            },
+            'filterType' => GridView::FILTER_SELECT2,
+            'filter' => ArrayHelper::map(\backend\models\Region::find()->asArray()->all(), 'id', 'name'),
+            'filterWidgetOptions' => [
+                'pluginOptions' => ['allowClear' => true],
+            ],
+            'filterInputOptions' => ['placeholder' => '-- Select  --'],
+            'format' => 'raw'
         ],
         [
             'attribute' => 'district',
-            'value'=>'district0.name',
+            'vAlign' => 'middle',
+            'width' => '80px',
+            'value' => function ($model) {
+                if ($model->district0->name != '') {
+                    return Html::a($model->district0->name);
+                } else {
+                    return '';
+                }
+            },
+            'filterType' => GridView::FILTER_SELECT2,
+            'filter' => ArrayHelper::map(\backend\models\District::find()->asArray()->all(), 'id', 'name'),
+            'filterWidgetOptions' => [
+                'pluginOptions' => ['allowClear' => true],
+            ],
+            'filterInputOptions' => ['placeholder' => '-- Select --'],
+            'format' => 'raw'
         ],
         [
             'attribute' => 'municipal',
-            'value'=>'municipal0.name',
+            'vAlign' => 'middle',
+            'width' => '80px',
+            'value' => function ($model) {
+                if ($model->municipal0->name != '') {
+                    return Html::a($model->municipal0->name);
+                } else {
+                    return '';
+                }
+            },
+            'filterType' => GridView::FILTER_SELECT2,
+            'filter' => ArrayHelper::map(\backend\models\Municipal::find()->asArray()->all(), 'id', 'name'),
+            'filterWidgetOptions' => [
+                'pluginOptions' => ['allowClear' => true],
+            ],
+            'filterInputOptions' => ['placeholder' => '-- Select --'],
+            'format' => 'raw'
         ],
 
         [
             'attribute' => 'street',
-            'value'=>'street0.name',
-
+            'vAlign' => 'middle',
+            'width' => '80px',
+            'value' => function ($model) {
+                if ($model->street0->name != '') {
+                    return Html::a($model->street0->name);
+                } else {
+                    return '';
+                }
+            },
+            'filterType' => GridView::FILTER_SELECT2,
+            'filter' => ArrayHelper::map(\backend\models\Street::find()->asArray()->all(), 'id', 'name'),
+            'filterWidgetOptions' => [
+                'pluginOptions' => ['allowClear' => true],
+            ],
+            'filterInputOptions' => ['placeholder' => '-- Select --'],
+            'format' => 'raw'
         ],
 
         [
             'attribute' => 'work_area',
-            'value'=>'workArea.name',
-        ],
-        [
-            'attribute' => 'user',
-            'value'=>'user0.username',
-            'label'=>'Clerk',
+            'vAlign' => 'middle',
+            'width' => '80px',
+            'value' => function ($model) {
+                if ($model->workArea->name != '') {
+                    return Html::a($model->workArea->name);
+                } else {
+                    return '';
+                }
+            },
+            'filterType' => GridView::FILTER_SELECT2,
+            'filter' => ArrayHelper::map(\backend\models\WorkArea::find()->asArray()->all(), 'id', 'name'),
+            'filterWidgetOptions' => [
+                'pluginOptions' => ['allowClear' => true],
+            ],
+            'filterInputOptions' => ['placeholder' => '-- Select --'],
+            'format' => 'raw'
         ],
 
-     //   'status',
-        'create_at',
+        [
+            'label' => 'Clerk',
+            'attribute' => 'user',
+            'vAlign' => 'middle',
+            'width' => '80px',
+            'value' => function ($model) {
+                if ($model->user0->name != '') {
+                    return Html::a($model->user0->name);
+                } else {
+                    return '';
+                }
+            },
+            'filterType' => GridView::FILTER_SELECT2,
+            'filter' => ArrayHelper::map(\backend\models\User::find()->asArray()->all(), 'id', 'username'),
+            'filterWidgetOptions' => [
+                'pluginOptions' => ['allowClear' => true],
+            ],
+            'filterInputOptions' => ['placeholder' => '-- Select --'],
+            'format' => 'raw'
+        ],
+
+
+        //   'status',
+        [
+            'attribute' => 'create_at',
+            'width' => '180px',
+            'pageSummary' => 'JUMLA',
+        ],
         [
             'attribute' => 'amount',
             'format' => ['decimal', 2],
@@ -116,7 +216,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
         'storage' => 'session',
         'gridOptions' => [
             'dataProvider' => $dataProvider,
-            'filterModel'=>$searchModel,
+            'filterModel' => $searchModel,
             'striped' => true,
             'showPageSummary' => true,
             'hover' => true,
@@ -203,5 +303,20 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
     DynaGrid::end();
     ?>
 
+
+    <style>
+        .truncate {
+            max-width: 150px !important;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .truncate:hover {
+            overflow: visible;
+            white-space: normal;
+            width: auto;
+        }
+    </style>
 </div>
 
