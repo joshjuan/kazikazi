@@ -232,7 +232,7 @@ class UserController extends Controller
                 $model = new User();
 
                 //  $model->scenario = 'createUser';
-                $model->user_type=User::CLERK;
+                   $model->user_type=User::CLERK;
 
 
                 if ($model->load(Yii::$app->request->post())) {
