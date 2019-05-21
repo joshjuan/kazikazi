@@ -107,7 +107,8 @@ class TicketTransaction extends \yii\db\ActiveRecord
     {
 
 
-        return TicketTransaction::find( )->select(['user,sum(amount) amount'])
+        return TicketTransaction::find()
+            ->select(['user,sum(amount) amount'])
             ->groupBy(['user'])->sum('amount');
     }
 

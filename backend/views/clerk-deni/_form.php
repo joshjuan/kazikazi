@@ -1,5 +1,6 @@
 <?php
 
+use kartik\date\DatePicker;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,18 +15,25 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput() ?>
 
-    <?= $form->field($model, 'collected_amount')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'collected_amount')->hiddenInput(['maxlength' => true])->label(false) ?>
 
     <?= $form->field($model, 'submitted_amount')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'deni')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'deni')->hiddenInput(['maxlength' => true])->label(false) ?>
 
-    <?= $form->field($model, 'amount_date')->textInput() ?>
+    <?php
+    echo '<label>Tarehe</label>';
+    echo DatePicker::widget([
+        'model' => $model,
+        'attribute' => 'amount_date',
+        'pluginOptions' => [
+            'format' => 'yyyy-m-dd',
+            'todayHighlight' => true
+        ]
+    ]);
+    ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'created_by')->textInput(['maxlength' => true]) ?>
-
+<br>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

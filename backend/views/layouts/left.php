@@ -53,6 +53,27 @@ use dmstr\widgets\Menu;
                         ],
                     ],
                     [
+                        'label' => 'Funga Hesabu',
+                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewTicket'),
+                        'icon' => 'money text-orange',
+                        'items' => [
+
+                            [
+                                //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                'label' => Yii::t('app', 'Funga Hesabu'),
+                                'url' => ['/clerk-deni/create'],
+                                'icon' => 'lock text-orange',
+                            ],
+                            [
+                                //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                'label' => Yii::t('app', 'Mahesabu yaliyofungwa'),
+                                'url' => ['/clerk-deni/index'],
+                                'icon' => 'lock text-orange',
+                            ],
+
+                        ],
+                    ],
+                    [
                         'label' => 'Reports',
                         'visible' => Yii::$app->user->can('viewReport') || Yii::$app->user->can('super_admin'),
                         'icon' => 'sitemap text-orange',
@@ -69,7 +90,7 @@ use dmstr\widgets\Menu;
                                         'url' => ['/ticket-transaction/clerk-report'],
                                         'items'=>[
                                             ['label' => 'Daily Clerk Report', 'icon' => 'money text-green', 'url' => ['/ticket-transaction/clerk-report'],],
-                                            ['label' => 'Repoti ya Deni', 'icon' => 'money text-green', 'url' => ['/clerk-deni'],],
+                                            ['label' => 'Repoti ya Deni', 'icon' => 'money text-green', 'url' => ['/clerk-deni/clerk-report'],],
                                         ]
                                     ],
                                     ['label' => 'Date Range Report', 'icon' => 'file-o text-green', 'url' => ['/ticket-transaction/date-range'],],

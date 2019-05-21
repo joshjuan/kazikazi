@@ -56,7 +56,7 @@ class ClerkDeni extends \yii\db\ActiveRecord
             'submitted_amount' => 'Submitted Amount',
             'deni' => 'Deni',
             'total_amount' => 'Total Amount',
-            'amount_date' => 'Amount Date',
+            'amount_date' => 'Work Date',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
         ];
@@ -65,13 +65,13 @@ class ClerkDeni extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getName0()
+    public function getUser0()
     {
         return $this->hasOne(User::className(), ['id' => 'name']);
     }
 
     public static function getClerkDifference()
     {
-        return ( TicketTransaction::find()->sum('amount')-ClerkDeni::find()->sum('	submitted_amount	')) ;
+        return ( TicketTransaction::find()->select(['user','amount','create_at'])->groupBy(['user'])->groupBy(['create_at'])->sum('amount')- ClerkDeni::find()->sum('	submitted_amount	')) ;
     }
 }
