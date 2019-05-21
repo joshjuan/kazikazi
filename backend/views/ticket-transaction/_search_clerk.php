@@ -25,51 +25,51 @@ use yii\widgets\ActiveForm;
         </div>
         <div id="collapse1" class="panel-collapse collapse">
             <div class="panel panel-body" style="background: #EEE">
+
+
                 <div class="row">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <?= $form->field($model, 'date_from')->widget(
-                                DatePicker::className(), [
-                                // inline too, not bad
-                                'inline' => false,
-                                // modify template for custom rendering
-                                //'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
-                                'clientOptions' => [
-                                    'autoclose' => true,
-                                    'format' => 'yyyy-mm-dd',
+                    <div class="col-md-3">
+                        <?= $form->field($model, 'date_from')->widget(
+                            DatePicker::className(), [
+                            // inline too, not bad
+                            'inline' => false,
+                            // modify template for custom rendering
+                            //'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
+                            'clientOptions' => [
+                                'autoclose' => true,
+                                'format' => 'yyyy-mm-dd',
 
-                                ],
-                                'options'=>['placeholder'=>'Date from']
-                            ])->label(false);?>
-                        </div>
-                        <div class="col-md-3">
-                            <?= $form->field($model, 'date_to')->widget(
-                                DatePicker::className(), [
-                                // inline too, not bad
-                                'inline' => false,
-                                // modify template for custom rendering
-                                //'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
-                                'clientOptions' => [
-                                    'autoclose' => true,
-                                    'format' => 'yyyy-mm-dd',
+                            ],
+                            'options'=>['placeholder'=>'Date From']
+                        ])->label(false);?>
+                    </div>
+                    <div class="col-md-3">
+                        <?= $form->field($model, 'date_to')->widget(
+                            DatePicker::className(), [
+                            // inline too, not bad
+                            'inline' => false,
+                            // modify template for custom rendering
+                            //'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
+                            'clientOptions' => [
+                                'autoclose' => true,
+                                'format' => 'yyyy-mm-dd',
 
-                                ],
-                                'options'=>['placeholder'=>'Date To']
-                            ])->label(false);?>
-                        </div>
-                        <div class="col-md-3">
+                            ],
+                            'options'=>['placeholder'=>'Date To']
+                        ])->label(false);?>
+                    </div>
+                    <div class="col-md-3">
 
-                            <?=  $form->field($model, 'user')->dropDownList(\backend\models\User::getClerk(),
-                                ['prompt' => Yii::t('app', '--Select Clerk--')])->label(false);
-                            ?>
+                        <?=  $form->field($model, 'user')->dropDownList(\backend\models\User::getClerk(),
+                            ['prompt' => Yii::t('app', '--Select Clerk--')])->label(false);
+                        ?>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
+                            <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
                         </div>
                     </div>
-
-                </div>
-
-                <div class="form-group" style="float: right">
-                    <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-                    <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
                 </div>
 
                 <?php ActiveForm::end(); ?>

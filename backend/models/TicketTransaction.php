@@ -103,10 +103,12 @@ class TicketTransaction extends \yii\db\ActiveRecord
         }
     }
 
-
     public static function getSum($id)
     {
-        return TicketTransaction::find()->sum('amount');
+
+
+        return TicketTransaction::find( )->select(['user,sum(amount) amount'])
+            ->groupBy(['user'])->sum('amount');
     }
 
 
@@ -206,4 +208,6 @@ class TicketTransaction extends \yii\db\ActiveRecord
     {
         return $this->hasOne(WorkArea::className(), ['id' => 'work_area']);
     }
+
+
 }
