@@ -67,32 +67,9 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
                 return \backend\models\TicketTransaction::getSum($model->id);
             }
         ],
+
         [
-            'class'=>'kartik\grid\EditableColumn',
             'attribute' => 'submitted_amount',
-            'refreshGrid' => true,
-            //'format'=>['decimal', 2],
-            'value' => function ($model){
-                if($model->status == 1){
-                    return 'IPO WAZI';
-                }else{
-                    return 'IMEFUNGWA';
-                }
-            },
-            'editableOptions'=> [
-                'header'=>'Status',
-                'size'=>'sm',
-                'formOptions' => ['action' => ['voucher/edit-status']],
-                'asPopover' => true,
-                'inputType'=>\kartik\editable\Editable::INPUT_DROPDOWN_LIST,
-                'data'=>[1=>'FUNGUA',0=>'FUNGA'],
-                'options'=>[
-                    'pluginOptions'=>['min'=>0, 'max'=>5000]
-                ]
-            ],
-        ],
-        [
-            'attribute' => '',
             'width' => '180px',
             'pageSummary' => true,
             'format' => ['decimal', 2],
