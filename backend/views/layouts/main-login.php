@@ -31,11 +31,12 @@ dmstr\web\AdminLteAsset::register($this);
 </body>
 </html>
 <?php $this->endPage() ?>
+
 <style>
 
     .bimg {
 
-        background: url("images/parking1.jpg") no-repeat;
+        background: url("../images/parking1.jpg") no-repeat;
         margin: 0px;
         opacity:1;
         height: 60%;

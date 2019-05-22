@@ -78,7 +78,7 @@ class User extends \common\models\User
 
     public static function getClerkFullName()
     {
-        return ArrayHelper::map(User::find()->where(['user_type'=> User::CLERK])->all(),'id','name');
+        return ArrayHelper::map(User::find()->where(['user_type'=> User::CLERK])->all(),'id','name',('username'));
     }
 
     public function getRoleLabel()

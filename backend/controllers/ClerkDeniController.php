@@ -191,23 +191,38 @@ class ClerkDeniController extends Controller
     {
         $model = new ClerkDeni();
 
-        if ($model->load(Yii::$app->request->post()) ) {
+        if ($model->load(Yii::$app->request->post())) {
             $time = date('Y-m-d');
             $time = strtotime($time);
 
             $time1 = $model->amount_date;
             $time1 = strtotime($time1);
 
-            if ($time1 <= $time){
+            if ($time1 <= $time) {
+                if ($model->amount_date != '' && $model->submitted_amount != ''){
+                    $amount = TicketTransactionSearch::find()->select('amount')->where(['user' => $model->name])->andWhere(['date(create_at)' => $model->amount_date])->sum('amount');
+                    $model->collected_amount = $amount;
+                    $model->deni = $model->collected_amount - $model->submitted_amount;
+                    $model->created_by = Yii::$app->user->identity->username;
+                    $model->created_at = date('Y-m-d H:i:s');
+                    $model->save();
+                }
+                else {
+                    Yii::$app->session->setFlash('', [
+                        'type' => 'warning',
+                        'duration' => 4500,
+                        'icon' => 'fa fa-warning',
+                        'title' => 'Notification',
+                        'message' => 'Date and Amount can not be empty',
+                        'positonY' => 'top',
+                        'positonX' => 'right'
+                    ]);
+                    return $this->redirect(['clerk-deni/create']);
+                }
 
-            $amount=TicketTransactionSearch::find()->select('amount')->where(['user'=>$model->name])->andWhere(['date(create_at)'=>$model->amount_date])->sum('amount');
-            $model->collected_amount=$amount;
-            $model->deni=$model->collected_amount - $model->submitted_amount;
-            $model->created_by=Yii::$app->user->identity->username;
-            $model->created_at=date('Y-m-d H:i:s');
-            $model->save();
+
             }
-            else{
+            else {
                 Yii::$app->session->setFlash('', [
                     'type' => 'warning',
                     'duration' => 4500,
@@ -278,7 +293,6 @@ class ClerkDeniController extends Controller
     }
 
 
-
     public function actions()
     {
         return ArrayHelper::merge(parent::actions(), [
@@ -291,9 +305,9 @@ class ClerkDeniController extends Controller
                     if ($attribute === 'submitted_amount') // selective validation by attribute
                     {
                         $modelUIN = $this->findModel($model->id);
-                    //    $modelUIN->status = Application::PHYSICAL_SETUP;
-                      //  $modelUIN->maker_time3 = date('Y-m-d H:i:s');
-                     //   $modelUIN->maker_id3 = Yii::$app->user->identity->username;
+                        //    $modelUIN->status = Application::PHYSICAL_SETUP;
+                        //  $modelUIN->maker_time3 = date('Y-m-d H:i:s');
+                        //   $modelUIN->maker_id3 = Yii::$app->user->identity->username;
                         $modelUIN->save();
                         return '';
 
