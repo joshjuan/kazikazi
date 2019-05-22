@@ -3,20 +3,12 @@
 namespace backend\controllers;
 
 
-use backend\models\ClerkDeni;
+
 use backend\models\ClerkDeniSearch;
-use backend\models\FansRequest;
-use backend\models\FansRequestSearch;
-use backend\models\NotificationsSearch;
 use backend\models\Reference;
-use backend\models\SalesTransactions;
 use backend\models\TicketTransaction;
-use backend\models\User;
-use backend\models\UserSearch;
-use backend\models\WorkArea;
-use backend\models\WorkAreaSearch;
 use Yii;
-use yii\db\Query;
+
 
 class ApiController extends \yii\rest\ActiveController
 {

@@ -15,6 +15,7 @@ return [
             'name' => 'advanced-backend',
             'timeout' => 1800,
         ],
+
     ],
     'as beforeRequest' => [
         'class' => 'yii\filters\AccessControl',

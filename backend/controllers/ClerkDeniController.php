@@ -83,8 +83,13 @@ class ClerkDeniController extends Controller
         $model = new ClerkDeni();
 
         if ($model->load(Yii::$app->request->post()) ) {
-            if ($model->amount_date < date('Y-m-d')){
+            $time = date('Y-m-d');
+            $time = strtotime($time);
 
+            $time1 = $model->amount_date;
+            $time1 = strtotime($time1);
+
+            if ($time1 <= $time){
 
             $amount=TicketTransactionSearch::find()->select('amount')->where(['user'=>$model->name])->andWhere(['date(create_at)'=>$model->amount_date])->sum('amount');
             $model->collected_amount=$amount;
