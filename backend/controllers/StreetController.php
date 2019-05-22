@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\Audit;
 use common\models\LoginForm;
+use Egulias\EmailValidator\EmailLexer;
 use Yii;
 use backend\models\Street;
 use backend\models\StreetSearch;
@@ -39,15 +40,32 @@ class StreetController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            $searchModel = new StreetSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewStreet')) {
 
-            Audit::setActivity(Yii::$app->user->identity->name . ' was view general information of zones ', 'Street ', 'index', '', '');
+                $searchModel = new StreetSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia taarifa za zoni zote kwa ujumla. ', 'Street', 'Index', '', '');
+
+                return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+
+            }else{
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'title' => 'Notification',
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['site/index']);
+            }
+
+
 
         }else{
             $model = new LoginForm();
@@ -72,7 +90,7 @@ class StreetController extends Controller
 
                 $model = $this->findModel($id);
 
-                Audit::setActivity(Yii::$app->user->identity->name . ' was view the information of  ' . $model->name.' zone', 'Street', 'View', '', '');
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia taarifa ya zoni, ambayo ni " ' . $model->name . ' ".', 'Street', 'View', '', '');
 
                 return $this->render('view', [
                     'model' => $this->findModel($id),
@@ -120,7 +138,7 @@ class StreetController extends Controller
 
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-                    Audit::setActivity('New zone ' . $model->name . ' was successfully created by ' . Yii::$app->user->identity->name, 'Street ', 'create', '', '');
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameongeza zoni mpya, ambayo ni " ' . $model->name . ' ".', 'Street', 'Create', '', '');
 
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
@@ -180,7 +198,7 @@ class StreetController extends Controller
                     ]);
 
 
-                    Audit::setActivity('Zone was successfully updated to ' . $model->name, 'Street ', 'Update', '', '');
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amebadilisha taarifa ya zoni, ambayo ni " ' . $model->name . ' ".', 'Street', 'Update', '', '');
 
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
@@ -221,7 +239,7 @@ class StreetController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('deleteStreet')) {
+            if (Yii::$app->user->can('super_admin')) {
 
                 $model = $this->findModel($id);
 

@@ -225,6 +225,8 @@ class TicketTransactionController extends Controller
             $searchModel = new TicketTransactionSearch();
             $dataProvider = $searchModel->searchClerk(Yii::$app->request->queryParams);
 
+            Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia ripoti za makarani (clerks) wote ', 'TicketTransaction', 'View', '', '');
+
             return $this->render('clerks_report', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,

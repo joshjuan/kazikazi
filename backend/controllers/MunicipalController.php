@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\Audit;
 use common\models\LoginForm;
 use Yii;
 use backend\models\Municipal;
@@ -37,20 +38,38 @@ class MunicipalController extends Controller
     public function actionIndex()
     {
         if (!Yii::$app->user->isGuest) {
-            $searchModel = new MunicipalSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewMunicipal')) {
+
+                $searchModel = new MunicipalSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia taarifa za shehia yote kwa ujumla. ', 'Municipal', 'Index', '', '');
+                return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+
+            }else{
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'title' => 'Notification',
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['site/index']);
+            }
+
+
         } else {
             $model = new LoginForm();
             return $this->redirect(['site/login',
                 'model' => $model,
             ]);
         }
-
 
     }
 
@@ -64,9 +83,28 @@ class MunicipalController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            return $this->render('view', [
-                'model' => $this->findModel($id),
-            ]);
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewMunicipal')) {
+
+                $model = $this->findModel($id);
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia taarifa ya shehia ambayo ni " ' . $model->name . ' ".', 'Municipal', 'View', '', '');
+                return $this->render('view', [
+                    'model' => $this->findModel($id),
+                ]);
+
+
+            }else{
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'title' => 'Notification',
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['index']);
+            }
 
         } else {
             $model = new LoginForm();
@@ -86,14 +124,16 @@ class MunicipalController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            $model = new Municipal();
-            $model->created_at = date('y-m-d H:i:s');
-
-            $model->created_by = Yii::$app->user->identity->username;
-
             if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createMunicipal')) {
 
+                $model = new Municipal();
+                $model->created_at = date('y-m-d H:i:s');
+                $model->created_by = Yii::$app->user->identity->username;
+
+
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameongeza shehia mpya, ambayo ni " ' . $model->name . ' ".', 'Municipal', 'Create', '', '');
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
 
@@ -139,6 +179,8 @@ class MunicipalController extends Controller
                 $model = $this->findModel($id);
 
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amebadilisha taarifa ya shehia ambayo ni " ' . $model->name . ' ".', 'Municipal', 'Update', '', '');
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
 
@@ -180,7 +222,7 @@ class MunicipalController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('deleteMunicipal')) {
+            if (Yii::$app->user->can('super_admin')) {
 
                 $this->findModel($id)->delete();
 

@@ -38,6 +38,10 @@
         "sjaakp/yii2-gcharts": "*",
         "kartik-v/yii2-editable": "@dev"
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 5d400147a1ac69b01a0059990baaa8b2cc356f29
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
