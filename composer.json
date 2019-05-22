@@ -36,12 +36,8 @@
         "miloschuman/yii2-highcharts-widget": "^5.0",
         "bsadnu/yii2-googlecharts": "*",
         "sjaakp/yii2-gcharts": "*",
-<<<<<<< HEAD
         "kartik-v/yii2-editable": "@dev"
-=======
-        "yii2mod/yii2-editable": "*",
-        "kartik-v/yii2-editable": "*"
->>>>>>> def61dc977620870ee2d6bdd0634556c38728a5c
+
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

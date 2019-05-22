@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
         //  'id',
         [
             'attribute' => 'amount_date',
-            'width' => '180px',
+         //   'width' => '180px',
         ],
 
         [
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
             'attribute' => 'name',
             'vAlign' => 'middle',
             'pageSummary' => 'JUMLA',
-            'width' => '180px',
+           // 'width' => '180px',
             'value' =>'user0.name',
             'filterType' => GridView::FILTER_SELECT2,
 
@@ -60,37 +60,14 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
 
         [
             'attribute' => 'collected_amount',
-            'width' => '180px',
+          //  'width' => '180px',
             'pageSummary' => true,
             'format' => ['decimal', 2],
 
         ],
-        /*  [
-              'class' => 'kartik\grid\EditableColumn',
-              'attribute' => 'sim_card',
-              'contentOptions' => ['class' => 'truncate'],
-              'label' => 'SIM CARD',
-              //  'width' => '130px',
-              'refreshGrid' => true,
-              //   'visible' => yii::$app->user->can('UinAction') || yii::$app->user->can('admin'),
-              'editableOptions' => [
-
-                  'size' => 'sm',
-                  'formOptions' => ['action' => ['application-uin/simcard']],
-                  'asPopover' => false,
-
-                  'inputType' => \kartik\editable\Editable::INPUT_SELECT2,
-                  'data' => \backend\models\LineNumber::getAll(),
-                  'options' => [
-                      'pluginOptions' => ['min' => 0, 'max' => 5000],
-                      //   'style'=>'max-width:10px; min-height:10px; overflow: auto; word-wrap: break-word;'
-
-                  ]
-              ],
-          ],*/
         [
             'attribute' => 'submitted_amount',
-            'width' => '180px',
+          //  'width' => '180px',
 
             'pageSummary' => true,
             'format' => ['decimal', 2],
@@ -100,7 +77,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
 
         [
             'attribute' => 'deni',
-            'width' => '180px',
+           // 'width' => '180px',
             'format' => ['decimal', 2],
             'pageSummary' => true,
         ],
@@ -113,7 +90,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
 
                     return 'COMPLETE';
                 } elseif ($model->status == \backend\models\ClerkDeni::NOT_COMPLETE) {
-                    return 'NOT_COMPLETE';
+                    return 'NOT COMPLETE';
                 }
             },
             'filterType' => GridView::FILTER_SELECT2,
@@ -124,10 +101,8 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
             'filterInputOptions' => ['placeholder' => '-- Select Status --'],
 
         ],
-
-
-        //'created_at',
-        //'created_by',
+        'created_at',
+        'created_by',
 
 
     ];
@@ -136,7 +111,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
     // the GridView widget (you must use kartik\grid\GridView)
     echo \kartik\grid\GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+       // 'filterModel' => $searchModel,
         'rowOptions' => function ($model, $key, $index, $grid) {
             return ['data-id' => $model->id];
         },

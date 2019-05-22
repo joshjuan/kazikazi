@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 <div class="application-search">
 
     <?php $form = ActiveForm::begin([
-        'action' => ['clerk-report'],
+        'action' => ['index'],
         'method' => 'get',
 
     ]);
@@ -58,6 +58,16 @@ use yii\widgets\ActiveForm;
                             ],
                             'options'=>['placeholder'=>'Date To']
                         ])->label(false);?>
+                    </div>
+                    <div class="col-md-3">
+                        <?=  $form->field($model, 'name')->dropDownList(\backend\models\User::getClerk(),
+                            ['prompt' => Yii::t('app', '--Select Clerk--')])->label(false);
+                        ?>
+                    </div>
+                    <div class="col-md-3">
+                        <?=  $form->field($model, 'status')->dropDownList(\backend\models\ClerkDeni::getStatus(),
+                            ['prompt' => Yii::t('app', '--Select Status--')])->label(false);
+                        ?>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
