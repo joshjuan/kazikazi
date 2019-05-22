@@ -241,19 +241,20 @@ use dmstr\widgets\Menu;
                         'items' => [
                             [
                                 'label' => 'Super Admins',
-                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') ,
                                 'icon' => 'user text-green',
                                 'url' => ['/user/super-admin'],
                             ],
 
                             [
                                 'label' => 'Admins',
-                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('supervisor')|| Yii::$app->user->can('manager'),
                                 'icon' => 'user text-green',
                                 'url' => '',
                                 'items' => [
                                     [
                                         'label' => 'New Admin',
+                                        'visible' => Yii::$app->user->can('createUser') || Yii::$app->user->can('super_admin'),
                                         'icon' => 'plus text-green',
                                         'url' => ['/user/admin-create']
                                     ],
@@ -266,12 +267,13 @@ use dmstr\widgets\Menu;
                             ],
                             [
                                 'label' => 'Manager',
-                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('supervisor')|| Yii::$app->user->can('manager'),
                                 'icon' => 'user text-green',
                                 'url' => '',
                                 'items' => [
                                     [
                                         'label' => 'New Manager',
+                                        'visible' => Yii::$app->user->can('createUser') || Yii::$app->user->can('super_admin'),
                                         'icon' => 'plus text-green',
                                         'url' => ['/user/manager-create']
                                     ],
@@ -284,12 +286,13 @@ use dmstr\widgets\Menu;
                             ],
                             [
                                 'label' => 'Supervisors',
-                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('supervisor')|| Yii::$app->user->can('manager'),
                                 'icon' => 'user text-green',
                                 'url' => '',
                                 'items' => [
                                     [
                                         'label' => 'New Supervisor',
+                                        'visible' => Yii::$app->user->can('createUser') || Yii::$app->user->can('super_admin'),
                                         'icon' => 'plus text-green',
                                         'url' => ['/user/supervisor-create']
                                     ],
@@ -302,13 +305,14 @@ use dmstr\widgets\Menu;
                             ],
                             [
                                 'label' => 'Clerks',
-                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager') || Yii::$app->user->can('supervisor'),
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('supervisor')|| Yii::$app->user->can('manager'),
                                 'icon' => 'users text-green',
                                 'url' => '',
                                 'items' => [
                                     [
                                         'label' => 'New Clerk',
                                         'icon' => 'plus text-green',
+                                        'visible' => Yii::$app->user->can('createUser') || Yii::$app->user->can('super_admin'),
                                         'url' => ['/user/clerk-create']
                                     ],
                                     [
