@@ -189,6 +189,15 @@ class ClerkDeniController extends Controller
      */
     public function actionCreate()
     {
+        if (!Yii::$app->user->isGuest) {
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
         $model = new ClerkDeni();
 
         if ($model->load(Yii::$app->request->post())) {
