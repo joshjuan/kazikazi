@@ -9,6 +9,14 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<p style="padding-top: 15px"/>
+<center>
+    <h3>
+        <i class="fa fa-money text-default">
+            <strong> FORM YA KUFUNGA MAHESABU</strong>
+        </i>
+    </h3>
+</center>
 <div class="clerk-deni-form">
 
     <?php $form = ActiveForm::begin(); ?>
