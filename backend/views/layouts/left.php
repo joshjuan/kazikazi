@@ -90,7 +90,7 @@ use dmstr\widgets\Menu;
                                         'url' => ['/ticket-transaction/clerk-report'],
                                         'items'=>[
                                             ['label' => 'Daily Clerk Report', 'icon' => 'money text-green', 'url' => ['/ticket-transaction/clerk-report'],],
-                                            ['label' => 'Repoti ya Deni', 'icon' => 'money text-green', 'url' => ['/clerk-deni/clerk-report'],],
+                                            ['label' => 'Repoti ya Deni', 'icon' => 'money text-green', 'url' => ['/clerk-deni/clerk-index'],],
                                         ]
                                     ],
                                     ['label' => 'Date Range Report', 'icon' => 'file-o text-green', 'url' => ['/ticket-transaction/date-range'],],
