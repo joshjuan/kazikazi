@@ -193,7 +193,6 @@ class UserController extends Controller
 
     }
 
-
     public function actionAdmin()
     {
         if (!Yii::$app->user->isGuest) {

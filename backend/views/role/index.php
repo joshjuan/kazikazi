@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Roles');
             [
 
                 'class' => 'yii\grid\ActionColumn', 'header' => 'Actions',
-                'visible'=>Yii::$app->user->can('super_admin'),
+                'visible'=>Yii::$app->user->can('admin')||Yii::$app->user->can('super_admin'),
                 'urlCreator' => function ($action, $model, $key, $index) {
                     $link = '#';
                     switch ($action) {
