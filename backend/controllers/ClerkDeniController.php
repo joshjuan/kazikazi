@@ -210,11 +210,34 @@ class ClerkDeniController extends Controller
             if ($time1 <= $time) {
                 if ($model->amount_date != '' && $model->submitted_amount != ''){
                     $amount = TicketTransactionSearch::find()->select('amount')->where(['user' => $model->name])->andWhere(['date(create_at)' => $model->amount_date])->sum('amount');
-                    $model->collected_amount = $amount;
-                    $model->deni = $model->collected_amount - $model->submitted_amount;
-                    $model->created_by = Yii::$app->user->identity->username;
-                    $model->created_at = date('Y-m-d H:i:s');
-                    $model->save();
+                    if ($amount != ''){
+                        $model->collected_amount = $amount;
+                        $model->deni = $model->collected_amount - $model->submitted_amount;
+                        $model->created_by = Yii::$app->user->identity->username;
+                        $model->created_at = date('Y-m-d H:i:s');
+                        if ($model->deni ===0){
+                            $model->status=ClerkDeni::COMPLETE;
+                            $model->save();
+                        }
+                        else{
+                            $model->status=ClerkDeni::NOT_COMPLETE;
+                            $model->save();
+                        }
+
+                    }
+                    else {
+                        Yii::$app->session->setFlash('', [
+                            'type' => 'warning',
+                            'duration' => 4500,
+                            'icon' => 'fa fa-warning',
+                            'title' => 'Notification',
+                            'message' => 'Karani hana mahesabu ya kufungwa kwa tarehe hii',
+                            'positonY' => 'top',
+                            'positonX' => 'right'
+                        ]);
+                        return $this->redirect(['clerk-deni/create']);
+                    }
+
                 }
                 else {
                     Yii::$app->session->setFlash('', [

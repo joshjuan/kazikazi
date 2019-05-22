@@ -55,13 +55,7 @@ use yii\widgets\ActiveForm;
     </div>
     <?= $form->field($model, 'deni')->hiddenInput(['maxlength' => true])->label(false) ?>
 
-    <div class="col-sm-12 no-padding">
-        <div class="col-sm-12">
 
-            <?= $form->field($model, 'status')->dropDownList(\backend\models\ClerkDeni::getStatus()) ?>
-        </div>
-
-    </div>
     <br>
 
     <div class="col-sm-12 no-padding">
