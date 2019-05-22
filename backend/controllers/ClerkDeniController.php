@@ -355,7 +355,6 @@ class ClerkDeniController extends Controller
                             $model->updated_by=Yii::$app->user->identity->username;
                             $model->save();
                         }
-
                     }
                     return '';                                   // empty is same as $value
                 },
