@@ -15,13 +15,14 @@ return [
             'name' => 'advanced-backend',
             'timeout' => 1800,
         ],
+
     ],
     'as beforeRequest' => [
         'class' => 'yii\filters\AccessControl',
         'rules' => [
             [
                 'allow' => true,
-                'actions' => ['login','collection'],
+                'actions' => ['login','collection','deni'],
             ],
             [
                 'allow' => true,

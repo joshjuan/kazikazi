@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
     <?php
     $gridColumns = [
         ['class' => 'kartik\grid\SerialColumn'],
-       [
+        [
             'attribute' => 'user',
             'value'=>'user0.username',
             'label'=>'Clerk',
@@ -64,13 +64,6 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
         ],
         [
             'attribute' => 'amount',
-            'format' => ['decimal', 2],
-            'pageSummary' => true,
-            'footer' => false,
-
-        ],
-        [
-            'attribute' => 'deni',
             'format' => ['decimal', 2],
             'pageSummary' => true,
             'footer' => false,
@@ -88,7 +81,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
         'storage' => 'session',
         'gridOptions' => [
             'dataProvider' => $dataProvider,
-           // 'filterModel'=>$searchModel,
+            'filterModel'=>$searchModel,
             'striped' => true,
             'showPageSummary' => true,
             'hover' => true,

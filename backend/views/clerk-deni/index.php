@@ -44,7 +44,9 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
             'width' => '180px',
             'value' =>'user0.name',
             'filterType' => GridView::FILTER_SELECT2,
-            'filter' => ArrayHelper::map(\backend\models\User::find()->andWhere(['user_type'=>4])->asArray()->all(), 'id', 'username'),
+
+            'filter' => ArrayHelper::map(\backend\models\User::find()->where(['user_type'=>\backend\models\User::CLERK])->asArray()->all(), 'id', 'username'),
+
             'filterWidgetOptions' => [
                 'pluginOptions' => ['allowClear' => true],
             ],

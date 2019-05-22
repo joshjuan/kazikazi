@@ -56,7 +56,7 @@ class ClerkDeni extends \yii\db\ActiveRecord
             [['name'], 'integer'],
             [['collected_amount', 'submitted_amount', 'deni', 'total_amount'], 'number'],
             [['amount_date', 'created_at'], 'safe'],
-            [['created_by'], 'string', 'max' => 200],
+            [['created_by','status'], 'string', 'max' => 200],
             [['name'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['name' => 'id']],
         ];
     }
@@ -75,6 +75,7 @@ class ClerkDeni extends \yii\db\ActiveRecord
             'status' => 'Status',
             'total_amount' => 'Total Amount',
             'amount_date' => 'Work Date',
+            'status' => 'status',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
         ];

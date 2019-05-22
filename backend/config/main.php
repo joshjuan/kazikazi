@@ -18,14 +18,27 @@ return [
         'roundSwitch' => [
             'class' => 'nickdenry\grid\toggle\Module',
         ],
-        'gridview' =>  [
+        'gridview' => [
             'class' => '\kartik\grid\Module'
         ]
     ],
 
-    'TimeZone' => 'Africa/Nairobi',
-
     'components' => [
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'defaultTimeZone' => 'Africa/Dar_es_Salaam',
+            'thousandSeparator' => ',',
+            'decimalSeparator' => '.',
+        ],
+        'urlManager' => [
+            'enablePrettyUrl' => false,
+            'showScriptName' => false,
+            'rules' => [
+                '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+            ],
+        ],
 
         'response' => [
             'formatters' => [
@@ -91,7 +104,7 @@ return [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@vendor/kartik-v/yii2-grid/messages',
                 ],
-            ]    ],
+            ]],
 
     ],
     'params' => $params,
