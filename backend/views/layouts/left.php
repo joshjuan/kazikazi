@@ -54,7 +54,7 @@ use dmstr\widgets\Menu;
                     ],
                     [
                         'label' => 'Funga Hesabu',
-                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewTicket'),
+                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewClerkMahesabu'),
                         'icon' => 'money text-orange',
                         'items' => [
 
@@ -62,6 +62,7 @@ use dmstr\widgets\Menu;
                                 //  'visible' =>  yii::$app->user->can('auditSystem'),
                                 'label' => Yii::t('app', 'Funga Hesabu'),
                                 'url' => ['/clerk-deni/create'],
+                                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaClerkMahesabu'),
                                 'icon' => 'lock text-orange',
                             ],
                             [

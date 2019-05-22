@@ -2,6 +2,8 @@
 
 namespace backend\controllers;
 
+use backend\models\Audit;
+use common\models\LoginForm;
 use Yii;
 use backend\models\TicketTransaction;
 use backend\models\TicketTransactionSearch;
@@ -37,26 +39,42 @@ class TicketTransactionController extends Controller
 
     public function actionIndex()
     {
-        $model = new Model;
-        $searchModel = new TicketTransactionSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (!Yii::$app->user->isGuest) {
 
-        if (isset($_POST['hasEditable'])) {
-            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewTicket')) {
 
-            if ($model->load($_POST)) {
-                $value = $model->status;
-                return ['output'=>$value, 'message'=>''];
+                $model = new Model;
+                $searchModel = new TicketTransactionSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia taarifa za ticket transaction ', 'TicketTransaction', 'Index', '', '');
+
+                return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+
+            } else {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'danger',
+                    'duration' => 1500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => Yii::t('app', 'You dont have a permission'),
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
             }
-            else {
-                return ['output'=>'', 'message'=>''];
-            }
+
+        } else {
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
     }
 
     /**
@@ -67,9 +85,19 @@ class TicketTransactionController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if (!Yii::$app->user->isGuest) {
+
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
 
     /**
@@ -79,15 +107,25 @@ class TicketTransactionController extends Controller
      */
     public function actionCreate()
     {
-        $model = new TicketTransaction();
+        if (!Yii::$app->user->isGuest) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $model = new TicketTransaction();
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -99,15 +137,25 @@ class TicketTransactionController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (!Yii::$app->user->isGuest) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $model = $this->findModel($id);
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -119,9 +167,17 @@ class TicketTransactionController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (!Yii::$app->user->isGuest) {
+            $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
 
     /**
@@ -143,33 +199,64 @@ class TicketTransactionController extends Controller
 
     public function actionDateRange()
     {
-        $searchModel = new TicketTransactionSearch();
-        $dataProvider = $searchModel->searchDateRange(Yii::$app->request->queryParams);
+        if (!Yii::$app->user->isGuest) {
 
-        return $this->render('date_range', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            $searchModel = new TicketTransactionSearch();
+            $dataProvider = $searchModel->searchDateRange(Yii::$app->request->queryParams);
+
+            return $this->render('date_range', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
 
     public function actionClerkReport()
     {
-        $searchModel = new TicketTransactionSearch();
-        $dataProvider = $searchModel->searchClerk(Yii::$app->request->queryParams);
+        if (!Yii::$app->user->isGuest) {
 
-        return $this->render('clerks_report', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            $searchModel = new TicketTransactionSearch();
+            $dataProvider = $searchModel->searchClerk(Yii::$app->request->queryParams);
+
+            return $this->render('clerks_report', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
+
     public function actionClerkDeni()
     {
-        $searchModel = new TicketTransactionSearch();
-        $dataProvider = $searchModel->searchClerk(Yii::$app->request->queryParams);
+        if (!Yii::$app->user->isGuest) {
 
-        return $this->render('clerks_deni1', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            $searchModel = new TicketTransactionSearch();
+            $dataProvider = $searchModel->searchClerk(Yii::$app->request->queryParams);
+
+            return $this->render('clerks_deni1', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
 }
