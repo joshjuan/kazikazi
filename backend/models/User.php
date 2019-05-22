@@ -41,7 +41,6 @@ class User extends \common\models\User
     const SUPERVISOR=3;
     const CLERK=4;
 
-
     /**
      * @inheritdoc
      */
