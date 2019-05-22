@@ -10,11 +10,13 @@ use yii\widgets\ActiveForm;
 /* @var $model backend\models\Municipal */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+
+
 <p style="padding-top: 15px"/>
 <center>
     <h3>
         <i class="fa fa-th text-default">
-            <strong> SHEHIA FORM</strong>
+            <strong> MUNICIPAL FORM (FOMU YA SHEHIA)</strong>
         </i>
     </h3>
 </center>

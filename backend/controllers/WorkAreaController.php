@@ -38,16 +38,30 @@ class WorkAreaController extends Controller
     public function actionIndex()
     {
         if (!Yii::$app->user->isGuest) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewWorkArea')) {
 
-            $searchModel = new WorkAreaSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+                $searchModel = new WorkAreaSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-            Audit::setActivity(Yii::$app->user->identity->name . ' was view general information of work area ', 'WorkArea ', 'index', '', '');
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia taarifa za maeneo ya kazi ya makarani. ', 'WorkArea', 'Index', '', '');
 
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
+                return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+
+            } else {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'title' => 'Notification',
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['site/index']);
+            }
 
         } else {
             $model = new LoginForm();
@@ -72,7 +86,7 @@ class WorkAreaController extends Controller
 
                 $model = $this->findModel($id);
 
-                Audit::setActivity(Yii::$app->user->identity->name . ' was view the information of  ' . $model->name . ' work area', 'WorkArea', 'View', '', '');
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia taarifa ya eneo la kazi, ambayo ni " ' . $model->name . ' ".', 'WorkArea', 'View', '', '');
 
                 return $this->render('view', [
                     'model' => $this->findModel($id),
@@ -119,7 +133,7 @@ class WorkAreaController extends Controller
 
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-                    Audit::setActivity('New Work Area ' . $model->name . ' was successfully created by ' . Yii::$app->user->identity->name, 'WorkArea ', 'create', '', '');
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameongeza eneo la kazi jipya, ambalo ni " ' . $model->name . ' ".', 'WorkArea', 'Create', '', '');
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
 
@@ -176,7 +190,7 @@ class WorkAreaController extends Controller
                 ]);
 
 
-                Audit::setActivity('Work area was successfully updated to ' . $model->name, 'WorkArea ', 'Update', '', '');
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amebadilisha taarifa ya eneo jipya, ambalo ni " ' . $model->name . ' ".', 'WorkArea', 'Update', '', '');
                 return $this->redirect(['view', 'id' => $model->id]);
 
             } else {
@@ -212,7 +226,7 @@ class WorkAreaController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('deleteWorkArea')) {
+            if (Yii::$app->user->can('super_admin') ) {
 
                 $model = $this->findModel($id);
 
@@ -227,7 +241,7 @@ class WorkAreaController extends Controller
                         'positonX' => 'right'
                     ]);
 
-                    Audit::setActivity('Work area ' . $model->name . ' was successfully deleted' . Yii::$app->user->identity->name, 'District', 'Delete', '', '');
+                  //  Audit::setActivity('Work area ' . $model->name . ' was successfully deleted' . Yii::$app->user->identity->name, 'District', 'Delete', '', '');
 
                     return $this->redirect(['index']);
                 }

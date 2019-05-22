@@ -39,13 +39,31 @@ class RegionController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            $searchModel = new RegionSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewRegion')) {
 
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
+                $searchModel = new RegionSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia taarifa za mikoa yote kwa ujumla ', 'Region', 'Index', '', '');
+
+                return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+
+            } else {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['site/index']);
+            }
+
         } else {
             $model = new LoginForm();
             return $this->redirect(['site/login',
@@ -63,9 +81,30 @@ class RegionController extends Controller
     public function actionView($id)
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->render('view', [
-                'model' => $this->findModel($id),
-            ]);
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewRegion')) {
+
+                $model = $this->findModel($id);
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia taarifa ya mkoa, ambao ni  " ' . $model->name . ' ".', 'Region', 'View', '', '');
+
+                return $this->render('view', [
+                    'model' => $this->findModel($id),
+                ]);
+
+            } else {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['site/index']);
+            }
+
         } else {
             $model = new LoginForm();
             return $this->redirect(['site/login',
@@ -82,12 +121,16 @@ class RegionController extends Controller
     public function actionCreate()
     {
         if (!Yii::$app->user->isGuest) {
-            if (Yii::$app->user->can('super_admin')||Yii::$app->user->can('createRegion')) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createRegion')) {
+
                 $model = new Region();
                 $model->created_at = date('y-m-d H:i:s');
                 $model->created_by = Yii::$app->user->identity->username;
+
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                    Audit::setActivity('New region successfully created ', 'Region ', 'create', '', '');
+
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameongeza mkoa mpya, ambao ni  " ' . $model->name . ' ".', 'Region', 'Create', '', '');
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
 
@@ -104,7 +147,7 @@ class RegionController extends Controller
                     'positonX' => 'right'
                 ]);
 
-                return $this->redirect(['index']);
+                return $this->redirect(['site/index']);
             }
         } else {
             $model = new LoginForm();
@@ -124,11 +167,13 @@ class RegionController extends Controller
     public function actionUpdate($id)
     {
         if (!Yii::$app->user->isGuest) {
-            if (Yii::$app->user->can('super_admin')||Yii::$app->user->can('updateRegion')) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('updateRegion')) {
 
                 $model = $this->findModel($id);
 
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amebadilisha taarifa ya mkoa, ambao ni  " ' . $model->name . ' ".', 'Region', 'Update', '', '');
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
 
@@ -136,22 +181,22 @@ class RegionController extends Controller
                     'model' => $model,
                 ]);
 
-           }else{
+            } else {
                 Yii::$app->session->setFlash('', [
                     'type' => 'warning',
                     'duration' => 3500,
                     'icon' => 'fa fa-warning',
-                    'title'=>'Notification',
+                    'title' => 'Notification',
                     'message' => 'You do not have permission',
                     'positonY' => 'top',
                     'positonX' => 'right'
                 ]);
 
-                return $this->redirect(['index']);
-           }
+                return $this->redirect(['site/index']);
+            }
 
 
-        }else {
+        } else {
             $model = new LoginForm();
             return $this->redirect(['site/login',
                 'model' => $model,
@@ -175,7 +220,7 @@ class RegionController extends Controller
 
             return $this->redirect(['index']);
 
-        }else{
+        } else {
             $model = new LoginForm();
             return $this->redirect(['site/login',
                 'model' => $model,

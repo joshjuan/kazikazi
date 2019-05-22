@@ -39,15 +39,31 @@ class DistrictController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            $searchModel = new DistrictSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewDistrict')) {
 
-            Audit::setActivity(Yii::$app->user->identity->name . ' was looking general information of districts ', 'District ', 'index', '', '');
+                $searchModel = new DistrictSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia taarifa za wilaya yote kwa ujumla. ', 'District', 'Index', '', '');
+
+                return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+
+            } else {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['site/index']);
+            }
+
 
         } else {
             $model = new LoginForm();
@@ -72,13 +88,13 @@ class DistrictController extends Controller
 
             if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewDistrict')) {
 
-                Audit::setActivity(Yii::$app->user->identity->name . ' was looking the information of  ' . $model->name.' district', 'District', 'View', '', '');
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia taarifa ya wilaya ya " ' . $model->name . ' ".', 'District', 'View', '', '');
 
                 return $this->render('view', [
                     'model' => $this->findModel($id),
                 ]);
 
-            }else{
+            } else {
                 Yii::$app->session->setFlash('', [
                     'type' => 'warning',
                     'duration' => 3500,
@@ -88,11 +104,12 @@ class DistrictController extends Controller
                     'positonY' => 'top',
                     'positonX' => 'right'
                 ]);
+             //   Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amejaribu kuangalia taarifa ya wilaya ya " ' . $model->name . ' " lakina hakufanikiwa kwakuwa hakuwa na ruhusa ya kuangalia hiyo taarifa.', 'District', 'View', '', '');
                 return $this->redirect(['index']);
             }
 
 
-        }else{
+        } else {
             $model = new LoginForm();
             return $this->redirect(['site/login',
                 'model' => $model,
@@ -112,12 +129,12 @@ class DistrictController extends Controller
             if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createDistrict')) {
 
                 $model = new District();
-                $model->create_at=date('y-m-d H:i:s');
-                $model->created_by=Yii::$app->user->identity->username;
+                $model->create_at = date('y-m-d H:i:s');
+                $model->created_by = Yii::$app->user->identity->username;
 
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-                    Audit::setActivity('New district ' . $model->name . ' was successfully created by ' . Yii::$app->user->identity->name, 'District ', 'create', '', '');
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameongeza wilaya mpya, ambayo ni " ' . $model->name . ' ".', 'District', 'Create', '', '');
 
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
@@ -125,7 +142,7 @@ class DistrictController extends Controller
                     'model' => $model,
                 ]);
 
-            }else{
+            } else {
 
                 Yii::$app->session->setFlash('', [
                     'type' => 'warning',
@@ -172,14 +189,14 @@ class DistrictController extends Controller
                         'type' => 'success',
                         'duration' => 1500,
                         'icon' => 'fa fa-check',
-                        'title'=>'Notification',
+                        'title' => 'Notification',
                         'message' => 'District was successfully updated',
                         'positonY' => 'top',
                         'positonX' => 'right'
                     ]);
 
 
-                    Audit::setActivity('District was successfully updated to ' . $model->name, 'Update ', 'Index', '', '');
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amebadilisha taarifa ya wilaya ya " ' . $model->name . ' ".', 'District', 'Update', '', '');
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
 
@@ -187,7 +204,7 @@ class DistrictController extends Controller
                     'model' => $model,
                 ]);
 
-            }else{
+            } else {
                 Yii::$app->session->setFlash('', [
                     'type' => 'warning',
                     'duration' => 3500,
@@ -200,7 +217,7 @@ class DistrictController extends Controller
                 return $this->redirect(['index']);
             }
 
-        }else{
+        } else {
             $model = new LoginForm();
             return $this->redirect(['site/login',
                 'model' => $model,
@@ -220,7 +237,7 @@ class DistrictController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('deleteDistrict')) {
+            if (Yii::$app->user->can('super_admin') ) {
 
                 $model = $this->findModel($id);
 
@@ -240,7 +257,7 @@ class DistrictController extends Controller
                     return $this->redirect(['district\index']);
                 }
 
-            }else{
+            } else {
                 Yii::$app->session->setFlash('', [
                     'type' => 'warning',
                     'duration' => 3500,
@@ -253,7 +270,7 @@ class DistrictController extends Controller
                 return $this->redirect(['district/index']);
             }
 
-        }else{
+        } else {
             $model = new LoginForm();
             return $this->redirect(['site/login',
                 'model' => $model,

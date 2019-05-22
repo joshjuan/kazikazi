@@ -103,7 +103,7 @@ use dmstr\widgets\Menu;
                     ],
                     [
                         'label' => 'Area Configuration',
-                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewZone') || Yii::$app->user->can('viewMunicipal') || Yii::$app->user->can('viewRegion') || Yii::$app->user->can('viewWorkArea') || Yii::$app->user->can('viewWorkArea'),
+                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewStreet') || Yii::$app->user->can('viewMunicipal') || Yii::$app->user->can('viewRegion') || Yii::$app->user->can('viewDistrict') || Yii::$app->user->can('viewWorkArea'),
                         'icon' => 'database text-orange',
                         'items' => [
 

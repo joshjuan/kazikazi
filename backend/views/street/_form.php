@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 <center>
     <h3>
         <i class="fa fa-th text-default">
-            <strong> ZONE FORM</strong>
+            <strong> STREET FORM (FOMU YA ZONE)</strong>
         </i>
     </h3>
 </center>

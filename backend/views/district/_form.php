@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 <center>
     <h3>
         <i class="fa fa-th text-default">
-            <strong> DISTRICT FORM</strong>
+            <strong> DISTRICT FORM (FOMU YA WILAYA)</strong>
         </i>
     </h3>
 </center>

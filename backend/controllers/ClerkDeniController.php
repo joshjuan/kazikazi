@@ -44,7 +44,7 @@ class ClerkDeniController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewClerkMahesabu')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaClerkMahesabu')) {
 
                 $searchModel = new ClerkDeniSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -78,46 +78,6 @@ class ClerkDeniController extends Controller
             ]);
         }
 
-    }
-
-    public function actionClerkIndex()
-    {
-
-        if (!Yii::$app->user->isGuest) {
-
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewClerkMahesabu')) {
-
-                $searchModel = new ClerkDeniSearch();
-                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia ripoti za madeni ya makaranni (Clerks) ', 'ClerkDeni', 'IndexClerk', '', '');
-
-                return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-                ]);
-
-            } else {
-                Yii::$app->session->setFlash('', [
-                    'type' => 'danger',
-                    'duration' => 1500,
-                    'icon' => 'fa fa-warning',
-                    'title' => 'Notification',
-                    'message' => Yii::t('app', 'You dont have a permission'),
-                    'positonY' => 'top',
-                    'positonX' => 'right'
-                ]);
-
-                return $this->redirect(['site/index']);
-            }
-
-
-        } else {
-            $model = new LoginForm();
-            return $this->redirect(['site/login',
-                'model' => $model,
-            ]);
-        }
     }
 
     public function actionClerkReport()
@@ -191,73 +151,130 @@ class ClerkDeniController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaClerkMahesabu')) {
-
+            if (Yii::$app->user->can('fungaClerkMahesabu') || Yii::$app->user->can('super_admin')){
                 $model = new ClerkDeni();
 
                 if ($model->load(Yii::$app->request->post())) {
-                    $time = date('Y-m-d');
-                    $time = strtotime($time);
+                    $Cleck_Date = ClerkDeniSearch::find()->select('collected_amount')->where(['name' => $model->name])->andWhere(['date(amount_date)' => $model->amount_date])->sum('collected_amount');
+                    if ($Cleck_Date == '') {
 
-                    $time1 = $model->amount_date;
-                    $time1 = strtotime($time1);
+                        $time = date('Y-m-d');
+                        $time = strtotime($time);
 
-                    if ($time1 <= $time) {
-                        if ($model->amount_date != '' && $model->submitted_amount != '') {
-                            $amount = TicketTransactionSearch::find()->select('amount')->where(['user' => $model->name])->andWhere(['date(create_at)' => $model->amount_date])->sum('amount');
-                            $model->collected_amount = $amount;
-                            $model->deni = $model->collected_amount - $model->submitted_amount;
-                            $model->created_by = Yii::$app->user->identity->username;
-                            $model->created_at = date('Y-m-d H:i:s');
-                            $model->save();
+                        $time1 = $model->amount_date;
+                        $time1 = strtotime($time1);
+
+                        if ($time1 <= $time) {
+                            if ($model->amount_date != '' && $model->submitted_amount != '') {
+                                $amount = TicketTransactionSearch::find()->select('amount')->where(['user' => $model->name])->andWhere(['date(create_at)' => $model->amount_date])->sum('amount');
+                                if ($amount != '') {
+                                    $model->collected_amount = $amount;
+                                    $model->deni = $model->collected_amount - $model->submitted_amount;
+                                    $model->created_by = Yii::$app->user->identity->username;
+                                    $model->created_at = date('Y-m-d H:i:s');
+                                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') alifanikiwa kufunga mahesabu ya karani " ' . $model->user0->name . ' ")', 'ClerkDeni', 'Create', '', '');
+                                    if ($model->deni == 0) {
+                                        $model->status = ClerkDeni::COMPLETE;
+                                        $model->save();
+                                        Yii::$app->session->setFlash('', [
+                                            'type' => 'success',
+                                            'duration' => 4500,
+                                            'icon' => 'fa fa-warning',
+                                            'title' => 'Notification',
+                                            'message' => 'Umefanikiwa kufunga Mahesabu',
+                                            'positonY' => 'top',
+                                            'positonX' => 'right'
+                                        ]);
+                                    } else {
+                                        $model->status = ClerkDeni::NOT_COMPLETE;
+                                        $model->save();
+                                        Yii::$app->session->setFlash('', [
+                                            'type' => 'success',
+                                            'duration' => 4500,
+                                            'icon' => 'fa fa-warning',
+                                            'title' => 'Notification',
+                                            'message' => 'Umefanikiwa kufunga Mahesabu',
+                                            'positonY' => 'top',
+                                            'positonX' => 'right'
+                                        ]);
+                                    }
+
+                                } else {
+                                    Yii::$app->session->setFlash('', [
+                                        'type' => 'warning',
+                                        'duration' => 4500,
+                                        'icon' => 'fa fa-warning',
+                                        'title' => 'Notification',
+                                        'message' => 'Karani hana mahesabu ya kufungwa kwa tarehe hii',
+                                        'positonY' => 'top',
+                                        'positonX' => 'right'
+                                    ]);
+                                    return $this->redirect(['clerk-deni/create']);
+                                }
+
+                            }
+                            else {
+                                Yii::$app->session->setFlash('', [
+                                    'type' => 'warning',
+                                    'duration' => 4500,
+                                    'icon' => 'fa fa-warning',
+                                    'title' => 'Notification',
+                                    'message' => 'Date and Amount can not be empty',
+                                    'positonY' => 'top',
+                                    'positonX' => 'right'
+                                ]);
+                                return $this->redirect(['clerk-deni/create']);
+                            }
+
+
                         } else {
                             Yii::$app->session->setFlash('', [
                                 'type' => 'warning',
                                 'duration' => 4500,
                                 'icon' => 'fa fa-warning',
                                 'title' => 'Notification',
-                                'message' => 'Date and Amount can not be empty',
+                                'message' => 'Date can not be above today date',
                                 'positonY' => 'top',
                                 'positonX' => 'right'
                             ]);
                             Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') alijaribu kuongeza taarifa ya deni la karani (clerk) huyu " ' . $model->user0->name . ' " lakini hakufanikiwa kwakuwa tarehe aliyoweka ilikuwa ni nyuma zaidi ( haifanani na tarehe ya leo)', 'ClerkDeni', 'Create', '', '');
                             return $this->redirect(['clerk-deni/create']);
                         }
-
+                        return $this->redirect(['index']);
                     } else {
                         Yii::$app->session->setFlash('', [
                             'type' => 'warning',
                             'duration' => 4500,
                             'icon' => 'fa fa-warning',
                             'title' => 'Notification',
-                            'message' => 'Date can not be above today date',
+                            'message' => 'Mahesabu ya karani uyu yamekwisha fungwa',
                             'positonY' => 'top',
                             'positonX' => 'right'
                         ]);
-                        Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') alijaribu kuongeza taarifa ya deni la karani (clerk) huyu " ' . $model->user0->name . ' " lakini hakufanikiwa kwakuwa tarehe aliyoweka ilikuwa ni mbele zaidi ( haifanani na tarehe ya leo)', 'ClerkDeni', 'Create', '', '');
                         return $this->redirect(['clerk-deni/create']);
                     }
 
-                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amefanikiwa kuongeza taarifa ya deni la karani (clerk) " ' . $model->user0->name . ' "', 'ClerkDeni', 'Create', '', '');
-                    return $this->redirect(['index']);
                 }
 
                 return $this->render('create', [
                     'model' => $model,
                 ]);
 
-            } else {
+            }
+            else
+            {
                 Yii::$app->session->setFlash('', [
-                    'type' => 'warning',
-                    'duration' => 3500,
+                    'type' => 'Danger',
+                    'duration' => 4500,
                     'icon' => 'fa fa-warning',
                     'title' => 'Notification',
-                    'message' => 'You do not have permission',
+                    'message' => 'Hauna uwezo wa kufunga mahesabu',
                     'positonY' => 'top',
                     'positonX' => 'right'
                 ]);
-                return $this->redirect(['index']);
+                return $this->redirect(['clerk-deni/create']);
             }
+
 
         } else {
             $model = new LoginForm();
@@ -330,13 +347,12 @@ class ClerkDeniController extends Controller
                     $value = $model->$attribute;                 // your attribute value
                     if ($attribute === 'submitted_amount') // selective validation by attribute
                     {
-                        $modelUIN = $this->findModel($model->id);
-                        //    $modelUIN->status = Application::PHYSICAL_SETUP;
-                        //  $modelUIN->maker_time3 = date('Y-m-d H:i:s');
-                        //   $modelUIN->maker_id3 = Yii::$app->user->identity->username;
-                        $modelUIN->save();
-                        return '';
-
+                        $model = $this->findModel($model->id);
+                        if ($model->submitted_amount === $model->collected_amount) {
+                            $model->deni = $model->collected_amount - $model->submitted_amount;
+                            $model->status = ClerkDeni::COMPLETE;
+                            $model->save();
+                        }
 
                     }
                     return '';                                   // empty is same as $value

@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 <center>
     <h3>
         <i class="fa fa-th text-default">
-            <strong> REGION FORM</strong>
+            <strong>FOMU YA MKOA (REGION FORM)</strong>
         </i>
     </h3>
 </center>

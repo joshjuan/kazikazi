@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
 
 
     <p>
-        <?php if (Yii::$app->user->can('super_admin1')) { ?>
+        <?php if (Yii::$app->user->can('super_admin')) { ?>
             <?= Html::a('Create Clerk Deni', ['create'], ['class' => 'btn btn-success']) ?>
         <?php } ?>
     </p>
@@ -61,39 +61,30 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
             'format' => ['decimal', 2],
 
         ],
-        /*  [
+        [
               'class' => 'kartik\grid\EditableColumn',
-              'attribute' => 'sim_card',
+              'attribute' => 'submitted_amount',
               'contentOptions' => ['class' => 'truncate'],
-              'label' => 'SIM CARD',
-              //  'width' => '130px',
+
               'refreshGrid' => true,
+             'pageSummary' => true,
+            'format' => ['decimal', 2],
               //   'visible' => yii::$app->user->can('UinAction') || yii::$app->user->can('admin'),
               'editableOptions' => [
 
                   'size' => 'sm',
-                  'formOptions' => ['action' => ['application-uin/simcard']],
+                  'formOptions' => ['action' => ['clerk-deni/collect']],
                   'asPopover' => false,
 
-                  'inputType' => \kartik\editable\Editable::INPUT_SELECT2,
-                  'data' => \backend\models\LineNumber::getAll(),
+                  'inputType' => \kartik\editable\Editable::INPUT_TEXT,
+                 // 'data' => \backend\models\LineNumber::getAll(),
                   'options' => [
                       'pluginOptions' => ['min' => 0, 'max' => 5000],
                       //   'style'=>'max-width:10px; min-height:10px; overflow: auto; word-wrap: break-word;'
 
                   ]
               ],
-          ],*/
-        [
-            'attribute' => 'submitted_amount',
-            'width' => '180px',
-
-            'pageSummary' => true,
-            'format' => ['decimal', 2],
-
-        ],
-
-
+          ],
         [
             'attribute' => 'deni',
             'width' => '180px',
@@ -132,7 +123,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
     // the GridView widget (you must use kartik\grid\GridView)
     echo \kartik\grid\GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+       // 'filterModel' => $searchModel,
         'rowOptions' => function ($model, $key, $index, $grid) {
             return ['data-id' => $model->id];
         },
