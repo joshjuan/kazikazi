@@ -43,50 +43,126 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (!Yii::$app->user->isGuest) {
 
-        Audit::setActivity('Ameangalia orodha ya watumiaji wa mfumo ', 'User ', 'Index', '', '');
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+
+                $searchModel = new UserSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia orodha ya watumiaji wa mfumo matika mfumo', 'User ', 'Index', '', '');
+                return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+
+            }else{
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['site/index']);
+            }
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
 
     public function actionManagersList()
     {
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->searchManager(Yii::$app->request->queryParams);
+        if (!Yii::$app->user->isGuest) {
 
-        Audit::setActivity('Ameangalia orodha ya watumiaji wa mfumo ', 'User ', 'Index', '', '');
-        return $this->render('managers', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+
+                $searchModel = new UserSearch();
+                $dataProvider = $searchModel->searchManager(Yii::$app->request->queryParams);
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia orodha ya mameneja wote katika mfumo. ', 'User ', 'Index', '', '');
+                return $this->render('managers', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+
+            }else{
+                Yii::$app->session->setFlash('', [
+                'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['site/index']);
+            }
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
 
     public function actionSupervisorsList()
     {
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->searchSupervisor(Yii::$app->request->queryParams);
+        if (!Yii::$app->user->isGuest) {
 
-        Audit::setActivity('Ameangalia orodha ya watumiaji wa mfumo ', 'User ', 'Index', '', '');
-        return $this->render('supervisor', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+
+                $searchModel = new UserSearch();
+                $dataProvider = $searchModel->searchSupervisor(Yii::$app->request->queryParams);
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia orodha ya supavaiza (supervisor) wote katika mfumo. ', 'User ', 'Index', '', '');
+
+                return $this->render('supervisor', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+
+            }else{
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['site/index']);
+            }
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
 
     public function actionSuperAdmin()
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super-admin')) {
+            if (Yii::$app->user->can('super_admin')) {
 
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->searchSuperAdmin(Yii::$app->request->queryParams);
 
-                Audit::setActivity('Ameangalia orodha ya watumiaji wa mfumo ', 'User ', 'Index', '', '');
+               // Audit::setActivity('Ameangalia orodha ya watumiaji wa mfumo ', 'User ', 'Index', '', '');
                 return $this->render('super_admin', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
@@ -127,7 +203,7 @@ class UserController extends Controller
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->searchAdmin(Yii::$app->request->queryParams);
 
-                Audit::setActivity('Ameangalia orodha ya watumiaji wa mfumo ', 'User ', 'Index', '', '');
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia orodha ya maadimini wa mfumo ( system administrator ). ', 'User ', 'Index', '', '');
                 return $this->render('admin', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
@@ -167,7 +243,7 @@ class UserController extends Controller
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->searchClerk(Yii::$app->request->queryParams);
 
-                Audit::setActivity('Ameangalia orodha ya watumiaji wa mfumo ', 'User ', 'Index', '', '');
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia orodha ya makarani (clerks) waliopo kwenye mfumo. ', 'User ', 'Index', '', '');
                 return $this->render('clerk', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
@@ -206,45 +282,20 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
-
-
-        Audit::setActivity('Ameangalia taarifa ya ' . $model->name . ', namba zake ni ' . $model->mobile, 'User', 'View', '', '');
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new User model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-
-
-
-    public function actionClerkCreate()
-    {
 
         if (!Yii::$app->user->isGuest) {
 
             if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
-                $model = new User();
 
-                //  $model->scenario = 'createUser';
-                   $model->user_type=User::CLERK;
+                $model = $this->findModel($id);
 
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ' ) ameangalia taarifa ya ' . $model->name . ', namba zake ni ' . $model->mobile, 'User', 'View', '', '');
 
-                if ($model->load(Yii::$app->request->post())) {
-                    $amount = WorkAreaSearch::find()->select('amount')->where(['id' => $model->work_area])->one();;
-                    $model->amount=intval($amount['amount']);
-                    Audit::setActivity('New data clerk successfully created ', 'Clerk ', 'Index', '', '');
-                    $model->save();
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-            }
-            else
-            {
+                return $this->render('view', [
+                    'model' => $this->findModel($id),
+                ]);
+
+            }else{
                 Yii::$app->session->setFlash('', [
                     'type' => 'warning',
                     'duration' => 3500,
@@ -254,16 +305,10 @@ class UserController extends Controller
                     'positonX' => 'right'
                 ]);
 
-                return $this->redirect(['clerk']);
+                return $this->redirect(['site/index']);
             }
 
-
-        return $this->render('create-clerk', [
-            'model' => $model,
-        ]);
-
-        }
-        else{
+        }else{
             $model = new LoginForm();
             return $this->redirect(['site/login',
                 'model' => $model,
@@ -272,12 +317,19 @@ class UserController extends Controller
 
     }
 
+    /**
+     * Creates a new User model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+
     public function actionSupervisorCreate()
     {
 
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createUser')) {
+
                 $model = new User();
 
                  $model->user_type = 3;
@@ -285,7 +337,7 @@ class UserController extends Controller
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
 
-                    Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amemuongeza supavaiza (supervisor) mpya mabaye ni" ' . $model->name . ' ".', 'Street', 'Create', '', '');
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
             }
@@ -411,14 +463,14 @@ class UserController extends Controller
 
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createUser')) {
                 $model = new User();
 
                 //  $model->scenario = 'createUser';
                     $model->user_type=User::ADMIN;
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-                    Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amemuongeza adimini wa mfumo (system administrator) mpya mabaye ni" ' . $model->name . ' ".', 'User', 'Create', '', '');
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
             }
@@ -456,14 +508,14 @@ class UserController extends Controller
 
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createUser')) {
                 $model = new User();
 
                 $model->user_type = 2;
 
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-                    Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amemuongeza meneja (manager) mpya katika mfumo, ambaye ni" ' . $model->name . ' ".', 'User', 'Create', '', '');
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
             }
@@ -496,37 +548,31 @@ class UserController extends Controller
 
     }
 
-
-    public function actionClerkCreate1()
+    public function actionClerkCreate()
     {
 
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createUser')) {
                 $model = new User();
 
-                //  $model->scenario = 'createUser';
-                $model->user_type = User::CLERK;
+                $model->user_type=User::CLERK;
 
 
                 if ($model->load(Yii::$app->request->post())) {
                     $amount = WorkAreaSearch::find()->select('amount')->where(['id' => $model->work_area])->one();;
+                    $model->amount=intval($amount['amount']);
 
-                    //    print_r($amount['amount']);
-                    //  exit;
-                    $model->amount = $amount['amount'];
-                    // $model->getErrors();
-                    // exit;
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amemuongeza karani mpya ambaye ni" ' . $model->name . ' ".', 'User', 'Create', '', '');
 
-                    Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
                     $model->save();
 
-                    //  print_r($model->id);
-                    //exit();
-                    //return $this->redirect(['view', 'id' => $model->id,]);
-                    return $this->redirect(['clerk']);
+
+                    return $this->redirect(['view', 'id' => $model->id]);
                 }
-            } else {
+            }
+            else
+            {
                 Yii::$app->session->setFlash('', [
                     'type' => 'warning',
                     'duration' => 3500,
@@ -536,7 +582,7 @@ class UserController extends Controller
                     'positonX' => 'right'
                 ]);
 
-                return $this->redirect(['site/index']);
+                return $this->redirect(['clerk']);
             }
 
 
@@ -544,15 +590,15 @@ class UserController extends Controller
                 'model' => $model,
             ]);
 
-        } else {
+        }
+        else{
             $model = new LoginForm();
             return $this->redirect(['site/login',
                 'model' => $model,
             ]);
         }
+
     }
-
-
 
 
     /**
