@@ -64,7 +64,7 @@ $fieldOptions2 = [
                     <a href="#" class="btn btn-block btn-social btn-google-plus btn-flat"><i class="fa fa-google-plus"></i> Sign
                         in using Google+</a>
                 </div>
-                <!-- /.social-auth-links -->
+                <!-.social-auth-links -->
 
         <!-- <a href="#">I forgot my password</a><br>
          <a href="register.html" class="text-center">Register a new membership</a>-->

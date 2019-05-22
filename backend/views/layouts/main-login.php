@@ -49,6 +49,4 @@ dmstr\web\AdminLteAsset::register($this);
         background-size: cover;
 
     }
-
-
 </style>
