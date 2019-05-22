@@ -2,8 +2,10 @@
 
 namespace backend\controllers;
 
+use backend\models\Audit;
 use backend\models\TicketTransaction;
 use backend\models\TicketTransactionSearch;
+use common\models\LoginForm;
 use kartik\grid\EditableColumnAction;
 use Yii;
 use backend\models\ClerkDeni;
@@ -40,35 +42,121 @@ class ClerkDeniController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ClerkDeniSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (!Yii::$app->user->isGuest) {
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewClerkMahesabu')) {
+
+                $searchModel = new ClerkDeniSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia taarifa za madeni ya makaranni (Clerks) ', 'ClerkDeni', 'Index', '', '');
+
+                return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+
+            }else{
+                Yii::$app->session->setFlash('', [
+                    'type' => 'danger',
+                    'duration' => 1500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => Yii::t('app', 'You dont have a permission'),
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
+
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
 
     public function actionClerkIndex()
     {
-        $searchModel = new ClerkDeniSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('indexClerk', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewClerkMahesabu')) {
+
+                $searchModel = new ClerkDeniSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia ripoti za madeni ya makaranni (Clerks) ', 'ClerkDeni', 'IndexClerk', '', '');
+
+                return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+
+            }else{
+                Yii::$app->session->setFlash('', [
+                    'type' => 'danger',
+                    'duration' => 1500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => Yii::t('app', 'You dont have a permission'),
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
+
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
     }
 
     public function actionClerkReport()
     {
-        $searchModel = new ClerkDeniSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (!Yii::$app->user->isGuest) {
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewClerkMahesabu')) {
+
+                $searchModel = new ClerkDeniSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia ripoti za makaranni (Clerks) wote ', 'ClerkDeni', 'Index', '', '');
+
+                return $this->render('indexClerk', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+
+            }else{
+                Yii::$app->session->setFlash('', [
+                    'type' => 'danger',
+                    'duration' => 1500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => Yii::t('app', 'You dont have a permission'),
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
+
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
     }
 
     /**
@@ -79,9 +167,19 @@ class ClerkDeniController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if (!Yii::$app->user->isGuest) {
+
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
 
     /**
