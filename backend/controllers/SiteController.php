@@ -75,11 +75,13 @@ class SiteController extends Controller
         } elseif (Yii::$app->user->can('manager')) {
 
             return $this->render('indexManager');
-
-        } elseif (Yii::$app->user->can('clerk')) {
+        }
+        elseif (Yii::$app->user->can('clerk')) {
 
             return $this->render('indexClerk');
-
+        }
+        else{
+            return $this->render('default');
         }
     }
 

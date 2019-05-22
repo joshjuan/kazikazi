@@ -25,6 +25,26 @@ $this->params['breadcrumbs'][] = $this->title;
             'mobile',
             'email',
             'role',
+/*            [
+                'attribute' => 'region',
+                'value' => 'region0.name',
+            ],
+            [
+                'attribute' => 'district',
+                'value' => 'district0.name',
+            ],
+            [
+                'attribute' => 'municipal',
+                'value' => 'municipal0.name',
+            ],
+            [
+                'attribute' => 'street',
+                'value' => 'street.name',
+            ],
+            [
+                'attribute' => 'work_area',
+                'value' => 'work_area0.name',
+            ],*/
             [
                 'attribute' => 'status',
                 'value' => $model->statusLabel,
