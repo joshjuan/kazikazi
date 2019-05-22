@@ -54,7 +54,7 @@ use dmstr\widgets\Menu;
                     ],
                     [
                         'label' => 'Funga Hesabu',
-                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewClerkMahesabu'),
+                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaClerkMahesabu'),
                         'icon' => 'money text-orange',
                         'items' => [
 
@@ -67,6 +67,7 @@ use dmstr\widgets\Menu;
                             ],
                             [
                                 //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaClerkMahesabu'),
                                 'label' => Yii::t('app', 'Mahesabu yaliyofungwa'),
                                 'url' => ['/clerk-deni/index'],
                                 'icon' => 'lock text-orange',
@@ -88,10 +89,10 @@ use dmstr\widgets\Menu;
                                     [
                                         'label' => 'Clerks Report',
                                         'icon' => 'file-o text-green',
-                                        'url' => ['/ticket-transaction/clerk-report'],
+                                        'url' => '',
                                         'items'=>[
                                             ['label' => 'Daily Clerk Report', 'icon' => 'money text-green', 'url' => ['/ticket-transaction/clerk-report'],],
-                                            ['label' => 'Repoti ya Deni', 'icon' => 'money text-green', 'url' => ['/clerk-deni/clerk-index'],],
+                                            ['label' => 'Repoti ya Deni', 'icon' => 'money text-green', 'url' => ['/clerk-deni/clerk-report'],],
                                         ]
                                     ],
                                     ['label' => 'Date Range Report', 'icon' => 'file-o text-green', 'url' => ['/ticket-transaction/date-range'],],

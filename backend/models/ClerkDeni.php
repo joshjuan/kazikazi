@@ -16,12 +16,16 @@ use Yii;
  * @property string $amount_date
  * @property string $created_at
  * @property string $created_by
+ * @property string $updated_at
+ * @property string $updated_by
  * @property string $status
  *
  * @property User $name0
  */
 class ClerkDeni extends \yii\db\ActiveRecord
 {
+
+
     const COMPLETE=1;
     const NOT_COMPLETE=0;
 
@@ -52,11 +56,10 @@ class ClerkDeni extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'amount_date', 'created_at', 'created_by'], 'required'],
-            ['status', 'string', 'max' => 200],
-            [['name'], 'integer'],
+            [['name','status'], 'integer'],
             [['collected_amount', 'submitted_amount', 'deni', 'total_amount'], 'number'],
-            [['amount_date', 'created_at'], 'safe'],
-            [['created_by','status'], 'string', 'max' => 200],
+            [['amount_date', 'created_at','updated_at'], 'safe'],
+            [['created_by','updated_by'], 'string', 'max' => 200],
             [['name'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['name' => 'id']],
         ];
     }
@@ -74,8 +77,7 @@ class ClerkDeni extends \yii\db\ActiveRecord
             'deni' => 'Deni',
             'status' => 'Status',
             'total_amount' => 'Total Amount',
-            'amount_date' => 'Work Date',
-            'status' => 'status',
+            'amount_date' => 'Tarehe ya Kazi',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
         ];

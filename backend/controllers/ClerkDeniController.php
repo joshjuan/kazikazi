@@ -181,7 +181,7 @@ class ClerkDeniController extends Controller
                                             'duration' => 4500,
                                             'icon' => 'fa fa-warning',
                                             'title' => 'Notification',
-                                            'message' => 'Umefanikiwa kufunga Mahesabu',
+                                            'message' => 'Umefanikiwa kufunga Mahesabu- Status(COMPLETED)',
                                             'positonY' => 'top',
                                             'positonX' => 'right'
                                         ]);
@@ -193,7 +193,7 @@ class ClerkDeniController extends Controller
                                             'duration' => 4500,
                                             'icon' => 'fa fa-warning',
                                             'title' => 'Notification',
-                                            'message' => 'Umefanikiwa kufunga Mahesabu',
+                                            'message' => 'Umefanikiwa kufunga Mahesabu -status(NOT COMPLETED) ',
                                             'positonY' => 'top',
                                             'positonX' => 'right'
                                         ]);
@@ -351,6 +351,8 @@ class ClerkDeniController extends Controller
                         if ($model->submitted_amount === $model->collected_amount) {
                             $model->deni = $model->collected_amount - $model->submitted_amount;
                             $model->status = ClerkDeni::COMPLETE;
+                            $model->updated_at=date('Y-m-d H:i:s');
+                            $model->updated_by=Yii::$app->user->identity->username;
                             $model->save();
                         }
 
@@ -367,3 +369,4 @@ class ClerkDeniController extends Controller
 
     }
 }
+
