@@ -56,7 +56,7 @@ class ClerkDeniController extends Controller
                     'dataProvider' => $dataProvider,
                 ]);
 
-            }else{
+            } else {
                 Yii::$app->session->setFlash('', [
                     'type' => 'danger',
                     'duration' => 1500,
@@ -71,7 +71,7 @@ class ClerkDeniController extends Controller
             }
 
 
-        }else{
+        } else {
             $model = new LoginForm();
             return $this->redirect(['site/login',
                 'model' => $model,
@@ -97,7 +97,7 @@ class ClerkDeniController extends Controller
                     'dataProvider' => $dataProvider,
                 ]);
 
-            }else{
+            } else {
                 Yii::$app->session->setFlash('', [
                     'type' => 'danger',
                     'duration' => 1500,
@@ -112,7 +112,7 @@ class ClerkDeniController extends Controller
             }
 
 
-        }else{
+        } else {
             $model = new LoginForm();
             return $this->redirect(['site/login',
                 'model' => $model,
@@ -136,7 +136,7 @@ class ClerkDeniController extends Controller
                     'dataProvider' => $dataProvider,
                 ]);
 
-            }else{
+            } else {
                 Yii::$app->session->setFlash('', [
                     'type' => 'danger',
                     'duration' => 1500,
@@ -151,7 +151,7 @@ class ClerkDeniController extends Controller
             }
 
 
-        }else{
+        } else {
             $model = new LoginForm();
             return $this->redirect(['site/login',
                 'model' => $model,
@@ -173,7 +173,7 @@ class ClerkDeniController extends Controller
                 'model' => $this->findModel($id),
             ]);
 
-        }else{
+        } else {
             $model = new LoginForm();
             return $this->redirect(['site/login',
                 'model' => $model,
@@ -191,64 +191,81 @@ class ClerkDeniController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-        }else{
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaClerkMahesabu')) {
+
+                $model = new ClerkDeni();
+
+                if ($model->load(Yii::$app->request->post())) {
+                    $time = date('Y-m-d');
+                    $time = strtotime($time);
+
+                    $time1 = $model->amount_date;
+                    $time1 = strtotime($time1);
+
+                    if ($time1 <= $time) {
+                        if ($model->amount_date != '' && $model->submitted_amount != '') {
+                            $amount = TicketTransactionSearch::find()->select('amount')->where(['user' => $model->name])->andWhere(['date(create_at)' => $model->amount_date])->sum('amount');
+                            $model->collected_amount = $amount;
+                            $model->deni = $model->collected_amount - $model->submitted_amount;
+                            $model->created_by = Yii::$app->user->identity->username;
+                            $model->created_at = date('Y-m-d H:i:s');
+                            $model->save();
+                        } else {
+                            Yii::$app->session->setFlash('', [
+                                'type' => 'warning',
+                                'duration' => 4500,
+                                'icon' => 'fa fa-warning',
+                                'title' => 'Notification',
+                                'message' => 'Date and Amount can not be empty',
+                                'positonY' => 'top',
+                                'positonX' => 'right'
+                            ]);
+                            Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') alijaribu kuongeza taarifa ya deni la karani (clerk) huyu " ' . $model->user0->name . ' " lakini hakufanikiwa kwakuwa tarehe aliyoweka ilikuwa ni nyuma zaidi ( haifanani na tarehe ya leo)', 'ClerkDeni', 'Create', '', '');
+                            return $this->redirect(['clerk-deni/create']);
+                        }
+
+                    } else {
+                        Yii::$app->session->setFlash('', [
+                            'type' => 'warning',
+                            'duration' => 4500,
+                            'icon' => 'fa fa-warning',
+                            'title' => 'Notification',
+                            'message' => 'Date can not be above today date',
+                            'positonY' => 'top',
+                            'positonX' => 'right'
+                        ]);
+                        Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') alijaribu kuongeza taarifa ya deni la karani (clerk) huyu " ' . $model->user0->name . ' " lakini hakufanikiwa kwakuwa tarehe aliyoweka ilikuwa ni mbele zaidi ( haifanani na tarehe ya leo)', 'ClerkDeni', 'Create', '', '');
+                        return $this->redirect(['clerk-deni/create']);
+                    }
+
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amefanikiwa kuongeza taarifa ya deni la karani (clerk) " ' . $model->user0->name . ' "', 'ClerkDeni', 'Create', '', '');
+                    return $this->redirect(['index']);
+                }
+
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+
+            } else {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['index']);
+            }
+
+        } else {
             $model = new LoginForm();
             return $this->redirect(['site/login',
                 'model' => $model,
             ]);
         }
 
-        $model = new ClerkDeni();
-
-        if ($model->load(Yii::$app->request->post())) {
-            $time = date('Y-m-d');
-            $time = strtotime($time);
-
-            $time1 = $model->amount_date;
-            $time1 = strtotime($time1);
-
-            if ($time1 <= $time) {
-                if ($model->amount_date != '' && $model->submitted_amount != ''){
-                    $amount = TicketTransactionSearch::find()->select('amount')->where(['user' => $model->name])->andWhere(['date(create_at)' => $model->amount_date])->sum('amount');
-                    $model->collected_amount = $amount;
-                    $model->deni = $model->collected_amount - $model->submitted_amount;
-                    $model->created_by = Yii::$app->user->identity->username;
-                    $model->created_at = date('Y-m-d H:i:s');
-                    $model->save();
-                }
-                else {
-                    Yii::$app->session->setFlash('', [
-                        'type' => 'warning',
-                        'duration' => 4500,
-                        'icon' => 'fa fa-warning',
-                        'title' => 'Notification',
-                        'message' => 'Date and Amount can not be empty',
-                        'positonY' => 'top',
-                        'positonX' => 'right'
-                    ]);
-                    return $this->redirect(['clerk-deni/create']);
-                }
-
-
-            }
-            else {
-                Yii::$app->session->setFlash('', [
-                    'type' => 'warning',
-                    'duration' => 4500,
-                    'icon' => 'fa fa-warning',
-                    'title' => 'Notification',
-                    'message' => 'Date can not be above today date',
-                    'positonY' => 'top',
-                    'positonX' => 'right'
-                ]);
-                return $this->redirect(['clerk-deni/create']);
-            }
-            return $this->redirect(['index']);
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
