@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = 'System Audit Trails';
         ],
         'panel' => [
             'type' => GridView::TYPE_INFO,
-            'heading' => '<i class="fa fa-check-square text-green"></i> NKC - SYSTEM AUDIT TRAILS',
+            'heading' => '<i class="fa fa-check-square text-green"></i> PARKING - SYSTEM AUDIT TRAILS',
             //'before'=>'<span class="text text-primary">Hii ni orodha ya malipo ya wazee ndani ya miezi mitatu:</span>',
         ],
         'persistResize' => false,

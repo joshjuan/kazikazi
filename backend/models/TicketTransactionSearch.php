@@ -54,7 +54,7 @@ class TicketTransactionSearch extends TicketTransaction
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => ['pageSize' => 200],
+            'pagination' => ['pageSize' => 250],
             'sort' => ['defaultOrder' => [
                 'id' => SORT_DESC,
             ]

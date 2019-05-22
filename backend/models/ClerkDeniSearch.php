@@ -22,7 +22,7 @@ class ClerkDeniSearch extends ClerkDeni
         return [
             [['id', 'name'], 'integer'],
             [['collected_amount', 'submitted_amount', 'deni'], 'number'],
-            [['amount_date', 'created_at', 'created_by','date_from','to'], 'safe'],
+            [['amount_date', 'created_at', 'created_by','date_from','to','status'], 'safe'],
         ];
     }
 
@@ -72,6 +72,7 @@ class ClerkDeniSearch extends ClerkDeni
         ]);
 
         $query->andFilterWhere(['like', 'created_by', $this->created_by])
+            ->andFilterWhere(['like', 'status', $this->status])
             ->andFilterWhere(['between', 'DATE_FORMAT(created_at, "%Y-%m-%d")', $this->date_from, $this->date_to]);
 
         return $dataProvider;

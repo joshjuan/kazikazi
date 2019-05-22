@@ -98,6 +98,26 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
             'format' => ['decimal', 2],
             'pageSummary' => true,
         ],
+        [
+            'attribute' => 'status',
+            'width' => '160px',
+
+            'value' => function ($model) {
+                if ($model->status == \backend\models\ClerkDeni::COMPLETE) {
+
+                    return 'COMPLETE';
+                } elseif ($model->status == \backend\models\ClerkDeni::NOT_COMPLETE) {
+                    return 'NOT_COMPLETE';
+                }
+            },
+            'filterType' => GridView::FILTER_SELECT2,
+            'filter' => backend\models\ClerkDeni::getStatus(),
+            'filterWidgetOptions' => [
+                'pluginOptions' => ['allowClear' => true],
+            ],
+            'filterInputOptions' => ['placeholder' => '-- Select Status --'],
+
+        ],
 
 
         //'created_at',
