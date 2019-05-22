@@ -16,11 +16,15 @@ use Yii;
  * @property string $amount_date
  * @property string $created_at
  * @property string $created_by
+ * @property string $status
  *
  * @property User $name0
  */
 class ClerkDeni extends \yii\db\ActiveRecord
 {
+    const COMPLETE=1;
+    const NOT_COMPLETE=0;
+
     /**
      * {@inheritdoc}
      */
@@ -30,12 +34,25 @@ class ClerkDeni extends \yii\db\ActiveRecord
     }
 
     /**
+     * @inheritdoc
+     */
+    public static function getStatus()
+    {
+        return [
+            self::COMPLETE => Yii::t('app', 'COMPLETE'),
+            self::NOT_COMPLETE => Yii::t('app', 'NOT_COMPLETE'),
+
+        ];
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
             [['name', 'amount_date', 'created_at', 'created_by'], 'required'],
+            ['status', 'string', 'max' => 200],
             [['name'], 'integer'],
             [['collected_amount', 'submitted_amount', 'deni', 'total_amount'], 'number'],
             [['amount_date', 'created_at'], 'safe'],
@@ -55,6 +72,7 @@ class ClerkDeni extends \yii\db\ActiveRecord
             'collected_amount' => 'Collected Amount',
             'submitted_amount' => 'Submitted Amount',
             'deni' => 'Deni',
+            'status' => 'Status',
             'total_amount' => 'Total Amount',
             'amount_date' => 'Work Date',
             'status' => 'status',

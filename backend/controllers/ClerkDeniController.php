@@ -49,6 +49,17 @@ class ClerkDeniController extends Controller
         ]);
     }
 
+    public function actionClerkIndex()
+    {
+        $searchModel = new ClerkDeniSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('indexClerk', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     public function actionClerkReport()
     {
         $searchModel = new ClerkDeniSearch();
