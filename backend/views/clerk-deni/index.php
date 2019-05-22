@@ -109,7 +109,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
 
                     return 'COMPLETE';
                 } elseif ($model->status == \backend\models\ClerkDeni::NOT_COMPLETE) {
-                    return 'NOT_COMPLETE';
+                    return 'NOT COMPLETE';
                 }
             },
             'filterType' => GridView::FILTER_SELECT2,
