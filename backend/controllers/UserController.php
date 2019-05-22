@@ -81,7 +81,7 @@ class UserController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super-admin')) {
+            if (Yii::$app->user->can('super_admin')) {
 
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->searchSuperAdmin(Yii::$app->request->queryParams);

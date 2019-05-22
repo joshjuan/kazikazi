@@ -93,27 +93,57 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
 
             return $this->goHome();
-        } else {
+        }
+        else {
 
             $model = new LoginForm();
 
             if ($model->load(Yii::$app->request->post()) && $model->login()) {
 
+                if (Yii::$app->user->identity->role != ''){
+                    if (\Yii::$app->user->identity->role == 'super_admin' || \Yii::$app->user->identity->role == 'admin' || \Yii::$app->user->identity->role == 'manager' || \Yii::$app->user->identity->role == 'supervisor') {
 
-                Audit::setActivity('New Login at ' . date('Y-m-d H:i:s'), 'ULG', 'Login', '', '');
+                        Audit::setActivity('New Login at ' . date('Y-m-d H:i:s'), 'ULG', 'Login', '', '');
 
-                Yii::$app->session->setFlash('', [
-                    'type' => 'success',
-                    'duration' => 6000,
-                    'icon' => 'fa fa-check',
-                    'title' => 'Notification',
-                    'message' => Yii::$app->user->identity->name . ', Last Login at: ' . Yii::$app->user->identity->last_login,
-                    'positonY' => 'top',
-                    'positonX' => 'center'
-                ]);
+                        Yii::$app->session->setFlash('', [
+                            'type' => 'success',
+                            'duration' => 6000,
+                            'icon' => 'fa fa-check',
+                            'title' => 'Notification',
+                            'message' => Yii::$app->user->identity->name . ', Last Login at: ' . Yii::$app->user->identity->last_login,
+                            'positonY' => 'top',
+                            'positonX' => 'center'
+                        ]);
 
-                User::updateAll(['last_login' => date('Y-m-d H:i:s'),], ['username' => Yii::$app->user->identity->username]);
-                return $this->goBack();
+                        User::updateAll(['last_login' => date('Y-m-d H:i:s'),], ['username' => Yii::$app->user->identity->username]);
+                        return $this->goBack();
+
+                    }
+                    else {
+                        Yii::$app->user->logout();
+
+                        Yii::$app->session->setFlash('failure', "You do not have permission to login, contact System Admin");
+
+                        return $this->render('login', [
+                            'model' => $model,
+                        ]);
+
+                        //redirect again page to login form.
+                        return $this->redirect(['site/login']);
+                    }
+            }
+                else {
+                    Yii::$app->user->logout();
+
+                    Yii::$app->session->setFlash('failure', "Contact System Admin So that you can be assigned a role");
+
+                    return $this->render('login', [
+                        'model' => $model,
+                    ]);
+
+                    //redirect again page to login form.
+                    return $this->redirect(['site/login']);
+                }
 
             } else {
 

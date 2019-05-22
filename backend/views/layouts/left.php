@@ -227,13 +227,7 @@ use dmstr\widgets\Menu;
                             [
                                 //'visible' => yii::$app->user->can('auditSystem'),
                                 'label' => Yii::t('app', 'Audit Trail'),
-                                'url' => ['/audit/index/'],
-                                'icon' => 'lock text-orange',
-                            ],
-                            [
-                               // 'visible' => yii::$app->user->can('auditSystem'),
-                                'label' => Yii::t('app', 'Mobile Logs'),
-                                'url' => ['/mobile-logs/index'],
+                                'url' => ['/audit/index'],
                                 'icon' => 'lock text-orange',
                             ],
 
@@ -241,7 +235,7 @@ use dmstr\widgets\Menu;
                     ],
                     [
                         'label' => 'System User',
-                        'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager') || Yii::$app->user->can('supervisor'),
+                        'visible' =>Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager') || Yii::$app->user->can('supervisor'),
                         'icon' => 'folder-open-o text-orange',
                         'url' => [''],
                         'items' => [

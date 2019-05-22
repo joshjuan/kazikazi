@@ -31,6 +31,13 @@ $fieldOptions2 = [
     <!-- /.login-logo -->
     <div class="login-box-body">
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => false]); ?>
+        <?php if (Yii::$app->session->hasFlash('failure')): ?>
+            <div class="alert alert-danger alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                <h4><i class="icon fa fa-times"></i> Error!</h4>
+                <?= Yii::$app->session->getFlash('failure') ?>
+            </div>
+        <?php endif; ?>
         <?= $form
             ->field($model, 'username', $fieldOptions1)
             ->label(false)

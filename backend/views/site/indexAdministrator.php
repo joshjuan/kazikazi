@@ -54,7 +54,7 @@ $this->title = '';
                 <!-- /.info-box -->
             </div>
             <div class="col-md-3 col-sm-5 col-xs-8">
-                <div class="info-box bg-green">
+                <div class="info-box bg-red">
                     <span class="info-box-icon"><i class="ion ion-ios-heart-outline"></i></span>
 
                     <div class="info-box-content">
@@ -76,7 +76,7 @@ $this->title = '';
             </div>
             <div class="col-md-3 col-sm-5 col-xs-8">
                 <!-- /.info-box -->
-                <div class="info-box bg-red">
+                <div class="info-box bg-green">
                     <span class="info-box-icon"><i class="ion ion-ios-cloud-download-outline"></i></span>
 
                     <div class="info-box-content">
@@ -128,7 +128,7 @@ $this->title = '';
         <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title"><i
-                            class="fa fa-bar-chart"></i> <?php echo Yii::t('app', 'Chati ya Masaa 24 kwa tarehe ');
+                            class="fa fa-bar-chart"></i> <?php echo Yii::t('app', 'Chati ya makusanyo kwa shehia Masaa 24 kwa tarehe ');
                     echo date('d Y'); ?>
                 </h3>
                 <div class="box-tools">
