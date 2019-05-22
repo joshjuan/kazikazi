@@ -99,10 +99,9 @@ class ApiController extends \yii\rest\ActiveController
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $sale = new TicketTransaction();
         $sale->attributes = \yii::$app->request->post();
-      //  $sale->create_at = date('Y-m-d');
-       // $sale->created_by = Yii::$app->user->identity->username;
         $sale->status=0;
         $sale->receipt_no = Reference::findLast();
+       // $sale->receipt_no = 'ABDFDS';
 
         if ($sale->validate()) {
             $sale->save();

@@ -16,7 +16,6 @@ class Reference
 
     public static function findLast()
     {
-
         $model = TicketTransaction::find()->all();
 
         if ($model != null) {
@@ -24,7 +23,6 @@ class Reference
             return $reference;
         }
         else {
-
             $reference =date('Ymd').'SMZ'.'0000001';
             return $reference;
 
