@@ -34,22 +34,22 @@ use yii\web\View;
                     echo Yii::$app->user->identity->username;
                     echo ' @ ';
                     echo Yii::$app->user->identity->role;
-                   /* if (Yii::$app->user->identity->region != 0) {
+                    /* if (Yii::$app->user->identity->region != 0) {
 
-                        echo \backend\models\User::getRegionNameByuserId(Yii::$app->user->identity->region);
+                         echo \backend\models\User::getRegionNameByuserId(Yii::$app->user->identity->region);
 
-                    } else {
-                        if (Yii::$app->user->identity->district != 0) {
+                     } else {
+                         if (Yii::$app->user->identity->district != 0) {
 
-                            echo \backend\models\User::getDistrictNameByuserId(Yii::$app->user->identity->district);
+                             echo \backend\models\User::getDistrictNameByuserId(Yii::$app->user->identity->district);
 
-                        }else{
+                         }else{
 
 
-                            echo \backend\models\User::getMunicipalNameByuserId(Yii::$app->user->identity->municipal);
+                             echo \backend\models\User::getMunicipalNameByuserId(Yii::$app->user->identity->municipal);
 
-                        }
-                    }*/
+                         }
+                     }*/
 
                 }
                 ?>
@@ -332,29 +332,17 @@ use yii\web\View;
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <?php
-                                if (!Yii::$app->user->isGuest) {
-                                    $user_id = Yii::$app->user->identity->id;
-                                    echo Html::beginForm(['/user/profile', 'id' => $user_id], 'post');
-                                    echo Html::submitButton(
-                                        'My profile',
-                                        ['class' => 'btn btn-link logout']
-                                    );
-                                    echo Html::endForm();
-                                } ?>
+
+                                <?= Html::a(Yii::t('app', 'Change Password'), ['/user/profile'], ['class' => 'btn btn-default btn-flat', 'style' => 'font-size:12px']) ?>
                             </div>
                             <div class="pull-right">
-                                <?php
-                                if (!Yii::$app->user->isGuest) {
-                                    echo Html::beginForm(['/site/logout'], 'post');
-                                    echo Html::submitButton(
-                                        'Logout (' . Yii::$app->user->identity->username . ')',
-                                        ['class' => 'btn btn-link logout']
-                                    );
-                                    echo Html::endForm();
-                                }
-                                ?>
+                                <?= Html::a(
+                                    'Sign out',
+                                    ['/site/logout'],
+                                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
+                                ) ?>
                             </div>
+                        </li>
                         </li>
                     </ul>
                 </li>
