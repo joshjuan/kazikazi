@@ -61,6 +61,9 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
             'attribute' => 'receipt_no',
         ],
         [
+            'attribute' => 'ref_no',
+        ],
+        [
             'attribute' => 'begin_time',
         ],
         [
