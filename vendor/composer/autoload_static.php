@@ -58,11 +58,14 @@ class ComposerStaticInit9c4ae0f1e3be1063039c0f96f3fd7424
         array (
             'kartik\\sortable\\' => 16,
             'kartik\\select2\\' => 15,
+            'kartik\\popover\\' => 15,
+            'kartik\\plugins\\popover\\' => 23,
             'kartik\\plugins\\depdrop\\' => 23,
             'kartik\\mpdf\\' => 12,
             'kartik\\growl\\' => 13,
             'kartik\\grid\\' => 12,
             'kartik\\form\\' => 12,
+            'kartik\\editable\\' => 16,
             'kartik\\dynagrid\\' => 16,
             'kartik\\dialog\\' => 14,
             'kartik\\depdrop\\' => 15,
@@ -214,6 +217,14 @@ class ComposerStaticInit9c4ae0f1e3be1063039c0f96f3fd7424
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-select2/src',
         ),
+        'kartik\\popover\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-popover-x',
+        ),
+        'kartik\\plugins\\popover\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/bootstrap-popover-x',
+        ),
         'kartik\\plugins\\depdrop\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/dependent-dropdown',
@@ -233,6 +244,10 @@ class ComposerStaticInit9c4ae0f1e3be1063039c0f96f3fd7424
         'kartik\\form\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-activeform/src',
+        ),
+        'kartik\\editable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-editable/src',
         ),
         'kartik\\dynagrid\\' => 
         array (

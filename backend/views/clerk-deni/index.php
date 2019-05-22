@@ -42,13 +42,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
             'vAlign' => 'middle',
             'pageSummary' => 'JUMLA',
             'width' => '180px',
-            'value' => function ($model) {
-                if ($model->name0->name != '') {
-                    return Html::a($model->name0->name);
-                } else {
-                    return '';
-                }
-            },
+            'value' =>'user0.name',
             'filterType' => GridView::FILTER_SELECT2,
             'filter' => ArrayHelper::map(\backend\models\User::find()->andWhere(['user_type'=>4])->asArray()->all(), 'id', 'username'),
             'filterWidgetOptions' => [
@@ -63,14 +57,35 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
             'width' => '180px',
             'pageSummary' => true,
             'format' => ['decimal', 2],
-            'value' => function ($model) {
-                return \backend\models\TicketTransaction::getSum($model->id);
-            }
-        ],
 
+        ],
+        /*  [
+              'class' => 'kartik\grid\EditableColumn',
+              'attribute' => 'sim_card',
+              'contentOptions' => ['class' => 'truncate'],
+              'label' => 'SIM CARD',
+              //  'width' => '130px',
+              'refreshGrid' => true,
+              //   'visible' => yii::$app->user->can('UinAction') || yii::$app->user->can('admin'),
+              'editableOptions' => [
+
+                  'size' => 'sm',
+                  'formOptions' => ['action' => ['application-uin/simcard']],
+                  'asPopover' => false,
+
+                  'inputType' => \kartik\editable\Editable::INPUT_SELECT2,
+                  'data' => \backend\models\LineNumber::getAll(),
+                  'options' => [
+                      'pluginOptions' => ['min' => 0, 'max' => 5000],
+                      //   'style'=>'max-width:10px; min-height:10px; overflow: auto; word-wrap: break-word;'
+
+                  ]
+              ],
+          ],*/
         [
             'attribute' => 'submitted_amount',
             'width' => '180px',
+
             'pageSummary' => true,
             'format' => ['decimal', 2],
 
@@ -82,10 +97,6 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
             'width' => '180px',
             'format' => ['decimal', 2],
             'pageSummary' => true,
-            'value' => function ($model) {
-                return \backend\models\ClerkDeni::getClerkDifference($model->id);
-            }
-
         ],
 
 
@@ -118,17 +129,13 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
         'condensed' => true,
         'responsive' => true,
         'hover' => true,
-        'floatHeader' => true,
-
+        'floatHeader' => false,
         'floatHeaderOptions' => ['scrollingTop' => true],
         'showPageSummary' => true,
         'panel' => [
-            'heading' => '<i class="fa fa-bars" style="padding-left: 40%"></i> CLERK REPORTS',
+            'heading' => '<i class="fa fa-bars"></i> MAHESABU YA MAKARANI YALIYO FUNGWA KWA SIKU',
             'type' => GridView::TYPE_SUCCESS
         ],
-        'rowOptions' => function ($model) {
-            return ['data-id' => $model->id];
-        },
         'exportConfig' => [
             GridView::EXCEL => [
                 'filename' => Yii::t('app', 'Transportation Fees Details'),
