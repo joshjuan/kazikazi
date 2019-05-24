@@ -5,8 +5,12 @@ namespace backend\controllers;
 
 
 use backend\models\ClerkDeniSearch;
+use backend\models\FansRequestSearch;
 use backend\models\Reference;
 use backend\models\TicketTransaction;
+use backend\models\User;
+use backend\models\UserSearch;
+use common\models\LoginForm;
 use Yii;
 
 
@@ -30,49 +34,56 @@ class ApiController extends \yii\rest\ActiveController
     public $modelClass = 'backend\models\User';
 
 
-
-
     public function actionLogin()
     {
         \Yii::$app->response->format = \yii\web\Response:: FORMAT_JSON;
 
-        $model = new \common\models\LoginForm();
+        $model = new LoginForm();
         $params = Yii::$app->request->post();
 
         $model->username = $params['username'];
         $model->password = $params['password'];
 
-        $user = \backend\models\User::findByUsername($model->username);
+        $user = User::findByUsername($model->username);
+        $user_type = UserSearch::find()->where(['username' => $user])->one();
 
 
+            if (!empty($user)) {
+                if (($user_type['user_type']===User::SUPERVISOR) || ($user_type['user_type'] ===User::CLERK)) {
+                    if ($model->login()) {
+                        $response['error'] = false;
+                        $response['status'] = 'success';
+                        $response['message'] = 'You are now logged in';
+                        $response['user'] = \common\models\User::findByUsername($model->username);
+                        //return [$response,$model];
+                        return $response;
 
+                    } else {
+                        $response['error'] = false;
+                        $response['status'] = 'error';
+                        $model->validate($model->password);
+                        $response['errors'] = $model->getErrors();
+                        $response['message'] = 'wrong password';
+                        return $response;
+                    }
+                }
+                else {
+                    $response['error'] = false;
+                    $response['status'] = 'error';
+                    $response['message'] = 'You do not have permissions';
+                    return $response;
+                }
 
-        if (!empty($user)) {
-
-            if ($model->login()) {
-                $response['error'] = false;
-                $response['status'] = 'success';
-                $response['message'] = 'You are now logged in';
-                $response['user'] = \common\models\User::findByUsername($model->username);
-                //return [$response,$model];
-                return $response;
-
-            } else {
+            }
+            else {
                 $response['error'] = false;
                 $response['status'] = 'error';
                 $model->validate($model->password);
                 $response['errors'] = $model->getErrors();
-                $response['message'] = 'wrong password';
+                $response['message'] = 'user is disabled or does not exist!';
                 return $response;
             }
-        } else {
-            $response['error'] = false;
-            $response['status'] = 'error';
-            $model->validate($model->password);
-            $response['errors'] = $model->getErrors();
-            $response['message'] = 'user is disabled or does not exist!';
-            return $response;
-        }
+
     }
 
     public function actionDeni()

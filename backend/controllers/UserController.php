@@ -82,11 +82,7 @@ class UserController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') ||
-                Yii::$app->user->can('admin')||
-                Yii::$app->user->can('supervisor')||
-                Yii::$app->user->can('manager')) {
-
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager')||Yii::$app->user->can('admin')) {
 
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->searchManager(Yii::$app->request->queryParams);
@@ -123,11 +119,7 @@ class UserController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') ||
-                Yii::$app->user->can('admin')||
-                Yii::$app->user->can('supervisor')||
-                Yii::$app->user->can('manager')) {
-
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager')||Yii::$app->user->can('admin')) {
 
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->searchSupervisor(Yii::$app->request->queryParams);
@@ -205,10 +197,7 @@ class UserController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') ||
-                Yii::$app->user->can('admin')||
-                Yii::$app->user->can('supervisor')||
-                Yii::$app->user->can('manager')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager')||Yii::$app->user->can('admin')) {
 
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->searchAdmin(Yii::$app->request->queryParams);
@@ -244,15 +233,51 @@ class UserController extends Controller
 
     }
 
+    public function actionAccountantList()
+    {
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager')||Yii::$app->user->can('admin')) {
+
+                $searchModel = new UserSearch();
+                $dataProvider = $searchModel->searchAccountant(Yii::$app->request->queryParams);
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia orodha ya maadimini wa mfumo ( system administrator ). ', 'User ', 'Index', '', '');
+                return $this->render('accountant', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+
+            }
+            else
+            {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
+        }
+        else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
+
+    }
+
     public function actionClerk()
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') ||
-                Yii::$app->user->can('admin')||
-                Yii::$app->user->can('supervisor')||
-                Yii::$app->user->can('manager')) {
-
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager')||Yii::$app->user->can('admin')) {
 
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->searchClerk(Yii::$app->request->queryParams);
@@ -294,15 +319,13 @@ class UserController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+
     public function actionView($id)
     {
 
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') ||
-                Yii::$app->user->can('admin')||
-                Yii::$app->user->can('supervisor')||
-                Yii::$app->user->can('manager')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
 
                 $model = $this->findModel($id);
 
@@ -407,7 +430,6 @@ class UserController extends Controller
 
     }
 
-
     public function actionDistrictList($id){
 
             $count = Municipal::find()
@@ -426,51 +448,6 @@ class UserController extends Controller
             }else{
                 echo "<option>-</option>";
             }
-
-    }
-
-    public function actionCreate()
-    {
-
-        if (!Yii::$app->user->isGuest) {
-
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
-                $model = new User();
-
-                //  $model->scenario = 'createUser';
-                    $model->user_type=User::ADMIN;
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-                    Audit::setActivity('New system user successfully created ', 'User ', 'Index', '', '');
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-            }
-            else
-            {
-                Yii::$app->session->setFlash('', [
-                    'type' => 'warning',
-                    'duration' => 3500,
-                    'icon' => 'fa fa-warning',
-                    'message' => 'You do not have permission',
-                    'positonY' => 'top',
-                    'positonX' => 'right'
-                ]);
-
-                return $this->redirect(['index']);
-            }
-
-
-        return $this->render('create-admin', [
-            'model' => $model,
-        ]);
-
-        }
-        else{
-            $model = new LoginForm();
-            return $this->redirect(['site/login',
-                'model' => $model,
-            ]);
-        }
 
     }
 
@@ -506,6 +483,51 @@ class UserController extends Controller
 
 
         return $this->render('create-admin', [
+            'model' => $model,
+        ]);
+
+        }
+        else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
+    }
+
+    public function actionAccountantCreate()
+    {
+
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createUser')) {
+                $model = new User();
+
+                //  $model->scenario = 'createUser';
+                    $model->user_type=User::ACCOUNTANT;
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amemuongeza adimini wa mfumo (system administrator) mpya ambaye ni" ' . $model->name . ' ".', 'User', 'Create', '', '');
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+            else
+            {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
+
+
+        return $this->render('create-accountant', [
             'model' => $model,
         ]);
 
@@ -746,3 +768,4 @@ class UserController extends Controller
         }
     }
 }
+

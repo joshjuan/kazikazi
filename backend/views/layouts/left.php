@@ -82,20 +82,19 @@ use dmstr\widgets\Menu;
                         'items' => [
 
 
-                                    [
-                                        'label' => 'Clerks Report',
-                                        'icon' => 'file-o text-green',
-                                        'url' => '',
-                                        'items'=>[
-                                            ['label' => 'Daily Clerk Report', 'icon' => 'money text-green', 'url' => ['/ticket-transaction/clerk-report'],],
-                                            ['label' => 'Repoti ya Deni', 'icon' => 'money text-green', 'url' => ['/clerk-deni/clerk-report'],],
-                                        ]
-                                    ],
-                                    ['label' => 'Date Range Report', 'icon' => 'file-o text-green', 'url' => ['/ticket-transaction/date-range'],],
-
-
-
+                            ['label' => 'Daily Clerk Report', 'icon' => 'money text-green', 'url' => ['/ticket-transaction/clerk-report'],],
                             [
+                                'visible' => Yii::$app->user->can('accountant') || Yii::$app->user->can('super_admin'),
+                                'label' => 'Repoti ya Deni',
+                                'icon' => 'money text-green',
+                                'url' => ['/clerk-deni/clerk-report'],
+                            ],
+
+
+                            ['label' => 'Date Range Report', 'icon' => 'file-o text-green', 'url' => ['/ticket-transaction/date-range'],],
+
+
+                            /*[
                                 'label' => Yii::t('app', 'Custom Report'),
                                 'visible' => Yii::$app->user->can('viewReport') || Yii::$app->user->can('super_admin'),
                                 'url' => ['#'],
@@ -113,7 +112,7 @@ use dmstr\widgets\Menu;
                                     ['label' => 'Date Range Report', 'icon' => 'file-o text-green', 'url' => ['/ticket-transaction/date-range'],],
                                 ],
 
-                            ],
+                            ],*/
 
                         ],
                     ],
@@ -250,20 +249,20 @@ use dmstr\widgets\Menu;
                     ],
                     [
                         'label' => 'System User',
-                        'visible' =>Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager') || Yii::$app->user->can('supervisor'),
+                        'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager') || Yii::$app->user->can('supervisor'),
                         'icon' => 'folder-open-o text-orange',
                         'url' => [''],
                         'items' => [
                             [
                                 'label' => 'Super Admins',
-                                'visible' =>  Yii::$app->user->can('super_admin') ,
+                                'visible' => Yii::$app->user->can('super_admin'),
                                 'icon' => 'user text-green',
                                 'url' => ['/user/super-admin'],
                             ],
 
                             [
                                 'label' => 'Admins',
-                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('supervisor')|| Yii::$app->user->can('manager'),
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('supervisor') || Yii::$app->user->can('manager'),
                                 'icon' => 'user text-green',
                                 'url' => '',
                                 'items' => [
@@ -282,7 +281,7 @@ use dmstr\widgets\Menu;
                             ],
                             [
                                 'label' => 'Manager',
-                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('supervisor')|| Yii::$app->user->can('manager'),
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('supervisor') || Yii::$app->user->can('manager'),
                                 'icon' => 'user text-green',
                                 'url' => '',
                                 'items' => [
@@ -300,8 +299,27 @@ use dmstr\widgets\Menu;
                                 ],
                             ],
                             [
+                                'label' => 'Accountant',
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                                'icon' => 'user text-green',
+                                'url' => '',
+                                'items' => [
+                                    [
+                                        'label' => 'New Accountant',
+                                        'visible' => Yii::$app->user->can('createUser') || Yii::$app->user->can('super_admin'),
+                                        'icon' => 'plus text-green',
+                                        'url' => ['/user/accountant-create']
+                                    ],
+                                    [
+                                        'label' => 'Accoutant List',
+                                        'icon' => 'users text-green',
+                                        'url' => ['/user/accountant-list']
+                                    ],
+                                ],
+                            ],
+                            [
                                 'label' => 'Supervisors',
-                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('supervisor')|| Yii::$app->user->can('manager'),
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('supervisor') || Yii::$app->user->can('manager'),
                                 'icon' => 'user text-green',
                                 'url' => '',
                                 'items' => [
@@ -320,7 +338,7 @@ use dmstr\widgets\Menu;
                             ],
                             [
                                 'label' => 'Clerks',
-                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('supervisor')|| Yii::$app->user->can('manager'),
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('supervisor') || Yii::$app->user->can('manager'),
                                 'icon' => 'users text-green',
                                 'url' => '',
                                 'items' => [
@@ -379,3 +397,4 @@ use dmstr\widgets\Menu;
     </section>
 
 </aside>
+
