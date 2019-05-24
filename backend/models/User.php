@@ -31,6 +31,7 @@ class User extends \common\models\User
     private $_roleLabel;
     private $role_name;
 
+
     const STATUS_ACTIVE=10;
     const STATUS_INACTIVE=1;
     const STATUS_DELETED=0;
@@ -67,7 +68,7 @@ class User extends \common\models\User
 
     public static function getArrayRole()
     {
-        return ArrayHelper::map(Yii::$app->authManager->getRoles(), 'name', 'description');
+        return ArrayHelper::map(Yii::$app->authManager->getRoles()->where(), 'name', 'description');
     }
 
     public static function getClerk()
@@ -98,7 +99,7 @@ class User extends \common\models\User
     {
         return [
 
-            [['username','name','password','repassword','status','mobile','role'], 'required',],
+            [['username','name','password','repassword','status','mobile','role','region'], 'required',],
             [['username', 'password', 'repassword'], 'trim'],
             [['password', 'repassword'], 'string', 'min' => 4, 'max' => 30],
             [['name','mobile'], 'string', 'max' => 255],
@@ -106,8 +107,8 @@ class User extends \common\models\User
             [[ 'username'], 'unique'],
             ['username', 'string', 'min' => 3, 'max' => 30],
             ['email', 'string', 'max' => 100],
-            ['email', 'email'],
-            ['user_id', 'integer'],
+          //  ['email', 'email'],
+           // ['user_id', 'integer'],
             //  [['password'], StrengthValidator::className(), 'preset'=>'normal', 'userAttribute'=>'username'],
             ['repassword', 'compare', 'compareAttribute' => 'password'],
             //['status', 'default', 'value' => self::STATUS_ACTIVE],
@@ -124,9 +125,9 @@ class User extends \common\models\User
     public function scenarios()
     {
         return [
-            'default' => ['username','name','mobile', 'email', 'password', 'repassword', 'status', 'role'],
+            'default' => ['username','name','mobile', 'email', 'password', 'repassword', 'status', 'role','region','district','municipal','street','work_area'],
             'createUser' => ['username','name','mobile', 'email', 'password', 'repassword', 'status', 'role'],
-            'admin-update' => ['username','name','mobile', 'email', 'password', 'repassword', 'status', 'role']
+            'admin-update' => ['username','name','mobile', 'email', 'status', 'role']
         ];
     }
 
@@ -224,7 +225,7 @@ class User extends \common\models\User
         return $this->hasOne(Municipal::className(), ['id' => 'municipal']);
     }
 
-    public function getStreet0()
+    public function getStreet()
     {
         return $this->hasOne(Street::className(), ['id' => 'street']);
     }

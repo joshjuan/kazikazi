@@ -241,14 +241,14 @@ use dmstr\widgets\Menu;
                         'items' => [
                             [
                                 'label' => 'Super Admins',
-                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') ,
+                                'visible' =>  Yii::$app->user->can('super_admin') ,
                                 'icon' => 'user text-green',
                                 'url' => ['/user/super-admin'],
                             ],
 
                             [
                                 'label' => 'Admins',
-                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('supervisor')|| Yii::$app->user->can('manager'),
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('supervisor')|| Yii::$app->user->can('manager'),
                                 'icon' => 'user text-green',
                                 'url' => '',
                                 'items' => [

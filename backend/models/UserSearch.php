@@ -77,7 +77,7 @@ class UserSearch extends User
     public function searchAdmin($params)
     {
         $query = User::find();
-        $query2 = User::find();
+
 
         // add conditions that should always apply here
         $query->where(['user_type'=>User::ADMIN])->andWhere(['region'=>Yii::$app->user->identity->region]);
@@ -186,7 +186,7 @@ class UserSearch extends User
     public function searchSupervisor($params)
     {
         $query = User::find();
-        $query->where(['user_type'=>Yii::$app->user->identity->user_type,'role'=>'supervisor']);
+        $query->where(['user_type'=>User::SUPERVISOR])->andWhere(['region'=>Yii::$app->user->identity->region]);
 
         // add conditions that should always apply here
 

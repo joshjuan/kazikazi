@@ -82,7 +82,11 @@ class UserController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+            if (Yii::$app->user->can('super_admin') ||
+                Yii::$app->user->can('admin')||
+                Yii::$app->user->can('supervisor')||
+                Yii::$app->user->can('manager')) {
+
 
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->searchManager(Yii::$app->request->queryParams);
@@ -119,7 +123,11 @@ class UserController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+            if (Yii::$app->user->can('super_admin') ||
+                Yii::$app->user->can('admin')||
+                Yii::$app->user->can('supervisor')||
+                Yii::$app->user->can('manager')) {
+
 
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->searchSupervisor(Yii::$app->request->queryParams);
@@ -197,7 +205,10 @@ class UserController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+            if (Yii::$app->user->can('super_admin') ||
+                Yii::$app->user->can('admin')||
+                Yii::$app->user->can('supervisor')||
+                Yii::$app->user->can('manager')) {
 
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->searchAdmin(Yii::$app->request->queryParams);
@@ -237,7 +248,11 @@ class UserController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+            if (Yii::$app->user->can('super_admin') ||
+                Yii::$app->user->can('admin')||
+                Yii::$app->user->can('supervisor')||
+                Yii::$app->user->can('manager')) {
+
 
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->searchClerk(Yii::$app->request->queryParams);
@@ -284,7 +299,10 @@ class UserController extends Controller
 
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+            if (Yii::$app->user->can('super_admin') ||
+                Yii::$app->user->can('admin')||
+                Yii::$app->user->can('supervisor')||
+                Yii::$app->user->can('manager')) {
 
                 $model = $this->findModel($id);
 
@@ -331,8 +349,7 @@ class UserController extends Controller
 
                 $model = new User();
 
-                 $model->user_type = 3;
-
+                 $model->user_type = User::SUPERVISOR;
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
 
@@ -510,7 +527,7 @@ class UserController extends Controller
             if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createUser')) {
                 $model = new User();
 
-                $model->user_type = 2;
+                $model->user_type = User::MANAGER;
 
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -553,10 +570,10 @@ class UserController extends Controller
         if (!Yii::$app->user->isGuest) {
 
             if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createUser')) {
+
                 $model = new User();
-
-                $model->user_type=User::CLERK;
-
+              //  $model->scenario='create';
+                   $model->user_type=User::CLERK;
 
                 if ($model->load(Yii::$app->request->post())) {
                     $amount = WorkAreaSearch::find()->select('amount')->where(['id' => $model->work_area])->one();;
@@ -609,16 +626,47 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-      //  $model->scenario="admin-update";
+        if (!Yii::$app->user->isGuest) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createUser')) {
+                $model = $this->findModel($id);
+                //  $model->scenario="admin-update";
+
+                if ($model->load(Yii::$app->request->post())) {
+
+                    $amount = WorkAreaSearch::find()->select('amount')->where(['id' => $model->work_area])->one();;
+                    $model->amount = intval($amount['amount']);
+                    $model->save();
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+
+            else
+            {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['clerk']);
+            }
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
     }
 
     /**
