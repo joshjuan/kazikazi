@@ -84,7 +84,7 @@ class ClerkDeniController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewReport')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewClerkMahesabu')) {
 
                 $searchModel = new ClerkDeniSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -336,10 +336,45 @@ class ClerkDeniController extends Controller
     }
 
 
+
+    public function actionCollect($id){
+        $model = $this->findModel($id);
+
+        if ($model->submitted_amount === $model->collected_amount) {
+            $model->deni = $model->collected_amount - $model->submitted_amount;
+            $model->status = ClerkDeni::COMPLETE;
+            $model->updated_at=date('Y-m-d H:i:s');
+            $model->updated_by=Yii::$app->user->identity->username;
+            $model->save();
+            Yii::$app->session->setFlash('', [
+                'type' => 'success',
+                'duration' => 4500,
+                'icon' => 'fa fa-warning',
+                'title' => 'Notification',
+                'message' => 'Umefanikiwa',
+                'positonY' => 'top',
+                'positonX' => 'right'
+            ]);
+        }
+        else {
+            Yii::$app->session->setFlash('', [
+                'type' => 'warning',
+                'duration' => 4500,
+                'icon' => 'fa fa-warning',
+                'title' => 'Notification',
+                'message' => 'Hauna Uwezo',
+                'positonY' => 'top',
+                'positonX' => 'right'
+            ]);
+            return $this->redirect(['clerk-deni/create']);
+        }
+
+    }
+
     public function actions()
     {
         return ArrayHelper::merge(parent::actions(), [
-            'collect' => [                                       // identifier for your editable action
+            'collect1' => [                                       // identifier for your editable action
                 'class' => EditableColumnAction::className(),     // action class name
                 'modelClass' => ClerkDeni::className(),             // the update model class
                 'outputValue' => function ($model, $attribute, $key, $index) {

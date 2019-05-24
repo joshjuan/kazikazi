@@ -115,12 +115,21 @@ use yii\web\View;
 
                         <div class="col-sm-6">
                             <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+<<<<<<< HEAD
                         </div>
 
 
                         <div class="col-sm-3">
                             <?= $form->field($model, 'role')->dropDownList(\backend\models\User::getRulesAdmin(), ['prompt' => '-- select Role name --']) ?>
                         </div>
+=======
+                        </div>
+
+
+                        <div class="col-sm-3">
+                            <?= $form->field($model, 'role')->dropDownList(\backend\models\User::getArrayRole(), ['prompt' => '-- select Role name --']) ?>
+                        </div>
+>>>>>>> 5f0ad79ca1a90c70532104a1a5f29bcea45e9db2
                         <div class="col-sm-3">
                             <?= $form->field($model, 'status')->dropDownList(\backend\models\User::getArrayStatus()) ?>
                         </div>

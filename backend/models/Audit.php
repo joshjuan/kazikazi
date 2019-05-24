@@ -34,7 +34,7 @@ class Audit extends \yii\db\ActiveRecord
     {
         return [
             [['activity', 'module', 'action', 'maker', 'maker_time',], 'string', 'max' => 200],
-            [['old','new','$date_issued;'],'safe'],
+            [['old','new','date_issued;'],'safe'],
         ];
     }
 
@@ -87,8 +87,6 @@ class Audit extends \yii\db\ActiveRecord
                 }
             }
         }
-
-
 
 
 
