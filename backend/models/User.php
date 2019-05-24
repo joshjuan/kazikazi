@@ -39,8 +39,9 @@ class User extends \common\models\User
     const SUPER_ADMIN=0;
     const ADMIN=1;
     const MANAGER=2;
-    const SUPERVISOR=3;
-    const CLERK=4;
+    const ACCOUNTANT=3;
+    const SUPERVISOR=4;
+    const CLERK=5;
 
     /**
      * @inheritdoc
@@ -251,6 +252,11 @@ class User extends \common\models\User
     public static function getRulesClerk()
     {
         return ArrayHelper::map(AuthItem::find()->where(['type'=> 1,'name'=>'clerk'])->all(),'name','name');
+    }
+
+    public static function getRulesAccountant()
+    {
+        return ArrayHelper::map(AuthItem::find()->where(['type'=> 1,'name'=>'accountant'])->all(),'name','name');
     }
 
 

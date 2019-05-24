@@ -285,6 +285,25 @@ use dmstr\widgets\Menu;
                                 ],
                             ],
                             [
+                                'label' => 'Accountant',
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                                'icon' => 'user text-green',
+                                'url' => '',
+                                'items' => [
+                                    [
+                                        'label' => 'New Accountant',
+                                        'visible' => Yii::$app->user->can('createUser') || Yii::$app->user->can('super_admin'),
+                                        'icon' => 'plus text-green',
+                                        'url' => ['/user/accountant-create']
+                                    ],
+                                    [
+                                        'label' => 'Accoutant List',
+                                        'icon' => 'users text-green',
+                                        'url' => ['/user/accountant-list']
+                                    ],
+                                ],
+                            ],
+                            [
                                 'label' => 'Supervisors',
                                 'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('supervisor')|| Yii::$app->user->can('manager'),
                                 'icon' => 'user text-green',
