@@ -1,10 +1,17 @@
 <?php
 namespace common\models;
 
+use backend\models\AuthItem;
+use backend\models\District;
+use backend\models\Municipal;
+use backend\models\Region;
+use backend\models\Street;
+use backend\models\WorkArea;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 
 /**
@@ -24,7 +31,20 @@ use yii\web\IdentityInterface;
 class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
+    const STATUS_INACTIVE=1;
     const STATUS_ACTIVE = 10;
+
+
+    const SUPER_ADMIN=0;
+    const ADMIN=1;
+    const MANAGER=2;
+    const SUPERVISOR=3;
+    const CLERK=4;
+
+
+
+
+
 
 
     /**
@@ -185,5 +205,124 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+
+
+    public static function getRules()
+    {
+        return ArrayHelper::map(AuthItem::find()->where(['type'=> 1])->all(),'name','name');
+    }
+
+
+    public function getDistrict0()
+    {
+        return $this->hasOne(District::className(), ['id' => 'district']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getRegion0()
+    {
+        return $this->hasOne(Region::className(), ['id' => 'region']);
+    }
+
+    public function getMunicipal0()
+    {
+        return $this->hasOne(Municipal::className(), ['id' => 'municipal']);
+    }
+
+    public function getStreet0()
+    {
+        return $this->hasOne(Street::className(), ['id' => 'street']);
+    }
+
+    //gets all usernames
+
+
+    public static function getRulesManager()
+    {
+        return ArrayHelper::map(AuthItem::find()->where(['type'=> 1,'name'=>'manager'])->all(),'name','name');
+    }
+
+    public static function getRulesAdmin()
+    {
+        return ArrayHelper::map(AuthItem::find()->where(['type'=> 1,'name'=>'admin'])->all(),'name','name');
+    }
+
+    public static function getRulesSupervisor()
+    {
+        return ArrayHelper::map(AuthItem::find()->where(['type'=> 1,'name'=>'supervisor'])->all(),'name','name');
+    }
+
+    public static function getRulesClerk()
+    {
+        return ArrayHelper::map(AuthItem::find()->where(['type'=> 1,'name'=>'clerk'])->all(),'name','name');
+    }
+
+
+    public static function getRegionNameByuserId($user_id)
+    {
+        $mfanyakazi = User::findOne($user_id);
+        if($mfanyakazi != null){
+            $zone = Region::findOne($mfanyakazi->region);
+            if($zone != null) {
+                return $zone->name;
+            }else{
+                return ' ';
+            }
+        }else{
+            return '';
+        }
+    }
+
+    public static function getDistrictNameByuserId($user_id)
+    {
+        $mfanyakazi = User::findOne($user_id);
+        if($mfanyakazi != null){
+            $zone = District::findOne($mfanyakazi->district);
+            if($zone != null) {
+                return $zone->name;
+            }else{
+                return ' ';
+            }
+        }else{
+            return '';
+        }
+    }
+
+    public static function getMunicipalNameByuserId($user_id)
+    {
+        $mfanyakazi = User::findOne($user_id);
+        if($mfanyakazi != null){
+            $zone = Municipal::findOne($mfanyakazi->municipal);
+            if($zone != null) {
+                return $zone->name;
+            }else{
+                return ' ';
+            }
+        }else{
+            return '';
+        }
+    }
+
+
+
+    public function getWorkAreas()
+    {
+        return $this->hasOne(WorkArea::className(), ['id' => 'work_area']);
+    }
+
+    public static function getClerkInMkoaCount($id)
+    {
+
+        $shehia = User::find()->where(['user_type' => 4])->count();
+        if($shehia != null){
+            return $shehia;
+        }else{
+            return 0;
+        }
+
     }
 }
