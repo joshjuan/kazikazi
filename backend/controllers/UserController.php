@@ -478,7 +478,7 @@ class UserController extends Controller
                     'positonX' => 'right'
                 ]);
 
-                return $this->redirect(['site/index']);
+                return $this->redirect(['admin']);
             }
 
 
@@ -646,6 +646,7 @@ class UserController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+
     public function actionUpdate($id)
     {
         if (!Yii::$app->user->isGuest) {

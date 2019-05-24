@@ -77,7 +77,6 @@ $this->params['breadcrumbs'][] = 'Auth Assignments';
 
                                     },
 
-
                                 ]
                             ],
 
