@@ -12,15 +12,8 @@ use kartik\grid\GridView;
 $this->title = '';
 $this->params['breadcrumbs'][] = 'Clerk Denis';
 ?>
-<p style="padding-top: 10px"/>
-<div class="clerk-deni-index">
+<div class="clerk-deni-index" style="padding-top: 20px">
 
-
-    <p>
-        <?php if (Yii::$app->user->can('super_admin')) { ?>
-            <?= Html::a('Create Clerk Deni', ['create'], ['class' => 'btn btn-success']) ?>
-        <?php } ?>
-    </p>
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <?php $gridColumns = [

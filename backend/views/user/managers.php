@@ -42,7 +42,23 @@ $this->params['breadcrumbs'][] = 'Users';
             'username',
             'mobile',
             'email',
-            'role',
+            [
+                'attribute' => 'role',
+                'label' => 'Role Title'
+
+            ],
+            [
+                'attribute' => 'region',
+                'value' => 'region0.name'
+            ],
+            [
+                'attribute' => 'district',
+                'value' => 'district0.name'
+            ],
+            [
+                'attribute' => 'municipal',
+                'value' => 'municipal0.name'
+            ],
 
             [
                 'attribute' => 'status',

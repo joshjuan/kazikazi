@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = 'Users';
     <div class="row">
         <div class="col-md-6">
             <strong class="lead" style="color: #01214d;font-family: Tahoma"> <i class="fa fa-th-list text-blue"></i>
-                SYSTEM
+                SUPERVISOR
                 USERS</strong>
         </div>
         <div class="col-md-3">
@@ -33,16 +33,40 @@ $this->params['breadcrumbs'][] = 'Users';
     </div>
     <hr/>
 
-    <?= GridView::widget([
+    <?= \fedemotta\datatables\DataTables::widget([
         'dataProvider' => $dataProvider,
-        //  'filterModel' => $searchModel,
+          'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'name',
             'username',
             'mobile',
-            'email',
-            'role',
+        //    'email',
+            [
+                'attribute' => 'role',
+                'label' => 'Role Title'
+
+            ],
+            [
+                'attribute' => 'region',
+                'value' => 'region0.name'
+            ],
+            [
+                'attribute' => 'district',
+                'value' => 'district0.name'
+            ],
+            [
+                'attribute' => 'municipal',
+                'value' => 'municipal0.name'
+            ],
+            [
+                'attribute' => 'street',
+                'value' => 'street0.name'
+            ],
+            [
+                'attribute' => 'work_area',
+                'value' => 'work_area.name'
+            ],
 
             [
                 'attribute' => 'status',

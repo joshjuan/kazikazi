@@ -18,16 +18,10 @@ $this->params['breadcrumbs'][] = 'Users';
     <div class="row">
         <div class="col-md-6">
             <strong class="lead" style="color: #01214d;font-family: Tahoma"> <i class="fa fa-th-list text-blue"></i>
-                SYSTEM
-                USERS</strong>
+                SYSTEM SUPER
+                USER</strong>
         </div>
         <div class="col-md-3">
-
-        </div>
-        <div class="col-md-2">
-            
-                <?= Html::a(Yii::t('app', '<i class="fa fa-user"></i> New User'), ['create'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
-                <?= Html::a(Yii::t('app', '<i class="fa fa-th-list"></i> User List'), ['index'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
 
         </div>
     </div>
@@ -42,8 +36,11 @@ $this->params['breadcrumbs'][] = 'Users';
             'username',
             'mobile',
             'email',
-            'role',
+            [
+                'attribute' => 'role',
+                'label' => 'Role Title'
 
+            ],
             [
                 'attribute' => 'status',
                 'value' => function ($model) {
@@ -55,26 +52,6 @@ $this->params['breadcrumbs'][] = 'Users';
                     }
                 }
 
-            ],
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'header' => 'Actions',
-                'template' => '{view}',
-                'buttons' => [
-                    'view' => function ($url, $model) {
-                        $url = ['view', 'id' => $model->id];
-                        return Html::a('<span class="fa fa-pencil"></span>', $url, [
-                            'title' => 'Update',
-                            'data-toggle' => 'tooltip', 'data-original-title' => 'Save',
-                            'class' => 'btn btn-primary',
-
-                        ]);
-
-
-                    },
-
-
-                ]
             ],
         ],
     ]); ?>

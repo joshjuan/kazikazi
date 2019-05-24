@@ -91,8 +91,4 @@ class ClerkDeni extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'name']);
     }
 
-    public static function getClerkDifference()
-    {
-        return ( TicketTransaction::find()->select(['user','amount','create_at'])->groupBy(['user'])->groupBy(['create_at'])->sum('amount')- ClerkDeni::find()->sum('	submitted_amount	')) ;
-    }
 }

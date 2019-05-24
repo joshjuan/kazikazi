@@ -54,22 +54,22 @@ use dmstr\widgets\Menu;
                     ],
                     [
                         'label' => 'Funga Hesabu',
-                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaClerkMahesabu'),
+                        'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaSupervisorMahesabu'),
                         'icon' => 'money text-orange',
                         'items' => [
 
                             [
                                 //  'visible' =>  yii::$app->user->can('auditSystem'),
                                 'label' => Yii::t('app', 'Funga Hesabu'),
-                                'url' => ['/clerk-deni/create'],
-                                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaClerkMahesabu'),
+                                'url' => ['/supervisor-deni/create'],
+                                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaSupervisorMahesabu'),
                                 'icon' => 'lock text-orange',
                             ],
                             [
                                 //  'visible' =>  yii::$app->user->can('auditSystem'),
-                                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaClerkMahesabu'),
-                                'label' => Yii::t('app', 'Mahesabu yaliyofungwa'),
-                                'url' => ['/clerk-deni/index'],
+                                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaSupervisorMahesabu'),
+                                'label' => Yii::t('app', 'Mahesabu ya supervisor'),
+                                'url' => ['/supervisor-deni/index'],
                                 'icon' => 'lock text-orange',
                             ],
 
@@ -88,13 +88,15 @@ use dmstr\widgets\Menu;
                                 'items' => [
                                     [
                                         'label' => 'Clerks Report',
-                                        'icon' => 'file-o text-green',
+                                        'icon' => 'database text-green',
                                         'url' => '',
                                         'items'=>[
-                                            ['label' => 'Daily Clerk Report', 'icon' => 'money text-green', 'url' => ['/ticket-transaction/clerk-report'],],
-                                            ['label' => 'Repoti ya Deni', 'icon' => 'money text-green', 'url' => ['/clerk-deni/clerk-report'],],
+                                            ['label' => 'Daily Clerk Report', 'icon' => 'money text-red', 'url' => ['/ticket-transaction/clerk-report'],],
+                                            ['label' => 'Repoti ya clerk', 'icon' => 'money text-red', 'url' => ['/clerk-deni/clerk-report'],],
+
                                         ]
                                     ],
+                                    ['label' => 'Repoti ya supervisor', 'icon' => 'money text-green', 'url' => ['/supervisor-deni/supervisor-report'],],
                                     ['label' => 'Date Range Report', 'icon' => 'file-o text-green', 'url' => ['/ticket-transaction/date-range'],],
                                 ],
 
