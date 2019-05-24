@@ -65,6 +65,9 @@ class AuthItemController extends Controller
         $model->type=2;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+
+
             return $this->redirect(['view', 'id' => $model->name]);
         } else {
             return $this->render('create', [

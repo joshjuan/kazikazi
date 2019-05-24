@@ -1,3 +1,4 @@
+
 <?php
 
 use yii\helpers\Html;
@@ -19,7 +20,7 @@ $this->params['breadcrumbs'][] = 'Users';
         <div class="col-md-6">
             <strong class="lead" style="color: #01214d;font-family: Tahoma"> <i class="fa fa-th-list text-blue"></i>
                 SYSTEM
-                USERS</strong>
+                ADMIN</strong>
         </div>
         <div class="col-md-3">
 

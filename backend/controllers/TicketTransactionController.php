@@ -241,6 +241,29 @@ class TicketTransactionController extends Controller
 
     }
 
+    public function actionSupervisorReport()
+    {
+        if (!Yii::$app->user->isGuest) {
+
+            $searchModel = new TicketTransactionSearch();
+            $dataProvider = $searchModel->searchSupervisor(Yii::$app->request->queryParams);
+
+            Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia ripoti za makarani (clerks) wote ', 'TicketTransaction', 'View', '', '');
+
+            return $this->render('clerks_report', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+
+        }else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
+    }
+
     public function actionClerkDeni()
     {
         if (!Yii::$app->user->isGuest) {

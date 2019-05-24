@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int $name
+ * @property int $supervisor
  * @property string $collected_amount
  * @property string $submitted_amount
  * @property string $deni
@@ -26,8 +27,8 @@ class ClerkDeni extends \yii\db\ActiveRecord
 {
 
 
-    const COMPLETE=1;
-    const NOT_COMPLETE=0;
+    const COMPLETE = 1;
+    const NOT_COMPLETE = 0;
 
     /**
      * {@inheritdoc}
@@ -56,11 +57,12 @@ class ClerkDeni extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'amount_date', 'created_at', 'created_by'], 'required'],
-            [['name','status'], 'integer'],
+            [['name', 'status'], 'integer'],
             [['collected_amount', 'submitted_amount', 'deni', 'total_amount'], 'number'],
-            [['amount_date', 'created_at','updated_at'], 'safe'],
-            [['created_by','updated_by'], 'string', 'max' => 200],
+            [['amount_date', 'created_at', 'updated_at'], 'safe'],
+            [['created_by', 'updated_by'], 'string', 'max' => 200],
             [['name'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['name' => 'id']],
+
         ];
     }
 
@@ -91,4 +93,9 @@ class ClerkDeni extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'name']);
     }
 
+    public static function getClerkDifference()
+    {
+        return (TicketTransaction::find()->select(['user', 'amount', 'create_at'])->groupBy(['user'])->groupBy(['create_at'])->sum('amount') - ClerkDeni::find()->sum('	submitted_amount	'));
+    }
 }
+

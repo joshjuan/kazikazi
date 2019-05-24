@@ -147,7 +147,7 @@ class RegionController extends Controller
                     'positonX' => 'right'
                 ]);
 
-                return $this->redirect(['site/index']);
+                return $this->redirect(['index']);
             }
         } else {
             $model = new LoginForm();
@@ -192,7 +192,7 @@ class RegionController extends Controller
                     'positonX' => 'right'
                 ]);
 
-                return $this->redirect(['site/index']);
+                return $this->redirect(['index']);
             }
 
 

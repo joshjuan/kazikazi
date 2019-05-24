@@ -82,7 +82,7 @@ class UserController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager')||Yii::$app->user->can('admin')) {
 
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->searchManager(Yii::$app->request->queryParams);
@@ -119,7 +119,7 @@ class UserController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager')||Yii::$app->user->can('admin')) {
 
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->searchSupervisor(Yii::$app->request->queryParams);
@@ -197,7 +197,7 @@ class UserController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager')||Yii::$app->user->can('admin')) {
 
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->searchAdmin(Yii::$app->request->queryParams);
@@ -232,11 +232,12 @@ class UserController extends Controller
 
 
     }
+
     public function actionAccountantList()
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager')||Yii::$app->user->can('admin')) {
 
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->searchAccountant(Yii::$app->request->queryParams);
@@ -276,7 +277,7 @@ class UserController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager')||Yii::$app->user->can('admin')) {
 
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->searchClerk(Yii::$app->request->queryParams);
@@ -318,6 +319,7 @@ class UserController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+
     public function actionView($id)
     {
 
@@ -428,7 +430,6 @@ class UserController extends Controller
 
     }
 
-
     public function actionDistrictList($id){
 
             $count = Municipal::find()
@@ -449,7 +450,6 @@ class UserController extends Controller
             }
 
     }
-
 
     public function actionAdminCreate()
     {
@@ -495,6 +495,7 @@ class UserController extends Controller
         }
 
     }
+
     public function actionAccountantCreate()
     {
 
@@ -767,3 +768,4 @@ class UserController extends Controller
         }
     }
 }
+

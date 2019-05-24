@@ -46,7 +46,7 @@ class SupervisorDeniController extends Controller
 
             if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaClerkMahesabu')) {
 
-                $searchModel = new ClerkDeniSearch();
+                $searchModel = new SupervisorDeniSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
                 Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia taarifa za madeni ya makaranni (Clerks) ', 'ClerkDeni', 'Index', '', '');
@@ -87,7 +87,7 @@ class SupervisorDeniController extends Controller
 
             if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewClerkMahesabu')) {
 
-                $searchModel = new ClerkDeniSearch();
+                $searchModel = new SupervisorDeniSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
                 Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia ripoti za makaranni (Clerks) wote ', 'ClerkDeni', 'Index', '', '');
@@ -152,10 +152,10 @@ class SupervisorDeniController extends Controller
         if (!Yii::$app->user->isGuest) {
 
             if (Yii::$app->user->can('fungaSupervisorMahesabu') || Yii::$app->user->can('super_admin')){
-                $model = new ClerkDeni();
+                $model = new SupervisorDeni();
 
                 if ($model->load(Yii::$app->request->post())) {
-                    $Cleck_Date = ClerkDeniSearch::find()->select('collected_amount')->where(['name' => $model->name])->andWhere(['date(amount_date)' => $model->amount_date])->sum('collected_amount');
+                    $Cleck_Date = SupervisorDeniSearch::find()->select('collected_amount')->where(['name' => $model->name])->andWhere(['date(amount_date)' => $model->amount_date])->sum('collected_amount');
                     if ($Cleck_Date == '') {
 
                         $time = date('Y-m-d');
@@ -174,7 +174,7 @@ class SupervisorDeniController extends Controller
                                     $model->created_at = date('Y-m-d H:i:s');
                                     Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') alifanikiwa kufunga mahesabu ya karani " ' . $model->user0->name . ' ")', 'ClerkDeni', 'Create', '', '');
                                     if ($model->deni == 0) {
-                                        $model->status = ClerkDeni::COMPLETE;
+                                        $model->status = SupervisorDeniSearch::COMPLETE;
                                         $model->save();
                                         Yii::$app->session->setFlash('', [
                                             'type' => 'success',
@@ -186,7 +186,7 @@ class SupervisorDeniController extends Controller
                                             'positonX' => 'right'
                                         ]);
                                     } else {
-                                        $model->status = ClerkDeni::NOT_COMPLETE;
+                                        $model->status = SupervisorDeniSearch::NOT_COMPLETE;
                                         $model->save();
                                         Yii::$app->session->setFlash('', [
                                             'type' => 'success',
@@ -341,7 +341,7 @@ class SupervisorDeniController extends Controller
 
         if ($model->submitted_amount === $model->collected_amount) {
             $model->deni = $model->collected_amount - $model->submitted_amount;
-            $model->status = ClerkDeni::COMPLETE;
+            $model->status = SupervisorDeni::COMPLETE;
             $model->updated_at=date('Y-m-d H:i:s');
             $model->updated_by=Yii::$app->user->identity->username;
             $model->save();
@@ -375,7 +375,7 @@ class SupervisorDeniController extends Controller
         return ArrayHelper::merge(parent::actions(), [
             'collect1' => [                                       // identifier for your editable action
                 'class' => EditableColumnAction::className(),     // action class name
-                'modelClass' => ClerkDeni::className(),             // the update model class
+                'modelClass' => SupervisorDeni::className(),             // the update model class
                 'outputValue' => function ($model, $attribute, $key, $index) {
                     $fmt = Yii::$app->formatter;
                     $value = $model->$attribute;                 // your attribute value
@@ -384,7 +384,7 @@ class SupervisorDeniController extends Controller
                         $model = $this->findModel($model->id);
                         if ($model->submitted_amount === $model->collected_amount) {
                             $model->deni = $model->collected_amount - $model->submitted_amount;
-                            $model->status = ClerkDeni::COMPLETE;
+                            $model->status = SupervisorDeni::COMPLETE;
                             $model->updated_at=date('Y-m-d H:i:s');
                             $model->updated_by=Yii::$app->user->identity->username;
                             $model->save();

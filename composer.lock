@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d47986b9f9b1212580026d45c9fcebeb",
+    "content-hash": "485156c33f388012ab786de449ad2359",
     "packages": [
         {
             "name": "2amigos/yii2-arrayquery-component",

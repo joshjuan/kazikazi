@@ -77,6 +77,18 @@ class AuthAssignmentController extends Controller
         $model->created_at = date('Y-m-d H:i:m s');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            Yii::$app->session->setFlash('', [
+                'type' => 'success',
+                'duration' => 1500,
+                'icon' => 'fa fa-th',
+                'title' => 'Notification',
+                'message' => Yii::t('app', 'You have successfully assign role to user ' . $model->user->username . '"'),
+                'positonY' => 'top',
+                'positonX' => 'right'
+            ]);
+
+
             return $this->redirect(['view', 'item_name' => $model->item_name, 'user_id' => $model->user_id]);
         }
 
@@ -101,6 +113,17 @@ class AuthAssignmentController extends Controller
         $model = $this->findModel($item_name, $user_id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            Yii::$app->session->setFlash('', [
+                'type' => 'success',
+                'duration' => 1500,
+                'icon' => 'fa fa-th',
+                'title' => 'Notification',
+                'message' => Yii::t('app', 'You have successfully update role to user ' . $model->user->username . '"'),
+                'positonY' => 'top',
+                'positonX' => 'right'
+            ]);
+
             return $this->redirect(['index',]);
         }
 
