@@ -5,7 +5,6 @@ namespace backend\controllers;
 
 
 use backend\models\ClerkDeniSearch;
-use backend\models\FansRequestSearch;
 use backend\models\Reference;
 use backend\models\TicketTransaction;
 use backend\models\User;
@@ -46,8 +45,6 @@ class ApiController extends \yii\rest\ActiveController
 
         $user = User::findByUsername($model->username);
         $user_type = UserSearch::find()->where(['username' => $user])->one();
-
-
             if (!empty($user)) {
                 if (($user_type['user_type']===User::SUPERVISOR) || ($user_type['user_type'] ===User::CLERK)) {
                     if ($model->login()) {
@@ -129,6 +126,14 @@ class ApiController extends \yii\rest\ActiveController
 
         }
     }
+
+    public function actionFungaClerkMahesabu()
+    {
+        $params = Yii::$app->request->post();
+
+    }
+
+
 
 
 }

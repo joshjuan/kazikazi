@@ -1,3 +1,4 @@
+
 <?php
 
 use yii\helpers\Html;
@@ -18,31 +19,55 @@ $this->params['breadcrumbs'][] = 'Users';
     <div class="row">
         <div class="col-md-6">
             <strong class="lead" style="color: #01214d;font-family: Tahoma"> <i class="fa fa-th-list text-blue"></i>
-                SYSTEM
-                USERS - SUPERVISORS LIST</strong>
+                SUPERVISOR
+                USERS</strong>
         </div>
         <div class="col-md-3">
 
         </div>
         <div class="col-md-2">
-            <?php if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) { ?>
+
                 <?= Html::a(Yii::t('app', '<i class="fa fa-user"></i> New Supervisor'), ['supervisor-create'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
                 <?= Html::a(Yii::t('app', '<i class="fa fa-th-list"></i> Supervisor List'), ['supervisors-list'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
-            <?php } ?>
+
         </div>
     </div>
     <hr/>
 
-    <?= GridView::widget([
+    <?= \fedemotta\datatables\DataTables::widget([
         'dataProvider' => $dataProvider,
-        //  'filterModel' => $searchModel,
+          'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'name',
             'username',
             'mobile',
-            'email',
-            'role',
+        //    'email',
+            [
+                'attribute' => 'role',
+                'label' => 'Role Title'
+
+            ],
+            [
+                'attribute' => 'region',
+                'value' => 'region0.name'
+            ],
+            [
+                'attribute' => 'district',
+                'value' => 'district0.name'
+            ],
+            [
+                'attribute' => 'municipal',
+                'value' => 'municipal0.name'
+            ],
+            [
+                'attribute' => 'street',
+                'value' => 'street0.name'
+            ],
+            [
+                'attribute' => 'work_area',
+                'value' => 'work_area.name'
+            ],
 
             [
                 'attribute' => 'status',
@@ -59,7 +84,6 @@ $this->params['breadcrumbs'][] = 'Users';
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Actions',
-                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin'),
                 'template' => '{view}',
                 'buttons' => [
                     'view' => function ($url, $model) {

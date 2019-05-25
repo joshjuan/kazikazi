@@ -1,4 +1,3 @@
-
 <?php
 
 use yii\helpers\ArrayHelper;
@@ -13,15 +12,9 @@ use kartik\grid\GridView;
 $this->title = '';
 $this->params['breadcrumbs'][] = 'Clerk Denis';
 ?>
-<p style="padding-top: 10px"/>
-<div class="clerk-deni-index">
 
+<div class="clerk-deni-index" style="padding-top: 10px">
 
-    <p>
-        <?php if (Yii::$app->user->can('super_admin')) { ?>
-            <?= Html::a('Create Clerk Deni', ['create'], ['class' => 'btn btn-success']) ?>
-        <?php } ?>
-    </p>
 
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <?php $gridColumns = [
@@ -32,14 +25,11 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
             'headerOptions' => ['class' => 'kartik-sheet-style']
         ],
         //  'id',
-        [
-            'attribute' => 'amount_date',
-            'width' => '180px',
-        ],
+
 
         [
-            'label' => 'Clerk',
-            'attribute' => 'name',
+            'label' => 'Supervisor',
+            'attribute' => 'created_by',
             'vAlign' => 'middle',
             'pageSummary' => 'JUMLA',
             'width' => '180px',
@@ -57,7 +47,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
 
         [
             'attribute' => 'collected_amount',
-            'width' => '180px',
+          //  'width' => '180px',
             'pageSummary' => true,
             'format' => ['decimal', 2],
 
@@ -74,16 +64,12 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
               'editableOptions' => [
 
                   'size' => 'sm',
-                  'formOptions' => ['action' => ['clerk-deni/collect']],
+                  'formOptions' => ['action' => ['supervisor-deni/collect']],
                   'asPopover' => false,
 
                   'inputType' => \kartik\editable\Editable::INPUT_TEXT,
                  // 'data' => \backend\models\LineNumber::getAll(),
-                  'options' => [
-                      'pluginOptions' => ['min' => 0, 'max' => 5000],
-                      //   'style'=>'max-width:10px; min-height:10px; overflow: auto; word-wrap: break-word;'
 
-                  ]
               ],
           ],
         [
@@ -97,10 +83,10 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
             'width' => '160px',
 
             'value' => function ($model) {
-                if ($model->status == \backend\models\ClerkDeni::COMPLETE) {
+                if ($model->status == \backend\models\SupervisorDeni::COMPLETE) {
 
                     return 'COMPLETE';
-                } elseif ($model->status == \backend\models\ClerkDeni::NOT_COMPLETE) {
+                } elseif ($model->status == \backend\models\SupervisorDeni::NOT_COMPLETE) {
                     return 'NOT COMPLETE';
                 }
             },
@@ -147,7 +133,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
         'floatHeaderOptions' => ['scrollingTop' => true],
         'showPageSummary' => true,
         'panel' => [
-            'heading' => '<i class="fa fa-bars"></i> MAHESABU YA MAKARANI YALIYO FUNGWA NA SUPERVISOR KWA SIKU',
+            'heading' => '<i class="fa fa-bars"></i> MAHESABU YA SUPERVISOR YALIYO FUNGWA KWA SIKU',
             'type' => GridView::TYPE_SUCCESS
         ],
         'exportConfig' => [
@@ -180,5 +166,4 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
 
     ?>
 </div>
-
 

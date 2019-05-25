@@ -18,8 +18,10 @@ $this->params['breadcrumbs'][] = 'Users';
     <div class="row">
         <div class="col-md-6">
             <strong class="lead" style="color: #01214d;font-family: Tahoma"> <i class="fa fa-th-list text-blue"></i>
+
                 SYSTEM
                 USERS - ACCOUNTANTS LIST</strong>
+
         </div>
         <div class="col-md-3">
 
@@ -42,7 +44,23 @@ $this->params['breadcrumbs'][] = 'Users';
             'username',
             'mobile',
             'email',
-            'role',
+            [
+                'attribute' => 'role',
+                'label' => 'Role Title'
+
+            ],
+            [
+                'attribute' => 'region',
+                'value' => 'region0.name'
+            ],
+            [
+                'attribute' => 'district',
+                'value' => 'district0.name'
+            ],
+            [
+                'attribute' => 'municipal',
+                'value' => 'municipal0.name'
+            ],
 
             [
                 'attribute' => 'status',

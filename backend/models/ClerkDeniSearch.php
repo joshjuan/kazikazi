@@ -20,7 +20,7 @@ class ClerkDeniSearch extends ClerkDeni
     public function rules()
     {
         return [
-            [['id', 'name','supervisor'], 'integer'],
+            [['id', 'name'], 'integer'],
             [['collected_amount', 'submitted_amount', 'deni'], 'number'],
             [['amount_date', 'created_at', 'created_by','date_from','date_to','status'], 'safe'],
         ];
@@ -69,7 +69,6 @@ class ClerkDeniSearch extends ClerkDeni
         $query->andFilterWhere([
             'id' => $this->id,
             'name' => $this->name,
-            'supervisor' => $this->supervisor,
             'collected_amount' => $this->collected_amount,
             'submitted_amount' => $this->submitted_amount,
             'deni' => $this->deni,

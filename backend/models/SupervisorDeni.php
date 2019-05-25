@@ -5,43 +5,29 @@ namespace backend\models;
 use Yii;
 
 /**
- * This is the model class for table "clerk_deni".
+ * This is the model class for table "supervisor_deni".
  *
  * @property int $id
  * @property int $name
- * @property int $supervisor
  * @property string $collected_amount
  * @property string $submitted_amount
  * @property string $deni
- * @property string $comment
- * @property string $total_amount
  * @property string $amount_date
+ * @property int $status
  * @property string $created_at
  * @property string $created_by
  * @property string $updated_at
  * @property string $updated_by
- * @property string $status
- *
- * @property User $name0
  */
-class ClerkDeni extends \yii\db\ActiveRecord
+class SupervisorDeni extends \yii\db\ActiveRecord
 {
 
+    const COMPLETE=1;
+    const NOT_COMPLETE=0;
 
-    const COMPLETE = 1;
-    const NOT_COMPLETE = 0;
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'clerk_deni';
-    }
 
-    /**
-     * @inheritdoc
-     */
+
     public static function getStatus()
     {
         return [
@@ -49,6 +35,13 @@ class ClerkDeni extends \yii\db\ActiveRecord
             self::NOT_COMPLETE => Yii::t('app', 'NOT_COMPLETE'),
 
         ];
+    }
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'supervisor_deni';
     }
 
     /**
@@ -59,12 +52,9 @@ class ClerkDeni extends \yii\db\ActiveRecord
         return [
             [['name', 'amount_date', 'created_at', 'created_by'], 'required'],
             [['name', 'status'], 'integer'],
-            [['collected_amount', 'submitted_amount', 'deni', 'total_amount'], 'number'],
+            [['collected_amount', 'submitted_amount', 'deni'], 'number'],
             [['amount_date', 'created_at', 'updated_at'], 'safe'],
             [['created_by', 'updated_by'], 'string', 'max' => 200],
-            [['comment'], 'string'],
-            [['name'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['name' => 'id']],
-
         ];
     }
 
@@ -79,26 +69,18 @@ class ClerkDeni extends \yii\db\ActiveRecord
             'collected_amount' => 'Collected Amount',
             'submitted_amount' => 'Submitted Amount',
             'deni' => 'Deni',
+            'amount_date' => 'Amount Date',
             'status' => 'Status',
-            'comment' => 'Comment',
-            'total_amount' => 'Total Amount',
-            'amount_date' => 'Tarehe ya Kazi',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
+            'updated_at' => 'Updated At',
+            'updated_by' => 'Updated By',
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+
     public function getUser0()
     {
         return $this->hasOne(User::className(), ['id' => 'name']);
     }
-
-    public static function getClerkDifference()
-    {
-        return (TicketTransaction::find()->select(['user', 'amount', 'create_at'])->groupBy(['user'])->groupBy(['create_at'])->sum('amount') - ClerkDeni::find()->sum('	submitted_amount	'));
-    }
 }
-
