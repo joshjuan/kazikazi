@@ -103,11 +103,11 @@ class SiteController extends Controller
             if ($model->load(Yii::$app->request->post()) && $model->login()) {
 
                 if (Yii::$app->user->identity->role != ''){
-<<<<<<< HEAD
-                    if (\Yii::$app->user->identity->role == 'super_admin' || \Yii::$app->user->identity->role == 'admin' || \Yii::$app->user->identity->role == 'manager' || \Yii::$app->user->identity->role == 'accountant' || \Yii::$app->user->identity->role == 'government_official') {
-=======
+
+
+
                     if (\Yii::$app->user->identity->role == 'super_admin' || \Yii::$app->user->identity->role == 'admin' || \Yii::$app->user->identity->role == 'manager'|| \Yii::$app->user->identity->role == 'accountant' || \Yii::$app->user->identity->role == 'government_official') {
->>>>>>> ae611ae515459917dfcce320c8b918396c9edf4c
+
 
                         Audit::setActivity('New Login at ' . date('Y-m-d H:i:s'), 'ULG', 'Login', '', '');
 

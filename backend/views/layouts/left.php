@@ -87,12 +87,7 @@ use dmstr\widgets\Menu;
                         'visible' => Yii::$app->user->can('accountant') || Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') ||  yii::$app->user->can('governmentOfficial'),
                         'icon' => 'sitemap text-orange',
                         'items' => [
-
-<<<<<<< HEAD
-
-=======
->>>>>>> ae611ae515459917dfcce320c8b918396c9edf4c
-                            [
+                                [
                                 'label' => 'Daily Clerk Report',
                                 'icon' => 'money text-green',
                                 'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin'),
