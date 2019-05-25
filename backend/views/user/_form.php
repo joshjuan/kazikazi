@@ -119,7 +119,7 @@ use yii\web\View;
 
 
                         <div class="col-sm-3">
-                            <?= $form->field($model, 'role')->dropDownList(\backend\models\User::getArrayRole(), ['prompt' => '-- select Role name --']) ?>
+                            <?= $form->field($model, 'role')->dropDownList(\backend\models\User::getRole(), ['prompt' => '-- select Role name --']) ?>
                         </div>
                         <div class="col-sm-3">
                             <?= $form->field($model, 'status')->dropDownList(\backend\models\User::getArrayStatus()) ?>

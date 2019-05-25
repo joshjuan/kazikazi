@@ -43,33 +43,15 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
             'label' => 'Supervisor',
             'attribute' => 'created_by',
             'vAlign' => 'middle',
-            'value' =>'user0.name',
-            'filterType' => GridView::FILTER_SELECT2,
-
-            'filter' => ArrayHelper::map(\backend\models\User::find()->where(['user_type'=>\backend\models\User::CLERK])->asArray()->all(), 'id', 'username'),
-
-            'filterWidgetOptions' => [
-                'pluginOptions' => ['allowClear' => true],
-            ],
-            'filterInputOptions' => ['placeholder' => '-- Select Clerk Name --'],
-            'format' => 'raw'
+           'value' =>'user0.name',
         ],
         [
             'label' => 'Clerk',
             'attribute' => 'name',
             'vAlign' => 'middle',
             'pageSummary' => 'JUMLA',
-           // 'width' => '180px',
-            'value' =>'user0.name',
-            'filterType' => GridView::FILTER_SELECT2,
+            'value' =>'userClerk.name',
 
-            'filter' => ArrayHelper::map(\backend\models\User::find()->where(['user_type'=>\backend\models\User::CLERK])->asArray()->all(), 'id', 'username'),
-
-            'filterWidgetOptions' => [
-                'pluginOptions' => ['allowClear' => true],
-            ],
-            'filterInputOptions' => ['placeholder' => '-- Select Clerk Name --'],
-            'format' => 'raw'
         ],
 
         [

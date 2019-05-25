@@ -77,6 +77,46 @@ class TicketTransactionController extends Controller
         }
     }
 
+    public function actionGovernmentIndex()
+    {
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('governmentOfficial')) {
+
+                $model = new Model;
+                $searchModel = new TicketTransactionSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia taarifa za ticket transaction ', 'TicketTransaction', 'Index', '', '');
+
+                return $this->render('indexGovt', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+
+            } else {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'danger',
+                    'duration' => 1500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => Yii::t('app', 'You dont have a permission'),
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
+
+        } else {
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+    }
+
     /**
      * Displays a single TicketTransaction model.
      * @param integer $id

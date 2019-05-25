@@ -64,98 +64,11 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
             'attribute' => 'ref_no',
         ],
         [
-            'attribute' => 'begin_time',
-        ],
-        [
-            'attribute' => 'end_time',
-        ],
-        [
             'attribute' => 'car_no',
 
         ],
         [
-            'attribute' => 'region',
-            'vAlign' => 'middle',
-            'width' => '80px',
-            'contentOptions' => ['class' => 'truncate'],
-            'value' => function ($model) {
-                if ($model->region0->name != '') {
-                    return Html::a($model->region0->name);
-                } else {
-                    return '';
-                }
-            },
-            'filterType' => GridView::FILTER_SELECT2,
-            'filter' => ArrayHelper::map(\backend\models\Region::find()->asArray()->all(), 'id', 'name'),
-            'filterWidgetOptions' => [
-                'pluginOptions' => ['allowClear' => true],
-            ],
-            'filterInputOptions' => ['placeholder' => '-- Select  --'],
-            'format' => 'raw'
-        ],
-        [
-            'attribute' => 'district',
-            'vAlign' => 'middle',
-            'width' => '80px',
-            'value' => function ($model) {
-                if ($model->district0->name != '') {
-                    return Html::a($model->district0->name);
-                } else {
-                    return '';
-                }
-            },
-            'filterType' => GridView::FILTER_SELECT2,
-            'filter' => ArrayHelper::map(\backend\models\District::find()->asArray()->all(), 'id', 'name'),
-            'filterWidgetOptions' => [
-                'pluginOptions' => ['allowClear' => true],
-            ],
-            'filterInputOptions' => ['placeholder' => '-- Select --'],
-            'format' => 'raw'
-        ],
-        [
-            'attribute' => 'municipal',
-            'vAlign' => 'middle',
-            'width' => '80px',
-            'value' => function ($model) {
-                if ($model->municipal0->name != '') {
-                    return Html::a($model->municipal0->name);
-                } else {
-                    return '';
-                }
-            },
-            'filterType' => GridView::FILTER_SELECT2,
-            'filter' => ArrayHelper::map(\backend\models\Municipal::find()->asArray()->all(), 'id', 'name'),
-            'filterWidgetOptions' => [
-                'pluginOptions' => ['allowClear' => true],
-            ],
-            'filterInputOptions' => ['placeholder' => '-- Select --'],
-            'format' => 'raw'
-        ],
-
-        [
-            'attribute' => 'street',
-            'vAlign' => 'middle',
-            'width' => '80px',
-            'value' => function ($model) {
-                if ($model->street0->name != '') {
-                    return Html::a($model->street0->name);
-                } else {
-                    return '';
-                }
-            },
-            'filterType' => GridView::FILTER_SELECT2,
-            'filter' => ArrayHelper::map(\backend\models\Street::find()->asArray()->all(), 'id', 'name'),
-            'filterWidgetOptions' => [
-                'pluginOptions' => ['allowClear' => true],
-            ],
-            'filterInputOptions' => ['placeholder' => '-- Select --'],
-            'format' => 'raw'
-        ],
-
-        [
             'attribute' => 'work_area',
-            'vAlign' => 'middle',
-            'width' => '80px',
             'value' => function ($model) {
                 if ($model->workArea->name != '') {
                     return Html::a($model->workArea->name);
@@ -175,8 +88,8 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
         [
             'label' => 'Clerk',
             'attribute' => 'user',
-            'vAlign' => 'middle',
-            'width' => '80px',
+        //    'vAlign' => 'middle',
+         //   'width' => '80px',
             'value' => function ($model) {
                 if ($model->user0->name != '') {
                     return Html::a($model->user0->name);
@@ -197,7 +110,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
         //   'status',
         [
             'attribute' => 'create_at',
-            'width' => '180px',
+          //  'width' => '180px',
             'pageSummary' => 'JUMLA',
         ],
         [

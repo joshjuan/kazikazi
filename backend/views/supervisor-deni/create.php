@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $model backend\models\ClerkDeni */
 
 $this->title = '';
-$this->params['breadcrumbs'][] = ['label' => 'Clerk Denis', 'url' => ['index']];
-$this->params['breadcrumbs'][] = 'Clerk Deni';
+$this->params['breadcrumbs'][] = ['label' => 'Supervisor Deni', 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Supervisor Deni';
 ?>
 <div class="clerk-deni-create">
 

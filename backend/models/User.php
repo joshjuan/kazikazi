@@ -271,6 +271,12 @@ class User extends \common\models\User
     }
 
 
+    public static function getRole()
+    {
+        return ArrayHelper::map(AuthItem::find()->where(['type'=>1])->all(),'name','name');
+    }
+
+
     public static function getRegionNameByuserId($user_id)
     {
         $mfanyakazi = User::findOne($user_id);
