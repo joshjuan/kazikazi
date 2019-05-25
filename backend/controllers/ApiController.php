@@ -138,7 +138,8 @@ class ApiController extends \yii\rest\ActiveController
                 'message' => 'Sent Successfully'
             ]
             );
-        } else {
+        }
+        else {
             return array('status ' => [
                 $sale->getErrors(),
                 'status' => '403',
