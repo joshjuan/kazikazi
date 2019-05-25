@@ -1,4 +1,3 @@
-
 <?php
 
 use yii\helpers\Html;
@@ -19,30 +18,30 @@ $this->params['breadcrumbs'][] = 'Users';
     <div class="row">
         <div class="col-md-6">
             <strong class="lead" style="color: #01214d;font-family: Tahoma"> <i class="fa fa-th-list text-blue"></i>
-                SUPERVISOR
-                USERS</strong>
+                SYSTEM
+                USERS - SUPERVISORS LIST</strong>
         </div>
         <div class="col-md-3">
 
         </div>
         <div class="col-md-2">
-
+            <?php if (Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin')) { ?>
                 <?= Html::a(Yii::t('app', '<i class="fa fa-user"></i> New Supervisor'), ['supervisor-create'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
                 <?= Html::a(Yii::t('app', '<i class="fa fa-th-list"></i> Supervisor List'), ['supervisors-list'], ['class' => 'btn btn-primary waves-effect waves-light']) ?>
-
+            <?php } ?>
         </div>
     </div>
     <hr/>
 
     <?= \fedemotta\datatables\DataTables::widget([
         'dataProvider' => $dataProvider,
-          'filterModel' => $searchModel,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'name',
             'username',
             'mobile',
-        //    'email',
+            //    'email',
             [
                 'attribute' => 'role',
                 'label' => 'Role Title'
@@ -84,6 +83,7 @@ $this->params['breadcrumbs'][] = 'Users';
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Actions',
+                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin'),
                 'template' => '{view}',
                 'buttons' => [
                     'view' => function ($url, $model) {

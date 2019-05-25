@@ -44,7 +44,7 @@ class SupervisorDeniController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaClerkMahesabu')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaSupervisorMahesabu')) {
 
                 $searchModel = new SupervisorDeniSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -85,7 +85,7 @@ class SupervisorDeniController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewClerkMahesabu')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaSupervisorMahesabu')) {
 
                 $searchModel = new SupervisorDeniSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

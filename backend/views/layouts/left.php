@@ -82,16 +82,26 @@ use dmstr\widgets\Menu;
                         'items' => [
 
 
-                            ['label' => 'Daily Clerk Report', 'icon' => 'money text-green', 'url' => ['/ticket-transaction/clerk-report'],],
                             [
-                                'visible' => Yii::$app->user->can('accountant') || Yii::$app->user->can('super_admin'),
-                                'label' => 'Repoti ya Clerk(POS)',
+                                'label' => 'Daily Clerk Report',
+                                'icon' => 'money text-green',
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin'),
+                                'url' => ['/ticket-transaction/clerk-report'],
+                            ],
+                            [
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin'),
+                                'label' => 'Repoti ya Clerk ( POS )',
                                 'icon' => 'money text-green',
                                 'url' => ['/clerk-deni/clerk-report'],
                             ],
 
 
-                            ['label' => 'Date Range Report', 'icon' => 'file-o text-green', 'url' => ['/ticket-transaction/date-range'],],
+                            [
+                                'label' => 'Date Range Report',
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin'),
+                                'icon' => 'file-o text-green',
+                                'url' => ['/ticket-transaction/date-range'],
+                            ],
 
                             [
                                 'visible' => Yii::$app->user->can('accountant') || Yii::$app->user->can('super_admin'),
@@ -99,6 +109,23 @@ use dmstr\widgets\Menu;
                                 'icon' => 'money text-green',
                                 'url' => ['/supervisor-deni/supervisor-report'],
                             ],
+
+                        ],
+                    ],
+                    [
+                        'label' => 'Claim Reports',
+                        'visible' => Yii::$app->user->can('manager') || Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin'),
+                        'icon' => 'sitemap text-orange',
+                        'items' => [
+
+
+                            [
+                                'label' => 'Claim Report',
+                                'icon' => 'circle text-green',
+                                //'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin'),
+                                'url' => ['/claim-report'],
+                            ],
+
 
                         ],
                     ],
@@ -118,13 +145,13 @@ use dmstr\widgets\Menu;
                                         'label' => Yii::t('app', 'New Region'),
                                         'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('createRegion'),
                                         'url' => ['/region/create'],
-                                        'icon' => 'plus text-orange',
+                                        'icon' => 'plus text-green',
                                     ],
                                     [
                                         //  'visible' =>  yii::$app->user->can('auditSystem'),
                                         'label' => Yii::t('app', 'Region List'),
                                         'url' => ['/region/index'],
-                                        'icon' => 'list text-orange',
+                                        'icon' => 'circle text-green',
                                     ],
 
                                 ],
@@ -139,13 +166,13 @@ use dmstr\widgets\Menu;
                                         'label' => Yii::t('app', 'New District'),
                                         'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('createDistrict'),
                                         'url' => ['/district/create'],
-                                        'icon' => 'plus text-orange',
+                                        'icon' => 'plus text-green',
                                     ],
                                     [
                                         //  'visible' =>  yii::$app->user->can('auditSystem'),
                                         'label' => Yii::t('app', 'District Lists'),
                                         'url' => ['/district/index'],
-                                        'icon' => 'list text-orange',
+                                        'icon' => 'list circle text-green',
                                     ],
 
 
@@ -161,14 +188,14 @@ use dmstr\widgets\Menu;
                                         'label' => Yii::t('app', 'Add New Shehia'),
                                         'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('createMunicipal'),
                                         'url' => ['/municipal/create'],
-                                        'icon' => 'plus text-orange',
+                                        'icon' => 'plus text-green',
                                     ],
 
                                     [
                                         //  'visible' =>  yii::$app->user->can('auditSystem'),
                                         'label' => Yii::t('app', 'Shehia List'),
                                         'url' => ['/municipal/index'],
-                                        'icon' => 'list text-orange',
+                                        'icon' => 'circle text-green',
                                     ],
                                 ],
                             ],
@@ -181,14 +208,14 @@ use dmstr\widgets\Menu;
                                         'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('createStreet'),
                                         'label' => Yii::t('app', 'Add New Street'),
                                         'url' => ['/street/create'],
-                                        'icon' => 'plus text-orange',
+                                        'icon' => 'plus text-green',
                                     ],
 
                                     [
                                         //  'visible' =>  yii::$app->user->can('auditSystem'),
                                         'label' => Yii::t('app', 'Street List'),
                                         'url' => ['/street/index'],
-                                        'icon' => 'list text-orange',
+                                        'icon' => 'circle text-green',
                                     ],
                                 ],
                             ],
@@ -203,14 +230,14 @@ use dmstr\widgets\Menu;
                                         'label' => Yii::t('app', 'Add Wok Area'),
                                         'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('createWorkArea'),
                                         'url' => ['/work-area/create'],
-                                        'icon' => 'plus text-orange',
+                                        'icon' => 'plus text-green',
                                     ],
 
                                     [
                                         //  'visible' =>  yii::$app->user->can('auditSystem'),
                                         'label' => Yii::t('app', 'Work Area Lists'),
                                         'url' => ['/work-area/index'],
-                                        'icon' => 'list text-orange',
+                                        'icon' => 'circle text-green',
                                     ],
                                 ],
                             ],

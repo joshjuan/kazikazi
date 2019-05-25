@@ -15,7 +15,6 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
 
 <div class="clerk-deni-index" style="padding-top: 10px">
 
-
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     <?php $gridColumns = [
         [
