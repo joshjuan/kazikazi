@@ -87,7 +87,7 @@ class User extends \common\models\User
     public static function getSupervisorFullName()
     {
         return ArrayHelper::map(User::find()->where(['user_type' =>  User::SUPERVISOR])->all(),'id',function($model) {
-            return $model->username . ' (' . $model->name.')';
+            return $model->username . ' ( ' . $model->name.' )';
         });
     }
 

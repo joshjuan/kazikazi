@@ -87,8 +87,7 @@ use dmstr\widgets\Menu;
                         'visible' => Yii::$app->user->can('accountant') || Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') ||  yii::$app->user->can('governmentOfficial'),
                         'icon' => 'sitemap text-orange',
                         'items' => [
-
-                            [
+                                [
                                 'label' => 'Daily Clerk Report',
                                 'icon' => 'money text-green',
                                 'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin'),
@@ -121,6 +120,23 @@ use dmstr\widgets\Menu;
                                 'icon' => 'money text-green',
                                 'url' => ['/supervisor-deni/gvt-report'],
                             ],
+
+                        ],
+                    ],
+                    [
+                        'label' => 'Claim Reports',
+                        'visible' => Yii::$app->user->can('manager') || Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin'),
+                        'icon' => 'sitemap text-orange',
+                        'items' => [
+
+
+                            [
+                                'label' => 'Claim Report',
+                                'icon' => 'circle text-green',
+                                //'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin'),
+                                'url' => ['/claim-report'],
+                            ],
+
 
                         ],
                     ],

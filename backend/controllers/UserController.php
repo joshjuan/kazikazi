@@ -463,7 +463,7 @@ class UserController extends Controller
                     $model->user_type=User::ADMIN;
                 if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amemuongeza adimini wa mfumo (system administrator) mpya mabaye ni" ' . $model->name . ' ".', 'User', 'Create', '', '');
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amemuongeza adimini wa mfumo ( system administrator ) mpya ambaye ni" ' . $model->name . ' ".', 'User', 'Create', '', '');
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
             }
@@ -478,7 +478,7 @@ class UserController extends Controller
                     'positonX' => 'right'
                 ]);
 
-                return $this->redirect(['site/index']);
+                return $this->redirect(['admin']);
             }
 
 
@@ -646,6 +646,7 @@ class UserController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
+
     public function actionUpdate($id)
     {
         if (!Yii::$app->user->isGuest) {
