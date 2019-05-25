@@ -166,7 +166,7 @@ class SupervisorDeniController extends Controller
 
                         if ($time1 <= $time) {
                             if ($model->amount_date != '' && $model->submitted_amount != '') {
-                                $amount = TicketTransactionSearch::find()->select('amount')->where(['user' => $model->name])->andWhere(['date(create_at)' => $model->amount_date])->sum('amount');
+                                $amount = ClerkDeniSearch::find()->select('collected_amount')->where(['created_by' => $model->name])->andWhere(['date(amount_date)' => $model->amount_date])->sum('collected_amount');
                                 if ($amount != '') {
                                     $model->collected_amount = $amount;
                                     $model->deni = $model->collected_amount - $model->submitted_amount;
@@ -336,61 +336,58 @@ class SupervisorDeniController extends Controller
     }
 
 
-    public function actionCollect($id){
-        $model = $this->findModel($id);
 
-        if ($model->submitted_amount === $model->collected_amount) {
+
+    public function actionCollect1($id){
+
+        $model = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post())) {
             $model->deni = $model->collected_amount - $model->submitted_amount;
             $model->status = SupervisorDeni::COMPLETE;
             $model->updated_at=date('Y-m-d H:i:s');
             $model->updated_by=Yii::$app->user->identity->username;
+
             $model->save();
-            Yii::$app->session->setFlash('', [
-                'type' => 'success',
-                'duration' => 4500,
-                'icon' => 'fa fa-warning',
-                'title' => 'Notification',
-                'message' => 'Umefanikiwa',
-                'positonY' => 'top',
-                'positonX' => 'right'
-            ]);
         }
-        else {
-            Yii::$app->session->setFlash('', [
-                'type' => 'warning',
-                'duration' => 4500,
-                'icon' => 'fa fa-warning',
-                'title' => 'Notification',
-                'message' => 'Hauna Uwezo',
-                'positonY' => 'top',
-                'positonX' => 'right'
-            ]);
-            return $this->redirect(['supervisor-deni/create']);
-        }
+        Yii::$app->session->setFlash('', [
+            'type' => 'success',
+            'duration' => 1500,
+            'icon' => 'fa fa-check',
+            'message' => 'Successfully rejected',
+            'positonY' => 'top',
+            'positonX' => 'right'
+        ]);
+
 
     }
 
     public function actions()
     {
+        if(Yii::$app->user->can('super_admin')) {
         return ArrayHelper::merge(parent::actions(), [
-            'collect1' => [                                       // identifier for your editable action
+            'collect' => [                                       // identifier for your editable action
                 'class' => EditableColumnAction::className(),     // action class name
                 'modelClass' => SupervisorDeni::className(),             // the update model class
                 'outputValue' => function ($model, $attribute, $key, $index) {
+
+      /*              $fmt = Yii::$app->formatter;
+                    $value = $model->$attribute;                 // your attribute value
+                    //    if ($attribute === 'submitted_amount') // selective validation by attribute
+                    //  {
+                    $model = $this->findModel($model->id);
+                    //  if ($model->submitted_amount === $model->collected_amount) {
+                    $model->deni = $model->collected_amount - $model->submitted_amount;
+                    $model->status = SupervisorDeni::COMPLETE;
+                    $model->updated_at = date('Y-m-d H:i:s');
+                    $model->updated_by = Yii::$app->user->identity->username;
+                    $model->save();*/
                     $fmt = Yii::$app->formatter;
                     $value = $model->$attribute;                 // your attribute value
-                    if ($attribute === 'submitted_amount') // selective validation by attribute
-                    {
-                        $model = $this->findModel($model->id);
-                        if ($model->submitted_amount === $model->collected_amount) {
-                            $model->deni = $model->collected_amount - $model->submitted_amount;
-                            $model->status = SupervisorDeni::COMPLETE;
-                            $model->updated_at=date('Y-m-d H:i:s');
-                            $model->updated_by=Yii::$app->user->identity->username;
-                            $model->save();
-                        }
-                    }
-                    return '';                                   // empty is same as $value
+                    $model = $this->findModel($model->id);
+                    if ($model->submitted_amount === $model->collected_amount) {           // selective validation by attribute
+                        $model->deni = $model->collected_amount - $model->submitted_amount;     // return formatted value if desired
+                    } 
+                    return '';
                 },
                 'outputMessage' => function ($model, $attribute, $key, $index) {
                     return '';                                  // any custom error after model save
@@ -399,6 +396,7 @@ class SupervisorDeniController extends Controller
             ],
 
         ]);
+    }
 
     }
 }

@@ -39,7 +39,21 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
             'attribute' => 'amount_date',
          //   'width' => '180px',
         ],
+        [
+            'label' => 'Supervisor',
+            'attribute' => 'created_by',
+            'vAlign' => 'middle',
+            'value' =>'user0.name',
+            'filterType' => GridView::FILTER_SELECT2,
 
+            'filter' => ArrayHelper::map(\backend\models\User::find()->where(['user_type'=>\backend\models\User::CLERK])->asArray()->all(), 'id', 'username'),
+
+            'filterWidgetOptions' => [
+                'pluginOptions' => ['allowClear' => true],
+            ],
+            'filterInputOptions' => ['placeholder' => '-- Select Clerk Name --'],
+            'format' => 'raw'
+        ],
         [
             'label' => 'Clerk',
             'attribute' => 'name',
@@ -101,10 +115,8 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
             'filterInputOptions' => ['placeholder' => '-- Select Status --'],
 
         ],
-        'created_at',
-        'created_by',
 
-
+      //  'created_at',
     ];
 
 

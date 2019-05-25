@@ -79,12 +79,16 @@ class User extends \common\models\User
 
     public static function getClerkFullName()
     {
-        return ArrayHelper::map(User::find()->where(['user_type'=> User::CLERK])->all(),'id','name','username');
+        return ArrayHelper::map(User::find()->where(['user_type' =>  User::CLERK])->all(),'id',function($model) {
+            return $model->username . ' ' . $model->name;
+        });
     }
 
     public static function getSupervisorFullName()
     {
-        return ArrayHelper::map(User::find()->where(['user_type'=> User::SUPERVISOR])->all(),'id','name','username');
+        return ArrayHelper::map(User::find()->where(['user_type' =>  User::SUPERVISOR])->all(),'id',function($model) {
+            return $model->username . ' (' . $model->name.')';
+        });
     }
 
 

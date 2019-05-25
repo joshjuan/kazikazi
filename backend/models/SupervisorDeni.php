@@ -51,7 +51,7 @@ class SupervisorDeni extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'amount_date', 'created_at', 'created_by'], 'required'],
-            [['clerk', 'status'], 'integer'],
+            [['name', 'status'], 'integer'],
             [['collected_amount', 'submitted_amount', 'deni'], 'number'],
             [['amount_date', 'created_at', 'updated_at'], 'safe'],
             [['created_by', 'updated_by'], 'string', 'max' => 200],
@@ -76,5 +76,11 @@ class SupervisorDeni extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',
         ];
+    }
+
+
+    public function getUser0()
+    {
+        return $this->hasOne(User::className(), ['id' => 'name']);
     }
 }

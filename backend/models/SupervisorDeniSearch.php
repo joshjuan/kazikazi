@@ -46,7 +46,7 @@ class SupervisorDeniSearch extends SupervisorDeni
      */
     public function search($params)
     {
-        $query = ClerkDeni::find();
+        $query = SupervisorDeni::find();
 
         // add conditions that should always apply here
 

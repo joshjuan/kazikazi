@@ -85,7 +85,7 @@ use dmstr\widgets\Menu;
                             ['label' => 'Daily Clerk Report', 'icon' => 'money text-green', 'url' => ['/ticket-transaction/clerk-report'],],
                             [
                                 'visible' => Yii::$app->user->can('accountant') || Yii::$app->user->can('super_admin'),
-                                'label' => 'Repoti ya Deni',
+                                'label' => 'Repoti ya Clerk(POS)',
                                 'icon' => 'money text-green',
                                 'url' => ['/clerk-deni/clerk-report'],
                             ],
@@ -93,28 +93,12 @@ use dmstr\widgets\Menu;
 
                             ['label' => 'Date Range Report', 'icon' => 'file-o text-green', 'url' => ['/ticket-transaction/date-range'],],
 
-
-                            /*[
-                                'label' => Yii::t('app', 'Custom Report'),
-                                'visible' => Yii::$app->user->can('viewReport') || Yii::$app->user->can('super_admin'),
-                                'url' => ['#'],
-                                'icon' => 'clock-o text-green',
-                                'items' => [
-                                    [
-                                        'label' => 'Clerks Report',
-                                        'icon' => 'database text-green',
-                                        'url' => '',
-                                        'items'=>[
-                                            ['label' => 'Daily Clerk Report', 'icon' => 'money text-red', 'url' => ['/ticket-transaction/clerk-report'],],
-                                            ['label' => 'Repoti ya clerk', 'icon' => 'money text-red', 'url' => ['/clerk-deni/clerk-report'],],
-
-                                        ]
-                                    ],
-                                    ['label' => 'Repoti ya supervisor', 'icon' => 'money text-green', 'url' => ['/supervisor-deni/supervisor-report'],],
-                                    ['label' => 'Date Range Report', 'icon' => 'file-o text-green', 'url' => ['/ticket-transaction/date-range'],],
-                                ],
-
-                            ],*/
+                            [
+                                'visible' => Yii::$app->user->can('accountant') || Yii::$app->user->can('super_admin'),
+                                'label' => 'Repoti ya Supervisor',
+                                'icon' => 'money text-green',
+                                'url' => ['/supervisor-deni/supervisor-report'],
+                            ],
 
                         ],
                     ],

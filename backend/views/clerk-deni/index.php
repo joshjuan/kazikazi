@@ -147,7 +147,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
         'floatHeaderOptions' => ['scrollingTop' => true],
         'showPageSummary' => true,
         'panel' => [
-            'heading' => '<i class="fa fa-bars"></i> MAHESABU YA MAKARANI YALIYO FUNGWA KWA SIKU',
+            'heading' => '<i class="fa fa-bars"></i> MAHESABU YA MAKARANI YALIYO FUNGWA NA SUPERVISOR KWA SIKU',
             'type' => GridView::TYPE_SUCCESS
         ],
         'exportConfig' => [

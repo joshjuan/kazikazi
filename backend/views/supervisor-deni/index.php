@@ -25,14 +25,11 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
             'headerOptions' => ['class' => 'kartik-sheet-style']
         ],
         //  'id',
-        [
-            'attribute' => 'amount_date',
-            'width' => '180px',
-        ],
+
 
         [
-            'label' => 'Clerk',
-            'attribute' => 'name',
+            'label' => 'Supervisor',
+            'attribute' => 'created_by',
             'vAlign' => 'middle',
             'pageSummary' => 'JUMLA',
             'width' => '180px',
@@ -50,7 +47,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
 
         [
             'attribute' => 'collected_amount',
-            'width' => '180px',
+          //  'width' => '180px',
             'pageSummary' => true,
             'format' => ['decimal', 2],
 
@@ -67,16 +64,12 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
               'editableOptions' => [
 
                   'size' => 'sm',
-                  'formOptions' => ['action' => ['clerk-deni/collect']],
+                  'formOptions' => ['action' => ['supervisor-deni/collect']],
                   'asPopover' => false,
 
                   'inputType' => \kartik\editable\Editable::INPUT_TEXT,
                  // 'data' => \backend\models\LineNumber::getAll(),
-                  'options' => [
-                      'pluginOptions' => ['min' => 0, 'max' => 5000],
-                      //   'style'=>'max-width:10px; min-height:10px; overflow: auto; word-wrap: break-word;'
 
-                  ]
               ],
           ],
         [

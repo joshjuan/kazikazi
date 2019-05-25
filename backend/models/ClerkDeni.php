@@ -13,6 +13,7 @@ use Yii;
  * @property string $collected_amount
  * @property string $submitted_amount
  * @property string $deni
+ * @property string $comment
  * @property string $total_amount
  * @property string $amount_date
  * @property string $created_at
@@ -61,6 +62,7 @@ class ClerkDeni extends \yii\db\ActiveRecord
             [['collected_amount', 'submitted_amount', 'deni', 'total_amount'], 'number'],
             [['amount_date', 'created_at', 'updated_at'], 'safe'],
             [['created_by', 'updated_by'], 'string', 'max' => 200],
+            [['comment'], 'string'],
             [['name'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['name' => 'id']],
 
         ];
@@ -78,6 +80,7 @@ class ClerkDeni extends \yii\db\ActiveRecord
             'submitted_amount' => 'Submitted Amount',
             'deni' => 'Deni',
             'status' => 'Status',
+            'comment' => 'Comment',
             'total_amount' => 'Total Amount',
             'amount_date' => 'Tarehe ya Kazi',
             'created_at' => 'Created At',

@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 <center>
     <h3>
         <i class="fa fa-money text-default">
-            <strong> FORM YA KUFUNGA MAHESABU</strong>
+            <strong> FORM YA KUFUNGA MAHESABU YA SUPERVISOR</strong>
         </i>
     </h3>
 </center>
