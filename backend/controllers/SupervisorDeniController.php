@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\Application;
 use backend\models\Audit;
 use backend\models\ClerkDeni;
 use backend\models\ClerkDeniSearch;
@@ -15,6 +16,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * SupervisorDeniController implements the CRUD actions for SupervisorDeni model.
@@ -80,7 +82,6 @@ class SupervisorDeniController extends Controller
     }
 
 
-
     public function actionSupervisorReport()
     {
         if (!Yii::$app->user->isGuest) {
@@ -120,6 +121,46 @@ class SupervisorDeniController extends Controller
         }
     }
 
+    public function actionGvtReport()
+    {
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('governmentOfficial')) {
+
+                $searchModel = new SupervisorDeniSearch();
+                $dataProvider = $searchModel->searchGvt(Yii::$app->request->queryParams);
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia ripoti za makaranni (Clerks) wote ', 'ClerkDeni', 'Index', '', '');
+
+                return $this->render('indexGvt', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+
+            } else {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'danger',
+                    'duration' => 1500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => Yii::t('app', 'You dont have a permission'),
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
+
+
+        } else {
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+    }
+
+
     /**
      * Displays a single SupervisorDeni model.
      * @param integer $id
@@ -142,6 +183,7 @@ class SupervisorDeniController extends Controller
         }
 
     }
+
     /**
      * Creates a new SupervisorDeni model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -151,7 +193,7 @@ class SupervisorDeniController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('fungaSupervisorMahesabu') || Yii::$app->user->can('super_admin')){
+            if (Yii::$app->user->can('fungaSupervisorMahesabu') || Yii::$app->user->can('super_admin')) {
                 $model = new SupervisorDeni();
 
                 if ($model->load(Yii::$app->request->post())) {
@@ -205,15 +247,14 @@ class SupervisorDeniController extends Controller
                                         'duration' => 4500,
                                         'icon' => 'fa fa-warning',
                                         'title' => 'Notification',
-                                        'message' => 'Karani hana mahesabu ya kufungwa kwa tarehe hii',
+                                        'message' => 'Supervisor hana mahesabu ya kufungwa kwa tarehe hii',
                                         'positonY' => 'top',
                                         'positonX' => 'right'
                                     ]);
                                     return $this->redirect(['supervisor-deni/create']);
                                 }
 
-                            }
-                            else {
+                            } else {
                                 Yii::$app->session->setFlash('', [
                                     'type' => 'warning',
                                     'duration' => 4500,
@@ -260,9 +301,7 @@ class SupervisorDeniController extends Controller
                     'model' => $model,
                 ]);
 
-            }
-            else
-            {
+            } else {
                 Yii::$app->session->setFlash('', [
                     'type' => 'Danger',
                     'duration' => 4500,
@@ -283,6 +322,72 @@ class SupervisorDeniController extends Controller
             ]);
         }
 
+    }
+
+
+    public function actionUploadSlip($id)
+    {
+        if (Yii::$app->user->can('accountant') || Yii::$app->user->can('super_admin')) {
+            $model = $this->findModel($id);
+            $file = new SupervisorDeni();
+            $model->updated_by = Yii::$app->user->identity->name;
+            $model->updated_at = date('Y-m-d H:i:s');
+            $model->report_status = SupervisorDeni::CLOSED;
+            $model->receipt_no = $_POST['SupervisorDeni']['receipt_no'];
+
+            if ($model->load(Yii::$app->request->post())) {
+                $model->file = UploadedFile::getInstance($model, 'file');
+
+                if ($model->file !='') {
+
+                    $model->file = UploadedFile::getInstance($model, 'file');
+                    $model->file->saveAs('documents/' . 'PAYSLIP-' . date('YmdHi') . '.' . $model->file->extension);
+                    $model->uploaded_receipt = 'PAYSLIP' . date('YmdHi') . '.' . $model->file->extension;
+                    $model->save();
+
+                }
+                else{
+                    $model->save();
+                }
+                Yii::$app->session->setFlash('', [
+                    'type' => 'success',
+                    'duration' => 4500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => 'Umefankiwa ku upload pay slip document',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['supervisor-deni/index']);
+            }
+            else{
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 4500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => 'Fail',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        } else {
+            Yii::$app->session->setFlash('', [
+                'type' => 'danger',
+                'duration' => 2000,
+                'icon' => 'fa fa-check',
+                'message' => 'You do not have permission to change upload Invoice',
+                'positonY' => 'top',
+                'positonX' => 'right'
+            ]);
+
+            return $this->redirect(['viewinvoice', 'id' => $id]);
+        }
     }
 
     /**
@@ -336,16 +441,15 @@ class SupervisorDeniController extends Controller
     }
 
 
-
-
-    public function actionCollect1($id){
+    public function actionCollect1($id)
+    {
 
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post())) {
             $model->deni = $model->collected_amount - $model->submitted_amount;
             $model->status = SupervisorDeni::COMPLETE;
-            $model->updated_at=date('Y-m-d H:i:s');
-            $model->updated_by=Yii::$app->user->identity->username;
+            $model->updated_at = date('Y-m-d H:i:s');
+            $model->updated_by = Yii::$app->user->identity->username;
 
             $model->save();
         }
@@ -363,40 +467,40 @@ class SupervisorDeniController extends Controller
 
     public function actions()
     {
-        if(Yii::$app->user->can('super_admin')) {
-        return ArrayHelper::merge(parent::actions(), [
-            'collect' => [                                       // identifier for your editable action
-                'class' => EditableColumnAction::className(),     // action class name
-                'modelClass' => SupervisorDeni::className(),             // the update model class
-                'outputValue' => function ($model, $attribute, $key, $index) {
+        if (Yii::$app->user->can('super_admin')) {
+            return ArrayHelper::merge(parent::actions(), [
+                'collect' => [                                       // identifier for your editable action
+                    'class' => EditableColumnAction::className(),     // action class name
+                    'modelClass' => SupervisorDeni::className(),             // the update model class
+                    'outputValue' => function ($model, $attribute, $key, $index) {
 
-      /*              $fmt = Yii::$app->formatter;
-                    $value = $model->$attribute;                 // your attribute value
-                    //    if ($attribute === 'submitted_amount') // selective validation by attribute
-                    //  {
-                    $model = $this->findModel($model->id);
-                    //  if ($model->submitted_amount === $model->collected_amount) {
-                    $model->deni = $model->collected_amount - $model->submitted_amount;
-                    $model->status = SupervisorDeni::COMPLETE;
-                    $model->updated_at = date('Y-m-d H:i:s');
-                    $model->updated_by = Yii::$app->user->identity->username;
-                    $model->save();*/
-                    $fmt = Yii::$app->formatter;
-                    $value = $model->$attribute;                 // your attribute value
-                    $model = $this->findModel($model->id);
-                    if ($model->submitted_amount === $model->collected_amount) {           // selective validation by attribute
-                        $model->deni = $model->collected_amount - $model->submitted_amount;     // return formatted value if desired
-                    } 
-                    return '';
-                },
-                'outputMessage' => function ($model, $attribute, $key, $index) {
-                    return '';                                  // any custom error after model save
-                },
+                        /*              $fmt = Yii::$app->formatter;
+                                      $value = $model->$attribute;                 // your attribute value
+                                      //    if ($attribute === 'submitted_amount') // selective validation by attribute
+                                      //  {
+                                      $model = $this->findModel($model->id);
+                                      //  if ($model->submitted_amount === $model->collected_amount) {
+                                      $model->deni = $model->collected_amount - $model->submitted_amount;
+                                      $model->status = SupervisorDeni::COMPLETE;
+                                      $model->updated_at = date('Y-m-d H:i:s');
+                                      $model->updated_by = Yii::$app->user->identity->username;
+                                      $model->save();*/
+                        $fmt = Yii::$app->formatter;
+                        $value = $model->$attribute;                 // your attribute value
+                        $model = $this->findModel($model->id);
+                        if ($model->submitted_amount <= $model->collected_amount) {           // selective validation by attribute
+                            $model->deni = $model->collected_amount - $model->submitted_amount;     // return formatted value if desired
+                     }
+                        return '';
+                    },
+                    'outputMessage' => function ($model, $attribute, $key, $index) {
+                        return '';                                  // any custom error after model save
+                    },
 
-            ],
+                ],
 
-        ]);
-    }
+            ]);
+        }
 
     }
 }

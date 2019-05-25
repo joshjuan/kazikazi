@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 
-
+use backend\models\ClerkDeni;
 use backend\models\ClerkDeniSearch;
 use backend\models\Reference;
 use backend\models\TicketTransaction;
@@ -45,41 +45,39 @@ class ApiController extends \yii\rest\ActiveController
 
         $user = User::findByUsername($model->username);
         $user_type = UserSearch::find()->where(['username' => $user])->one();
-            if (!empty($user)) {
-                if (($user_type['user_type']===User::SUPERVISOR) || ($user_type['user_type'] ===User::CLERK)) {
-                    if ($model->login()) {
-                        $response['error'] = false;
-                        $response['status'] = 'success';
-                        $response['message'] = 'You are now logged in';
-                        $response['user'] = \common\models\User::findByUsername($model->username);
-                        //return [$response,$model];
-                        return $response;
+        if (!empty($user)) {
+            if (($user_type['user_type'] === User::SUPERVISOR) || ($user_type['user_type'] === User::CLERK)) {
+                if ($model->login()) {
+                    $response['error'] = false;
+                    $response['status'] = 'success';
+                    $response['message'] = 'You are now logged in';
+                    $response['user'] = \common\models\User::findByUsername($model->username);
+                    //return [$response,$model];
+                    return $response;
 
-                    } else {
-                        $response['error'] = false;
-                        $response['status'] = 'error';
-                        $model->validate($model->password);
-                        $response['errors'] = $model->getErrors();
-                        $response['message'] = 'wrong password';
-                        return $response;
-                    }
-                }
-                else {
+                } else {
                     $response['error'] = false;
                     $response['status'] = 'error';
-                    $response['message'] = 'You do not have permissions';
+                    $model->validate($model->password);
+                    $response['errors'] = $model->getErrors();
+                    $response['message'] = 'wrong password';
                     return $response;
                 }
-
-            }
-            else {
+            } else {
                 $response['error'] = false;
                 $response['status'] = 'error';
-                $model->validate($model->password);
-                $response['errors'] = $model->getErrors();
-                $response['message'] = 'user is disabled or does not exist!';
+                $response['message'] = 'You do not have permissions';
                 return $response;
             }
+
+        } else {
+            $response['error'] = false;
+            $response['status'] = 'error';
+            $model->validate($model->password);
+            $response['errors'] = $model->getErrors();
+            $response['message'] = 'user is disabled or does not exist!';
+            return $response;
+        }
 
     }
 
@@ -95,7 +93,7 @@ class ApiController extends \yii\rest\ActiveController
             );
         } else {
             return array('statusCode ' => [
-               // $amount->getErrors(),
+                // $amount->getErrors(),
                 'status' => 'No results',
             ]);
 
@@ -107,9 +105,9 @@ class ApiController extends \yii\rest\ActiveController
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $sale = new TicketTransaction();
         $sale->attributes = \yii::$app->request->post();
-        $sale->status=0;
+        $sale->status = 0;
         $sale->receipt_no = Reference::findLast();
-       // $sale->receipt_no = 'ABDFDS';
+        // $sale->receipt_no = 'ABDFDS';
 
         if ($sale->validate()) {
             $sale->save();
@@ -129,11 +127,25 @@ class ApiController extends \yii\rest\ActiveController
 
     public function actionFungaClerkMahesabu()
     {
-        $params = Yii::$app->request->post();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $sale = new ClerkDeni();
+        $sale->attributes = \yii::$app->request->post();
+        $sale->status=0;
+        $sale->created_at = date('Y-m-d H:i:s');
+        $sale->deni=$sale->collected_amount - $sale->submitted_amount;
+        if ($sale->save()) {
+            return array('status' => [
+                'message' => 'Sent Successfully'
+            ]
+            );
+        } else {
+            return array('status ' => [
+                $sale->getErrors(),
+                'status' => '403',
+            ]);
+        }
 
     }
-
-
 
 
 }

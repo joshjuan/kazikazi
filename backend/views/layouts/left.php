@@ -44,9 +44,16 @@ use dmstr\widgets\Menu;
                         'items' => [
 
                             [
-                                //  'visible' =>  yii::$app->user->can('auditSystem'),
-                                'label' => Yii::t('app', 'Ticket Transaction List'),
+                                'visible' => Yii::$app->user->can('accountant') || Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager'),
+                                'label' => Yii::t('app', 'Ticket Transaction'),
                                 'url' => ['/ticket-transaction/index'],
+                                'icon' => 'lock text-orange',
+                            ],
+
+                            [
+                                'visible' =>  yii::$app->user->can('governmentOfficial'),
+                                'label' => Yii::t('app', 'Ticket Transaction'),
+                                'url' => ['/ticket-transaction/government-index'],
                                 'icon' => 'lock text-orange',
                             ],
 
@@ -77,11 +84,14 @@ use dmstr\widgets\Menu;
                     ],
                     [
                         'label' => 'Reports',
-                        'visible' => Yii::$app->user->can('accountant') || Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin'),
+                        'visible' => Yii::$app->user->can('accountant') || Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') ||  yii::$app->user->can('governmentOfficial'),
                         'icon' => 'sitemap text-orange',
                         'items' => [
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ae611ae515459917dfcce320c8b918396c9edf4c
                             [
                                 'label' => 'Daily Clerk Report',
                                 'icon' => 'money text-green',
@@ -108,6 +118,12 @@ use dmstr\widgets\Menu;
                                 'label' => 'Repoti ya Supervisor',
                                 'icon' => 'money text-green',
                                 'url' => ['/supervisor-deni/supervisor-report'],
+                            ],
+                            [
+                                'visible' =>  yii::$app->user->can('governmentOfficial'),
+                                'label' => 'Repoti ya Mahesabu',
+                                'icon' => 'money text-green',
+                                'url' => ['/supervisor-deni/gvt-report'],
                             ],
 
                         ],

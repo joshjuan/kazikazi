@@ -2,6 +2,7 @@
 
 use dosamigos\datepicker\DatePicker;
 use dosamigos\datepicker\DateRangePicker;
+use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\ActiveForm;
@@ -60,8 +61,14 @@ use yii\widgets\ActiveForm;
                         ])->label(false);?>
                     </div>
                     <div class="col-md-3">
-                        <?=  $form->field($model, 'name')->dropDownList(\backend\models\User::getClerk(),
-                            ['prompt' => Yii::t('app', '--Select Clerk--')])->label(false);
+                        <?= $form->field($model, 'name')->widget(Select2::classname(), [
+                            'data' => \backend\models\User::getSupervisorFullName(),
+                            'options' => ['placeholder' => 'Chagua Supervisor'],
+                            'pluginOptions' => [
+                                'allowClear' => true,
+
+                            ],
+                        ])->label(false);
                         ?>
                     </div>
                     <div class="col-md-3">

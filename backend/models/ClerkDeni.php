@@ -14,7 +14,6 @@ use Yii;
  * @property string $submitted_amount
  * @property string $deni
  * @property string $comment
- * @property string $total_amount
  * @property string $amount_date
  * @property string $created_at
  * @property string $created_by
@@ -59,7 +58,7 @@ class ClerkDeni extends \yii\db\ActiveRecord
         return [
             [['name', 'amount_date', 'created_at', 'created_by'], 'required'],
             [['name', 'status'], 'integer'],
-            [['collected_amount', 'submitted_amount', 'deni', 'total_amount'], 'number'],
+            [['collected_amount', 'submitted_amount', 'deni'], 'number'],
             [['amount_date', 'created_at', 'updated_at'], 'safe'],
             [['created_by', 'updated_by'], 'string', 'max' => 200],
             [['comment'], 'string'],
@@ -81,7 +80,6 @@ class ClerkDeni extends \yii\db\ActiveRecord
             'deni' => 'Deni',
             'status' => 'Status',
             'comment' => 'Comment',
-            'total_amount' => 'Total Amount',
             'amount_date' => 'Tarehe ya Kazi',
             'created_at' => 'Created At',
             'created_by' => 'Created By',
@@ -93,12 +91,17 @@ class ClerkDeni extends \yii\db\ActiveRecord
      */
     public function getUser0()
     {
-        return $this->hasOne(User::className(), ['id' => 'name']);
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
     }
 
     public static function getClerkDifference()
     {
         return (TicketTransaction::find()->select(['user', 'amount', 'create_at'])->groupBy(['user'])->groupBy(['create_at'])->sum('amount') - ClerkDeni::find()->sum('	submitted_amount	'));
+    }
+
+    public function getUserClerk()
+    {
+        return $this->hasOne(User::className(), ['id' => 'name']);
     }
 }
 

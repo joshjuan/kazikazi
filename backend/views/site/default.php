@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> ae611ae515459917dfcce320c8b918396c9edf4c
 <?php
 
 /* @var $this yii\web\View */
