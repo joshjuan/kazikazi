@@ -48,6 +48,7 @@ class TicketTransactionController extends Controller
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 
+
                 Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia taarifa za ticket transaction ', 'TicketTransaction', 'Index', '', '');
 
                 return $this->render('index', [
@@ -284,4 +285,6 @@ class TicketTransactionController extends Controller
         }
 
     }
+
+
 }
