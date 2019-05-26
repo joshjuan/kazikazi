@@ -50,4 +50,9 @@ class ClaimReport extends \yii\db\ActiveRecord
             'created_by' => 'Aliyelipoti (Karani)',
         ];
     }
+
+    public function getUserClerk()
+    {
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
+    }
 }

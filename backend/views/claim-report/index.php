@@ -55,8 +55,13 @@ $this->params['breadcrumbs'][] = 'Claim Reports';
             }
         ],
         'comment',
+        [
+            'label' => 'Aliyelipoti (Karani)',
+            'attribute' => 'created_by',
 
-        'created_by',
+            'value' =>'userClerk.name',
+
+        ],
 
 
     ],
