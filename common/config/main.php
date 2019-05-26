@@ -32,7 +32,7 @@ return [
         'rules' => [
             [
                 'allow' => true,
-                'actions' => ['login','collection','deni','funga-clerk-mahesabu'],
+                'actions' => ['login','collection','deni','funga-clerk-mahesabu','claim-report'],
             ],
             [
                 'allow' => true,

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use fedemotta\datatables\DataTables;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\ClaimReportSearch */
@@ -22,24 +23,42 @@ $this->params['breadcrumbs'][] = 'Claim Reports';
 <div class="claim-report-index" ">
 
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+<?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+<?= DataTables::widget([
+    'dataProvider' => $dataProvider,
+    // 'filterModel' => $searchModel,
+    'columns' => [
+        ['class' => 'yii\grid\SerialColumn'],
 
-           // 'id',
-            'plate_no',
-            'upload',
-            'comment',
-            'created_at',
-            'created_by',
+        // 'id',
+        'created_at',
+        'plate_no',
+        [
+            'label' => 'Picha',
+            'format' => 'raw',
+            // 'width' => '50px',
+            'value' => function ($model) {
+                if ($model->upload == null) {
+                    return 'No attached file';
+                } elseif ($model->upload != null) {
 
 
+                    $basepath = Yii::$app->request->baseUrl . '/document/' . $model->upload;
+                    //$path = str_replace($basepath, '', $model->attachment);
+                    return Html::a('<i class="fa fa-folder-open text-green"></i>', $basepath, array('target' => '_blank'));
+
+
+                }
+            }
         ],
-    ]); ?>
+        'comment',
+
+        'created_by',
+
+
+    ],
+]); ?>
 </div>

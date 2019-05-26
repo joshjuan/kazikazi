@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 
+use backend\models\ClaimReport;
 use backend\models\ClerkDeni;
 use backend\models\ClerkDeniSearch;
 use backend\models\Reference;
@@ -45,6 +46,7 @@ class ApiController extends \yii\rest\ActiveController
 
         $user = User::findByUsername($model->username);
         $user_type = UserSearch::find()->where(['username' => $user])->one();
+
         if (!empty($user)) {
             if (($user_type['user_type'] === User::SUPERVISOR) || ($user_type['user_type'] === User::CLERK)) {
                 if ($model->login()) {
@@ -148,6 +150,28 @@ class ApiController extends \yii\rest\ActiveController
 
     }
 
+    public function actionClaimReport()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $claimReport = new ClaimReport();
+        $claimReport->attributes = \yii::$app->request->post();
+
+        $claimReport->created_at = date('Y-m-d H:i:s');
+
+        if ($claimReport->save()) {
+            return array('status' => [
+                'message' => 'Sent Successfully'
+            ]
+            );
+        }
+        else {
+            return array('status ' => [
+                $claimReport->getErrors(),
+                'status' => '403',
+            ]);
+        }
+
+    }
 
 }
 

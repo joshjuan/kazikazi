@@ -30,7 +30,7 @@ class ClaimReport extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['plate_no', 'upload', 'comment', 'created_at', 'created_by'], 'required'],
+            [['plate_no', 'comment', 'created_at',], 'required'],
             [['created_at'], 'safe'],
             [['plate_no', 'upload', 'comment', 'created_by'], 'string', 'max' => 200],
         ];
@@ -47,7 +47,7 @@ class ClaimReport extends \yii\db\ActiveRecord
             'upload' => 'Picha',
             'comment' => 'Maelezo',
             'created_at' => 'Mda',
-            'created_by' => 'Aliyelipoti',
+            'created_by' => 'Aliyelipoti (Karani)',
         ];
     }
 }
