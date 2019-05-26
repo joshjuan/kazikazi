@@ -84,7 +84,7 @@ class ClerkDeniController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('accountant')) {
+            if (Yii::$app->user->can('super_admin')||Yii::$app->user->can('admin') || Yii::$app->user->can('accountant')) {
 
                 $searchModel = new ClerkDeniSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

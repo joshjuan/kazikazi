@@ -11,6 +11,9 @@ use backend\models\ClaimReport;
  */
 class ClaimReportSearch extends ClaimReport
 {
+    public $date_from;
+    public $date_to;
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +21,7 @@ class ClaimReportSearch extends ClaimReport
     {
         return [
             [['id'], 'integer'],
-            [['plate_no', 'upload', 'comment', 'created_at', 'created_by'], 'safe'],
+            [['plate_no', 'upload', 'comment', 'created_at', 'created_by','date_from','date_to'], 'safe'],
         ];
     }
 
@@ -65,6 +68,7 @@ class ClaimReportSearch extends ClaimReport
         $query->andFilterWhere(['like', 'plate_no', $this->plate_no])
             ->andFilterWhere(['like', 'upload', $this->upload])
             ->andFilterWhere(['like', 'comment', $this->comment])
+            ->andFilterWhere(['between', 'DATE_FORMAT(created_at, "%Y-%m-%d")', $this->date_from, $this->date_to])
             ->andFilterWhere(['like', 'created_by', $this->created_by]);
 
         return $dataProvider;

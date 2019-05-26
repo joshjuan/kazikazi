@@ -125,7 +125,7 @@ use dmstr\widgets\Menu;
                     ],
                     [
                         'label' => 'Claim Reports',
-                        'visible' => Yii::$app->user->can('manager') || Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin'),
+                        'visible' => Yii::$app->user->can('manager') || Yii::$app->user->can('admin') || Yii::$app->user->can('accountant')||Yii::$app->user->can('super_admin'),
                         'icon' => 'sitemap text-orange',
                         'items' => [
 
