@@ -149,7 +149,19 @@ $this->params['breadcrumbs'][] = 'Supervisor Deni';
                 }
             }
         ],
-
+        'receipt_no',
+        [
+            'header' => 'Bank Slip',
+            'format' => 'raw',
+            'value' => function ($model) {
+                if ($model->uploaded_receipt == null) {
+                    return '';
+                } elseif ($model->uploaded_receipt != null) {
+                    $basepath = Yii::$app->request->baseUrl . '/documents/' . $model->uploaded_receipt;
+                    return Html::a('<i class="fa fa-folder-open text-green"></i>', $basepath, ['target'=>'_blank', 'data-pjax'=>"0"]);
+                }
+            }
+        ],
         [
             'class' => 'kartik\grid\ActionColumn',
             'header' => 'Actions',
