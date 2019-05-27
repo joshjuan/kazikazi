@@ -313,6 +313,46 @@ class UserController extends Controller
 
     }
 
+    public function actionGvt()
+    {
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('manager')||Yii::$app->user->can('admin')) {
+
+                $searchModel = new UserSearch();
+                $dataProvider = $searchModel->searchGvt(Yii::$app->request->queryParams);
+
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia orodha ya makarani (clerks) waliopo kwenye mfumo. ', 'User ', 'Index', '', '');
+                return $this->render('government', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+
+            }
+            else
+            {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
+        }
+        else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
+
+    }
+
     /**
      * Displays a single User model.
      * @param integer $id
@@ -638,6 +678,50 @@ class UserController extends Controller
 
     }
 
+    public function actionGvtCreate()
+    {
+
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createUser')) {
+                $model = new User();
+
+                $model->user_type = User::GVT;
+
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amemuongeza mtumiaji kutoka kwa serikali (government agent) mpya katika mfumo, ambaye ni" ' . $model->name . ' ".', 'User', 'Create', '', '');
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+            else
+            {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
+
+
+            return $this->render('create-government', [
+                'model' => $model,
+            ]);
+
+        }
+        else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
+    }
 
     /**
      * Updates an existing User model.

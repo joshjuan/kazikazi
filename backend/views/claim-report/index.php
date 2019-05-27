@@ -36,6 +36,12 @@ $this->params['breadcrumbs'][] = 'Claim Reports';
         // 'id',
         'created_at',
         'plate_no',
+
+        [
+            'attribute' => 'comment',
+            // 'width' => '400px',
+            'contentOptions' => ['class' => 'truncate'],
+        ],
         [
             'label' => 'Picha',
             'format' => 'raw',
@@ -53,16 +59,31 @@ $this->params['breadcrumbs'][] = 'Claim Reports';
                 }
             }
         ],
-        'comment',
         [
             'label' => 'Aliyelipoti (Karani)',
             'attribute' => 'created_by',
 
-            'value' =>'userClerk.name',
+            'value' => 'userClerk.name',
 
         ],
 
 
     ],
 ]); ?>
+
+
+<style>
+    .truncate {
+        max-width: 150px !important;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .truncate:hover {
+        overflow: visible;
+        white-space: normal;
+        width: auto;
+    }
+</style>
 </div>

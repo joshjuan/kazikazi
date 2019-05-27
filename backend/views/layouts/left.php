@@ -379,6 +379,25 @@ use dmstr\widgets\Menu;
                                     ],
                                 ],
                             ],
+                            [
+                                'label' => 'Government Agent',
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('supervisor') || Yii::$app->user->can('manager'),
+                                'icon' => 'users text-green',
+                                'url' => '',
+                                'items' => [
+                                    [
+                                        'label' => 'New Agent',
+                                        'icon' => 'plus text-green',
+                                        'visible' => Yii::$app->user->can('createUser') || Yii::$app->user->can('super_admin'),
+                                        'url' => ['/user/gvt-create']
+                                    ],
+                                    [
+                                        'label' => 'Government Agent List',
+                                        'icon' => 'users text-green',
+                                        'url' => ['/user/gvt']
+                                    ],
+                                ],
+                            ],
 
                         ],
                     ],
