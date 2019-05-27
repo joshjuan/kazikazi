@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 
+use backend\models\AccountantReport;
 use backend\models\ClaimReport;
 use backend\models\ClerkDeni;
 use backend\models\ClerkDeniSearch;
@@ -132,37 +133,45 @@ class ApiController extends \yii\rest\ActiveController
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $sale = new ClerkDeni();
         $sale->attributes = \yii::$app->request->post();
-
-        $sale->created_at = date('Y-m-d H:i:s');
-        $sale->deni=$sale->collected_amount - $sale->submitted_amount;
-        if ($sale->deni ===0) {
-            $sale->status=1;
-            if ($sale->save()) {
-                return array('status' => [
-                    'message' => 'Sent Successfully'
-                ]
-                );
-            } else {
-                return array('status ' => [
-                    $sale->getErrors(),
-                    'status' => '403',
-                ]);
+        $collected_date = ClerkDeni::find()->select('collected_amount')->where(['name'=>$sale->name])->andWhere(['date(amount_date)' => $sale->amount_date])->sum('collected_amount');
+        if ($collected_date == ''){
+            $sale->created_at = date('Y-m-d H:i:s');
+            $sale->deni=$sale->collected_amount - $sale->submitted_amount;
+            if ($sale->deni ==0) {
+                $sale->status=1;
+                if ($sale->save()) {
+                    return array('status' => [
+                        'message' => 'Sent Successfully'
+                    ]
+                    );
+                } else {
+                    return array('status ' => [
+                        $sale->getErrors(),
+                        'status' => '403',
+                    ]);
+                }
+            }
+            else{
+                $sale->status=0;
+                if ($sale->save()) {
+                    return array('status' => [
+                        'message' => 'Sent Successfully'
+                    ]
+                    );
+                } else {
+                    return array('status ' => [
+                        $sale->getErrors(),
+                        'status' => '403',
+                    ]);
+                }
             }
         }
         else{
-            $sale->status=0;
-            if ($sale->save()) {
-                return array('status' => [
-                    'message' => 'Sent Successfully'
-                ]
-                );
-            } else {
-                return array('status ' => [
-                    $sale->getErrors(),
-                    'status' => '403',
-                ]);
-            }
+            return array('status ' => [
+               'message'=>'Mahesabu ya Clerk uyu yamekwisha fungwa kwa tarehe hii',
+            ]);
         }
+
     }
 
     public function actionClaimReport()
