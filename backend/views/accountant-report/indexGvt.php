@@ -31,18 +31,10 @@ $this->params['breadcrumbs'][] = 'Supervisor Deni';
         [
             'attribute' => 'updated_at',
             'label' => 'Tarehe',
-            'pageSummary' => 'JUMLA',
+            'pageSummary' => 'JUMLA'
         ],
-        [
-            'attribute' => 'collected_amount',
-            'pageSummary' => true,
-            'label'=>'Kiasi Kilicho Kusanywa',
-            'format' => ['decimal', 2],
-        ],
-        [
-            'attribute' => 'updated_by',
-            'label' => 'Aliyethibitisha',
-        ],
+
+
         'receipt_no',
         [
             'header' => 'Bank Slip',
@@ -55,6 +47,18 @@ $this->params['breadcrumbs'][] = 'Supervisor Deni';
                     return Html::a('<i class="fa fa-folder-open text-green"></i>', $basepath, ['target'=>'_blank', 'data-pjax'=>"0"]);
                 }
             }
+
+        ],
+        [
+            'attribute' => 'updated_by',
+            'label' => 'Aliyethibitisha',
+            'pageSummary' => 'JUMLA',
+        ],
+        [
+            'attribute' => 'collected_amount',
+            'pageSummary' => true,
+            'label'=>'Kiasi Kilicho Kusanywa',
+            'format' => ['decimal', 2],
         ],
     //    'created_at',
     //    'created_by',

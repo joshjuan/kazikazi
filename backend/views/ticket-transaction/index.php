@@ -15,6 +15,13 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
 ?>
 <div class="received-cash-index" style="padding-top: 10px">
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php
+
+    $this->registerJs(' 
+    setInterval(function(){  
+         $.pjax.reload({container:"YOUR_PJAX_CONTAINER_ID"});
+    }, 10000);', \yii\web\VIEW::POS_HEAD);
+    ?>
 
     <?php
     $pdfHeader = [

@@ -1,3 +1,4 @@
+
 <?php
 
 use kartik\dynagrid\DynaGrid;
@@ -29,7 +30,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
             'color' => '#333333'
         ],
         'R' => [
-            'content' => 'receipts:' . date('Y-m-d'),
+            'content' => 'receipts:' . date('Y-m-d H:i:s'),
         ],
         'line' => true,
     ];
@@ -60,6 +61,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
         [
             'attribute' => 'car_no',
             'label'=>'Gari No'
+
         ],
         [
             'attribute' => 'work_area',

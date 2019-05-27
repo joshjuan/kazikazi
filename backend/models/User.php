@@ -42,6 +42,7 @@ class User extends \common\models\User
     const ACCOUNTANT=3;
     const SUPERVISOR=4;
     const CLERK=5;
+    const GVT=6;
 
     /**
      * @inheritdoc
@@ -87,6 +88,13 @@ class User extends \common\models\User
     public static function getSupervisorFullName()
     {
         return ArrayHelper::map(User::find()->where(['user_type' =>  User::SUPERVISOR])->all(),'id',function($model) {
+            return $model->username . ' ( ' . $model->name.' )';
+        });
+    }
+
+    public static function getgVTFullName()
+    {
+        return ArrayHelper::map(User::find()->where(['user_type' =>  User::GVT])->all(),'id',function($model) {
             return $model->username . ' ( ' . $model->name.' )';
         });
     }
@@ -268,6 +276,11 @@ class User extends \common\models\User
     public static function getRulesAccountant()
     {
         return ArrayHelper::map(AuthItem::find()->where(['type'=> 1,'name'=>'accountant'])->all(),'name','name');
+    }
+
+  public static function getRulesgGvt()
+    {
+        return ArrayHelper::map(AuthItem::find()->where(['type'=> 1,'name'=>'governmentOfficial'])->all(),'name','name');
     }
 
 
