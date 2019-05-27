@@ -132,22 +132,37 @@ class ApiController extends \yii\rest\ActiveController
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $sale = new ClerkDeni();
         $sale->attributes = \yii::$app->request->post();
-        $sale->status=0;
+
         $sale->created_at = date('Y-m-d H:i:s');
         $sale->deni=$sale->collected_amount - $sale->submitted_amount;
-        if ($sale->save()) {
-            return array('status' => [
-                'message' => 'Sent Successfully'
-            ]
-            );
+        if ($sale->deni ===0) {
+            $sale->status=1;
+            if ($sale->save()) {
+                return array('status' => [
+                    'message' => 'Sent Successfully'
+                ]
+                );
+            } else {
+                return array('status ' => [
+                    $sale->getErrors(),
+                    'status' => '403',
+                ]);
+            }
         }
-        else {
-            return array('status ' => [
-                $sale->getErrors(),
-                'status' => '403',
-            ]);
+        else{
+            $sale->status=0;
+            if ($sale->save()) {
+                return array('status' => [
+                    'message' => 'Sent Successfully'
+                ]
+                );
+            } else {
+                return array('status ' => [
+                    $sale->getErrors(),
+                    'status' => '403',
+                ]);
+            }
         }
-
     }
 
     public function actionClaimReport()

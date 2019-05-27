@@ -67,17 +67,31 @@ use dmstr\widgets\Menu;
 
                             [
                                 //  'visible' =>  yii::$app->user->can('auditSystem'),
-                                'label' => Yii::t('app', 'Funga Hesabu'),
+                                'label' => Yii::t('app', 'Funga Supervisor Mahesabu'),
                                 'url' => ['/supervisor-deni/create'],
                                 'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaSupervisorMahesabu'),
-                                'icon' => 'lock text-orange',
+                                'icon' => 'circle text-red',
+                            ],
+                            [
+                                //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                'label' => Yii::t('app', 'Funga siku Mahesabu'),
+                                'url' => ['/accountant-report/create'],
+                                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaSupervisorMahesabu'),
+                                'icon' => 'circle text-red',
                             ],
                             [
                                 //  'visible' =>  yii::$app->user->can('auditSystem'),
                                 'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaSupervisorMahesabu'),
                                 'label' => Yii::t('app', 'Mahesabu ya supervisor'),
                                 'url' => ['/supervisor-deni/index'],
-                                'icon' => 'lock text-orange',
+                                'icon' => 'circle text-red',
+                            ],
+                           [
+                                //  'visible' =>  yii::$app->user->can('auditSystem'),
+                                'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaSupervisorMahesabu'),
+                                'label' => Yii::t('app', 'Mahesabu yaliyofungwa'),
+                                'url' => ['/accountant-report/index'],
+                                'icon' => 'circle text-red',
                             ],
 
                         ],
@@ -88,14 +102,14 @@ use dmstr\widgets\Menu;
                         'icon' => 'sitemap text-orange',
                         'items' => [
                                 [
-                                'label' => 'Daily Clerk Report',
+                                'label' => 'Ripoti ya Clerk',
                                 'icon' => 'money text-green',
                                 'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin'),
                                 'url' => ['/ticket-transaction/clerk-report'],
                             ],
                             [
                                 'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin'),
-                                'label' => 'Repoti ya Clerk ( POS )',
+                                'label' => 'Ripoti ya Supervisor ( POS )',
                                 'icon' => 'money text-green',
                                 'url' => ['/clerk-deni/clerk-report'],
                             ],
@@ -109,16 +123,16 @@ use dmstr\widgets\Menu;
                             ],
 
                             [
-                                'visible' => Yii::$app->user->can('accountant') || Yii::$app->user->can('super_admin'),
-                                'label' => 'Repoti ya Supervisor',
+                                'visible' => Yii::$app->user->can('accountant') || Yii::$app->user->can('super_admin')|| Yii::$app->user->can('admin'),
+                                'label' => 'Ripoti ya Accountant',
                                 'icon' => 'money text-green',
                                 'url' => ['/supervisor-deni/supervisor-report'],
                             ],
                             [
                                 'visible' =>  yii::$app->user->can('governmentOfficial'),
-                                'label' => 'Repoti ya Mahesabu',
+                                'label' => 'Ripoti ya Mahesabu',
                                 'icon' => 'money text-green',
-                                'url' => ['/supervisor-deni/gvt-report'],
+                                'url' => ['/accountant-report/gvt-report'],
                             ],
 
                         ],

@@ -106,7 +106,7 @@ class SiteController extends Controller
 
 
 
-                    if (\Yii::$app->user->identity->role == 'super_admin' || \Yii::$app->user->identity->role == 'admin' || \Yii::$app->user->identity->role == 'manager'|| \Yii::$app->user->identity->role == 'accountant' || \Yii::$app->user->identity->role == 'government_official') {
+                    if (\Yii::$app->user->identity->role == 'super_admin' || \Yii::$app->user->identity->role == 'admin' || \Yii::$app->user->identity->role == 'manager'|| \Yii::$app->user->identity->role == 'accountant' || \Yii::$app->user->identity->role == 'governmentOfficial') {
 
 
                         Audit::setActivity('New Login at ' . date('Y-m-d H:i:s'), 'ULG', 'Login', '', '');

@@ -121,44 +121,7 @@ class SupervisorDeniController extends Controller
         }
     }
 
-    public function actionGvtReport()
-    {
-        if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('governmentOfficial')) {
-
-                $searchModel = new SupervisorDeniSearch();
-                $dataProvider = $searchModel->searchGvt(Yii::$app->request->queryParams);
-
-                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia ripoti za makaranni (Clerks) wote ', 'ClerkDeni', 'Index', '', '');
-
-                return $this->render('indexGvt', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-                ]);
-
-            } else {
-                Yii::$app->session->setFlash('', [
-                    'type' => 'danger',
-                    'duration' => 1500,
-                    'icon' => 'fa fa-warning',
-                    'title' => 'Notification',
-                    'message' => Yii::t('app', 'You dont have a permission'),
-                    'positonY' => 'top',
-                    'positonX' => 'right'
-                ]);
-
-                return $this->redirect(['site/index']);
-            }
-
-
-        } else {
-            $model = new LoginForm();
-            return $this->redirect(['site/login',
-                'model' => $model,
-            ]);
-        }
-    }
 
 
     /**
@@ -209,39 +172,54 @@ class SupervisorDeniController extends Controller
                         if ($time1 <= $time) {
                             if ($model->amount_date != '' && $model->submitted_amount != '') {
                                 $amount = ClerkDeniSearch::find()->select('collected_amount')->where(['created_by' => $model->name])->andWhere(['date(amount_date)' => $model->amount_date])->sum('collected_amount');
-                                if ($amount != '') {
-                                    $model->collected_amount = $amount;
-                                    $model->deni = $model->collected_amount - $model->submitted_amount;
-                                    $model->created_by = Yii::$app->user->identity->username;
-                                    $model->created_at = date('Y-m-d H:i:s');
-                                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') alifanikiwa kufunga mahesabu ya karani " ' . $model->user0->name . ' ")', 'ClerkDeni', 'Create', '', '');
-                                    if ($model->deni == 0) {
-                                        $model->status = SupervisorDeniSearch::COMPLETE;
-                                        $model->save();
-                                        Yii::$app->session->setFlash('', [
-                                            'type' => 'success',
-                                            'duration' => 4500,
-                                            'icon' => 'fa fa-warning',
-                                            'title' => 'Notification',
-                                            'message' => 'Umefanikiwa kufunga Mahesabu- Status(COMPLETED)',
-                                            'positonY' => 'top',
-                                            'positonX' => 'right'
-                                        ]);
+                                if ($amount !='') {
+                                    if ($model->submitted_amount <= $amount) {
+                                        $model->collected_amount = $amount;
+                                        $model->deni = $model->collected_amount - $model->submitted_amount;
+                                        $model->created_by = Yii::$app->user->identity->username;
+                                        $model->created_at = date('Y-m-d H:i:s');
+                                        Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') alifanikiwa kufunga mahesabu ya supervisor " ' . $model->user0->name . ' ")', 'ClerkDeni', 'Create', '', '');
+                                        if ($model->deni == 0) {
+                                            $model->status = SupervisorDeniSearch::COMPLETE;
+                                            $model->save();
+                                            Yii::$app->session->setFlash('', [
+                                                'type' => 'success',
+                                                'duration' => 4500,
+                                                'icon' => 'fa fa-warning',
+                                                'title' => 'Notification',
+                                                'message' => 'Umefanikiwa kufunga Mahesabu- Status(COMPLETED)',
+                                                'positonY' => 'top',
+                                                'positonX' => 'right'
+                                            ]);
+                                        } else {
+                                            $model->status = SupervisorDeniSearch::NOT_COMPLETE;
+                                            $model->save();
+                                            Yii::$app->session->setFlash('', [
+                                                'type' => 'success',
+                                                'duration' => 4500,
+                                                'icon' => 'fa fa-warning',
+                                                'title' => 'Notification',
+                                                'message' => 'Umefanikiwa kufunga Mahesabu -status(NOT COMPLETED) ',
+                                                'positonY' => 'top',
+                                                'positonX' => 'right'
+                                            ]);
+                                        }
+
                                     } else {
-                                        $model->status = SupervisorDeniSearch::NOT_COMPLETE;
-                                        $model->save();
                                         Yii::$app->session->setFlash('', [
-                                            'type' => 'success',
+                                            'type' => 'warning',
                                             'duration' => 4500,
                                             'icon' => 'fa fa-warning',
                                             'title' => 'Notification',
-                                            'message' => 'Umefanikiwa kufunga Mahesabu -status(NOT COMPLETED) ',
+                                            'message' => 'Mahesabu yanayofungwa hayawezi zidi makusanyo ya siku husika',
                                             'positonY' => 'top',
                                             'positonX' => 'right'
                                         ]);
+                                        return $this->redirect(['supervisor-deni/create']);
                                     }
 
-                                } else {
+                                }
+                                else {
                                     Yii::$app->session->setFlash('', [
                                         'type' => 'warning',
                                         'duration' => 4500,
@@ -288,7 +266,7 @@ class SupervisorDeniController extends Controller
                             'duration' => 4500,
                             'icon' => 'fa fa-warning',
                             'title' => 'Notification',
-                            'message' => 'Mahesabu ya karani uyu yamekwisha fungwa',
+                            'message' => 'Mahesabu ya supervisor uyu yamekwisha fungwa',
                             'positonY' => 'top',
                             'positonX' => 'right'
                         ]);
@@ -325,70 +303,7 @@ class SupervisorDeniController extends Controller
     }
 
 
-    public function actionUploadSlip($id)
-    {
-        if (Yii::$app->user->can('accountant') || Yii::$app->user->can('super_admin')) {
-            $model = $this->findModel($id);
-            $file = new SupervisorDeni();
-            $model->updated_by = Yii::$app->user->identity->name;
-            $model->updated_at = date('Y-m-d H:i:s');
-            $model->report_status = SupervisorDeni::CLOSED;
-            $model->receipt_no = $_POST['SupervisorDeni']['receipt_no'];
 
-            if ($model->load(Yii::$app->request->post())) {
-                $model->file = UploadedFile::getInstance($model, 'file');
-
-                if ($model->file !='') {
-
-                    $model->file = UploadedFile::getInstance($model, 'file');
-                    $model->file->saveAs('documents/' . 'PAYSLIP-' . date('YmdHi') . '.' . $model->file->extension);
-                    $model->uploaded_receipt = 'PAYSLIP' . date('YmdHi') . '.' . $model->file->extension;
-                    $model->save();
-
-                }
-                else{
-                    $model->save();
-                }
-                Yii::$app->session->setFlash('', [
-                    'type' => 'success',
-                    'duration' => 4500,
-                    'icon' => 'fa fa-warning',
-                    'title' => 'Notification',
-                    'message' => 'Umefankiwa ku upload pay slip document',
-                    'positonY' => 'top',
-                    'positonX' => 'right'
-                ]);
-
-                return $this->redirect(['supervisor-deni/index']);
-            }
-            else{
-                Yii::$app->session->setFlash('', [
-                    'type' => 'warning',
-                    'duration' => 4500,
-                    'icon' => 'fa fa-warning',
-                    'title' => 'Notification',
-                    'message' => 'Fail',
-                    'positonY' => 'top',
-                    'positonX' => 'right'
-                ]);
-            }
-
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        } else {
-            Yii::$app->session->setFlash('', [
-                'type' => 'danger',
-                'duration' => 2000,
-                'icon' => 'fa fa-check',
-                'message' => 'You do not have permission to change upload Invoice',
-                'positonY' => 'top',
-                'positonX' => 'right'
-            ]);
-
-            return $this->redirect(['viewinvoice', 'id' => $id]);
-        }
-    }
 
     /**
      * Updates an existing SupervisorDeni model.

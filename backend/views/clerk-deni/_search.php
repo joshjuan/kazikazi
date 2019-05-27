@@ -59,16 +59,24 @@ use yii\widgets\ActiveForm;
                             'options'=>['placeholder'=>'Date To']
                         ])->label(false);?>
                     </div>
-                    <div class="col-md-3">
-                        <?=  $form->field($model, 'name')->dropDownList(\backend\models\User::getClerk(),
-                            ['prompt' => Yii::t('app', '--Select Clerk--')])->label(false);
+                    <div class="col-md-4">
+                        <?=  $form->field($model, 'created_by')->dropDownList(\backend\models\User::getSupervisorFullName(),
+                            ['prompt' => Yii::t('app', '--Select Supervisor--')])->label(false);
                         ?>
                     </div>
-                    <div class="col-md-3">
-                        <?=  $form->field($model, 'status')->dropDownList(\backend\models\ClerkDeni::getStatus(),
-                            ['prompt' => Yii::t('app', '--Select Status--')])->label(false);
-                        ?>
-                    </div>
+
+                        <div class="col-md-3">
+                            <?=  $form->field($model, 'name')->dropDownList(\backend\models\User::getClerk(),
+                                ['prompt' => Yii::t('app', '--Select Clerk--')])->label(false);
+                            ?>
+                        </div>
+                        <div class="col-md-3">
+                            <?=  $form->field($model, 'status')->dropDownList(\backend\models\ClerkDeni::getStatus(),
+                                ['prompt' => Yii::t('app', '--Select Status--')])->label(false);
+                            ?>
+                        </div>
+                </div>
+                <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
                             <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
@@ -76,6 +84,8 @@ use yii\widgets\ActiveForm;
                         </div>
                     </div>
                 </div>
+
+
 
                 <?php ActiveForm::end(); ?>
             </div>

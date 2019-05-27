@@ -309,7 +309,7 @@ class User extends ActiveRecord implements IdentityInterface
 
 
 
-    public function getWorkAreas()
+    public function getWork()
     {
         return $this->hasOne(WorkArea::className(), ['id' => 'work_area']);
     }

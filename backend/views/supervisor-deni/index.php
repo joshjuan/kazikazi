@@ -136,54 +136,9 @@ $this->params['breadcrumbs'][] = 'Supervisor Deni';
             'filterInputOptions' => ['placeholder' => '-- Select Status --'],
 
         ],
-        [
-            'attribute' => 'report_status',
-            'label' => 'Report status',
-            'value' => function ($model) {
-                if ($model->report_status == \backend\models\SupervisorDeni::OPEN) {
-                    return 'OPEN';
-                } elseif ($model->report_status == \backend\models\SupervisorDeni::CLOSED) {
-                    return 'CLOSED';
-                } else {
-                    return '';
-                }
-            }
-        ],
-        'receipt_no',
-        [
-            'header' => 'Bank Slip',
-            'format' => 'raw',
-            'value' => function ($model) {
-                if ($model->uploaded_receipt == null) {
-                    return '';
-                } elseif ($model->uploaded_receipt != null) {
-                    $basepath = Yii::$app->request->baseUrl . '/documents/' . $model->uploaded_receipt;
-                    return Html::a('<i class="fa fa-folder-open text-green"></i>', $basepath, ['target'=>'_blank', 'data-pjax'=>"0"]);
-                }
-            }
-        ],
-        [
-            'class' => 'kartik\grid\ActionColumn',
-            'header' => 'Actions',
-            'visible' => Yii::$app->user->can('accountant') || Yii::$app->user->can('super_admin'),
-            'template' => '{view}',
-            'buttons' => [
-                'view' => function ($url, $model) {
-                    if ($model->report_status == \backend\models\SupervisorDeni::OPEN) {
-                        $url = ['view', 'id' => $model->id];
-                        return Html::a('<span class="fa fa-upload"></span>', $url, [
-                            'title' => 'View',
-                            'data-toggle' => 'tooltip', 'data-original-title' => 'Save',
-                            'class' => 'btn btn-info',
-
-                        ]);
 
 
-                    }
-                },
 
-            ]
-        ],
         //'created_at',
         //'created_by',
 
@@ -216,7 +171,7 @@ $this->params['breadcrumbs'][] = 'Supervisor Deni';
         'floatHeaderOptions' => ['scrollingTop' => true],
         'showPageSummary' => true,
         'panel' => [
-            'heading' => '<i class="fa fa-bars"></i> MAHESABU YA SUPERVISOR YALIYO FUNGWA KWA SIKU',
+            'heading' => '<i class="fa fa-bars"></i> MAHESABU YA SUPERVISOR YALIYO FUNGWA KWA SIKU NA ACCOUNTANT',
             'type' => GridView::TYPE_SUCCESS
         ],
         'exportConfig' => [

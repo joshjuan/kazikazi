@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
             'color' => '#333333'
         ],
         'R' => [
-            'content' => 'receipts:' . date('Y-m-d H:i:s'),
+            'content' => 'receipts:' . date('Y-m-d'),
         ],
         'line' => true,
     ];

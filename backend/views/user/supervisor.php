@@ -65,8 +65,9 @@ $this->params['breadcrumbs'][] = 'Users';
             ],
             [
                 'attribute' => 'work_area',
-                'value' => 'work_area.name'
+                'value' => 'work.name'
             ],
+
 
             [
                 'attribute' => 'status',

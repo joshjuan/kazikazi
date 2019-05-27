@@ -21,12 +21,12 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
 
 
     <p>
-        <?php if (Yii::$app->user->can('super_admin1')) { ?>
+        <?php if (Yii::$app->user->can('super_admin')) { ?>
             <?= Html::a('Create Clerk Deni', ['create'], ['class' => 'btn btn-success']) ?>
         <?php } ?>
     </p>
 
-    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_searchClerk', ['model' => $searchModel]); ?>
     <?php $gridColumns = [
         [
             'class' => 'kartik\grid\SerialColumn',
@@ -128,7 +128,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
         'floatHeaderOptions' => ['scrollingTop' => true],
         'showPageSummary' => true,
         'panel' => [
-            'heading' => '<i class="fa fa-bars"></i> MAHESABU YA MAKARANI YALIYO FUNGWA KWA SIKU',
+            'heading' => '<i class="fa fa-bars"></i> MAHESABU YA MAKARANI YALIYO FUNGWA KWA SIKU NA SUPERVISOR',
             'type' => GridView::TYPE_SUCCESS
         ],
         'exportConfig' => [

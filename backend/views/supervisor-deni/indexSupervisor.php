@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = 'Supervisor Deni';
             'color' => '#333333'
         ],
         'R' => [
-            'content' => 'receipts:' . date('Y-m-d H:i:s'),
+            'content' => 'receipts:' . date('Y-m-d'),
         ],
         'line' => true,
     ];
@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = 'Supervisor Deni';
         ],
 
         [
-            'label' => 'Clerk',
+            'label' => 'Supervisor',
             'attribute' => 'name',
             'vAlign' => 'middle',
             'pageSummary' => 'JUMLA',
@@ -164,7 +164,7 @@ $this->params['breadcrumbs'][] = 'Supervisor Deni';
         'floatHeaderOptions' => ['scrollingTop' => true],
         'showPageSummary' => true,
         'panel' => [
-            'heading' => '<i class="fa fa-bars"></i> MAHESABU YA SUPERVISOR YALIYO FUNGWA KWA SIKU',
+            'heading' => '<i class="fa fa-bars"></i> MAHESABU YA SUPERVISOR YALIYO FUNGWA KWA SIKU NA ACCOUNTANT',
             'type' => GridView::TYPE_SUCCESS
         ],
         'exportConfig' => [
