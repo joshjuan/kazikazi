@@ -403,51 +403,7 @@ class UserController extends Controller
      * @return mixed
      */
 
-    public function actionSupervisorCreate()
-    {
 
-        if (!Yii::$app->user->isGuest) {
-
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createUser')) {
-
-                $model = new User();
-
-                 $model->user_type = User::SUPERVISOR;
-                if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-
-                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amemuongeza supavaiza (supervisor) mpya mabaye ni" ' . $model->name . ' ".', 'Street', 'Create', '', '');
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-            }
-            else
-            {
-                Yii::$app->session->setFlash('', [
-                    'type' => 'warning',
-                    'duration' => 3500,
-                    'icon' => 'fa fa-warning',
-                    'message' => 'You do not have permission',
-                    'positonY' => 'top',
-                    'positonX' => 'right'
-                ]);
-
-                return $this->redirect(['site/index']);
-            }
-
-
-        return $this->render('create-supervisor', [
-            'model' => $model,
-        ]);
-
-        }
-        else{
-            $model = new LoginForm();
-            return $this->redirect(['site/login',
-                'model' => $model,
-            ]);
-        }
-
-    }
 
     public function actionRegionList($id){
 
@@ -488,6 +444,52 @@ class UserController extends Controller
             }else{
                 echo "<option>-</option>";
             }
+
+    }
+
+    public function actionSupervisorCreate()
+    {
+
+        if (!Yii::$app->user->isGuest) {
+
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createUser')) {
+
+                $model = new User();
+
+                $model->user_type = User::SUPERVISOR;
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+
+                    Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amemuongeza supavaiza (supervisor) mpya mabaye ni" ' . $model->name . ' ".', 'Street', 'Create', '', '');
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
+            }
+            else
+            {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'warning',
+                    'duration' => 3500,
+                    'icon' => 'fa fa-warning',
+                    'message' => 'You do not have permission',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+
+                return $this->redirect(['site/index']);
+            }
+
+
+            return $this->render('create-supervisor', [
+                'model' => $model,
+            ]);
+
+        }
+        else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
 
     }
 
@@ -739,10 +741,14 @@ class UserController extends Controller
                 $model = $this->findModel($id);
                 //  $model->scenario="admin-update";
 
+
                 if ($model->load(Yii::$app->request->post())) {
 
                     $amount = WorkAreaSearch::find()->select('amount')->where(['id' => $model->work_area])->one();;
                     $model->amount = intval($amount['amount']);
+
+                    $model->user_type=$_POST['User']['user_type'];
+
                     $model->save();
                     return $this->redirect(['view', 'id' => $model->id]);
                 }

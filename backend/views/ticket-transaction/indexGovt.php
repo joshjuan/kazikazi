@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
 ?>
 <div class="received-cash-index" style="padding-top: 10px">
     <?php echo $this->render('_searchGvt', ['model' => $searchModel]); ?>
-
+    <?php Pjax::begin(); ?>
     <?php
     $pdfHeader = [
         'L' => [
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
             'color' => '#333333'
         ],
         'R' => [
-            'content' => 'receipts:' . date('Y-m-d H:i:s'),
+            'content' => 'receipts: ' . date('Y-m-d H:i:s'),
         ],
         'line' => true,
     ];
@@ -54,10 +54,15 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
         'line' => true,
     ];
     ?>
-    <?php
-    $gridColumns = [
-        ['class' => 'kartik\grid\SerialColumn'],
 
+
+    <?php $gridColumns = [
+        [
+            'class' => 'kartik\grid\SerialColumn',
+            'contentOptions' => ['class' => 'kartik-sheet-style'],
+            'width' => '36px',
+            'headerOptions' => ['class' => 'kartik-sheet-style']
+        ],
         [
             'attribute' => 'car_no',
             'label'=>'Gari No'
@@ -65,7 +70,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
         ],
         [
             'attribute' => 'work_area',
-             'label'=>'Eneo',
+            'label'=>'Eneo',
             'value' => 'workArea.name'
 
         ],
@@ -86,102 +91,116 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
         ],
 
 
+
     ];
-    DynaGrid::begin([
-        //'dataProvider'=> $dataProvider,
-        // 'filterModel' => $searchModel,
+
+
+    // the GridView widget (you must use kartik\grid\GridView)
+    echo \kartik\grid\GridView::widget([
+        'dataProvider' => $dataProvider,
+       // 'filterModel' => $searchModel,
+        'rowOptions' => function ($model, $key, $index, $grid) {
+            return ['data-id' => $model->id];
+        },
         'columns' => $gridColumns,
-        'theme' => 'panel-info',
-        'showPersonalize' => true,
-        'storage' => 'session',
-        'gridOptions' => [
-            'dataProvider' => $dataProvider,
-          //  'filterModel' => $searchModel,
-            'striped' => true,
-            'showPageSummary' => true,
-            'hover' => true,
-
-            'toolbar' => [
-
-                ['content' => '{dynagridFilter}{dynagridSort}{dynagrid}'],
-                '{export}',
-            ],
-            'export' => [
-                'fontAwesome' => true
-            ],
-            'pjaxSettings' => [
-                'neverTimeout' => true,
-                // 'beforeGrid'=>'My fancy content before.',
-                //'afterGrid'=>'My fancy content after.',
-            ],
-            'panel' => [
-                'type' => GridView::TYPE_INFO,
-                'heading' => '<strong class="lead"  style="color: #01214d;font-family: Tahoma"> <i class="fa fa-check-square text-green"></i> LIST OF TICKET PRINTED TRANSACTIONS </strong>',
-                // 'before' => '<span class="text text-red"> *Eligible*</span>'
-            ],
-            'persistResize' => false,
-            'toggleDataOptions' => ['minCount' => 10],
-            'exportConfig' => [
-                GridView::PDF => [
-                    'label' => Yii::t('kvgrid', 'PDF'),
-                    //'icon' => $isFa ? 'file-pdf-o' : 'floppy-disk',
-                    'iconOptions' => ['class' => 'text-danger'],
-                    'showHeader' => true,
-                    'showPageSummary' => true,
-                    'showFooter' => true,
-                    'showCaption' => true,
-                    'filename' => Yii::t('kvgrid', 'RECEIPT TRANSACTIONS'),
-                    'alertMsg' => Yii::t('kvgrid', 'The PDF export file will be generated for download.'),
-                    'options' => ['title' => Yii::t('kvgrid', 'Portable Document Format')],
-                    'mime' => 'application/pdf',
-                    'config' => [
-                        'mode' => 'c',
-                        'format' => 'A4-L',
-                        'destination' => 'D',
-                        'marginTop' => 20,
-                        'marginBottom' => 20,
-                        'cssInline' => '.kv-wrap{padding:20px;}' .
-                            '.kv-align-center{text-align:center;}' .
-                            '.kv-align-left{text-align:left;}' .
-                            '.kv-align-right{text-align:right;}' .
-                            '.kv-align-top{vertical-align:top!important;}' .
-                            '.kv-align-bottom{vertical-align:bottom!important;}' .
-                            '.kv-align-middle{vertical-align:middle!important;}' .
-                            '.kv-page-summary{border-top:4px double #ddd;font-weight: bold;}' .
-                            '.kv-table-footer{border-top:4px double #ddd;font-weight: bold;}' .
-                            '.kv-table-caption{font-size:1.5em;padding:8px;border:1px solid #ddd;border-bottom:none;}',
-
-                        'methods' => [
-                            'SetHeader' => [
-                                ['odd' => $pdfHeader, 'even' => $pdfHeader]
-                            ],
-                            'SetFooter' => [
-                                ['odd' => $pdfFooter, 'even' => $pdfFooter]
-                            ],
-                        ],
-
-                        'options' => [
-                            'title' => 'PDF export generated',
-                            'subject' => Yii::t('kvgrid', 'PDF export generated by kartik-v/yii2-grid extension'),
-                            'keywords' => Yii::t('kvgrid', 'krajee, grid, export, yii2-grid, pdf')
-                        ],
-                        'contentBefore' => '',
-                        'contentAfter' => ''
-                    ]
-                ],
-                GridView::CSV => [
-                    'label' => 'CSV',
-                    'filename' => Yii::t('kvgrid', 'RECEIPT TRANSACTIONS'),
-                    'options' => ['title' => 'Receipts'],
-                ],
-            ],
+        'id' => 'grid',
+        'containerOptions' => ['style' => 'overflow: auto'], // only set when $responsive = false
+        'beforeHeader' => [
+            [
+                'options' => ['class' => 'skip-export'] // remove this row from export
+            ]
         ],
-        'options' => ['id' => 'dynagrid-1'] // a unique identifier is important
+
+        'pjax' => true,
+        'bordered' => true,
+        'striped' => true,
+        'condensed' => true,
+        'responsive' => true,
+        'hover' => true,
+        'floatHeader' => true,
+
+        'floatHeaderOptions' => ['scrollingTop' => true],
+        'showPageSummary' => true,
+        'panel' => [
+            'heading' => '<i class="fa fa-bars" style="padding-left: 40%"></i> LIST OF TICKET PRINTED TRANSACTIONS',
+            'type' => GridView::TYPE_INFO
+        ],
+        'rowOptions' => function ($model) {
+            return ['data-id' => $model->id];
+        },
+        'exportConfig' => [
+            GridView::EXCEL => [
+                'filename' => Yii::t('app', 'Transportation Fees Details'),
+                'showPageSummary' => true,
+                'options' => [
+                    'title' => 'Custom Title',
+                    'subject' => 'PDF export',
+                    'keywords' => 'pdf'
+                ],
+
+            ],
+            GridView::PDF => [
+                'label' => Yii::t('kvgrid', 'PDF'),
+                //'icon' => $isFa ? 'file-pdf-o' : 'floppy-disk',
+                'iconOptions' => ['class' => 'text-danger'],
+                'showHeader' => true,
+                'showPageSummary' => true,
+                'showFooter' => true,
+                'showCaption' => true,
+                'filename' => Yii::t('kvgrid', 'RECEIPT TRANSACTIONS'),
+                'alertMsg' => Yii::t('kvgrid', 'The PDF export file will be generated for download.'),
+                'options' => ['title' => Yii::t('kvgrid', 'Portable Document Format')],
+                'mime' => 'application/pdf',
+                'config' => [
+                    'mode' => 'c',
+                    'format' => 'A4-L',
+                    'destination' => 'D',
+                    'marginTop' => 20,
+                    'marginBottom' => 20,
+                    'cssInline' => '.kv-wrap{padding:20px;}' .
+                        '.kv-align-center{text-align:center;}' .
+                        '.kv-align-left{text-align:left;}' .
+                        '.kv-align-right{text-align:right;}' .
+                        '.kv-align-top{vertical-align:top!important;}' .
+                        '.kv-align-bottom{vertical-align:bottom!important;}' .
+                        '.kv-align-middle{vertical-align:middle!important;}' .
+                        '.kv-page-summary{border-top:4px double #ddd;font-weight: bold;}' .
+                        '.kv-table-footer{border-top:4px double #ddd;font-weight: bold;}' .
+                        '.kv-table-caption{font-size:1.5em;padding:8px;border:1px solid #ddd;border-bottom:none;}',
+
+                    'methods' => [
+                        'SetHeader' => [
+                            ['odd' => $pdfHeader, 'even' => $pdfHeader]
+                        ],
+                        'SetFooter' => [
+                            ['odd' => $pdfFooter, 'even' => $pdfFooter]
+                        ],
+                    ],
+
+                    'options' => [
+                        'title' => 'PDF export generated',
+                        'subject' => Yii::t('kvgrid', 'PDF export generated by kartik-v/yii2-grid extension'),
+                        'keywords' => Yii::t('kvgrid', 'krajee, grid, export, yii2-grid, pdf')
+                    ],
+                    'contentBefore' => '',
+                    'contentAfter' => ''
+                ]
+            ],
+          /*  GridView::JSON => [
+                'filename' => Yii::t('app', 'Transportation Fees Details'),
+                'showPageSummary' => true,
+                'options' => ['title' => Yii::t('app', 'Comma Separated Values')],
+
+            ],*/
+
+        ],
+
     ]);
 
-
-    DynaGrid::end();
     ?>
+    <?php Pjax::end(); ?>
+</div>
+
 
 
     <style>
