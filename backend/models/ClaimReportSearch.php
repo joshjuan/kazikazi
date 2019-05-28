@@ -49,6 +49,8 @@ class ClaimReportSearch extends ClaimReport
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [ 'pageSize' => 100 ],
+            'sort'=> ['defaultOrder' => ['created_at'=>SORT_DESC]]
         ]);
 
         $this->load($params);

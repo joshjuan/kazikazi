@@ -54,6 +54,43 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
         'line' => true,
     ];
     ?>
+    <?php
+    $pdfHeader = [
+        'L' => [
+            'content' => 'TICKET PRINTED',
+        ],
+        'C' => [
+            'content' => 'ALL TICKET PRINTED TRANSACTIONS ',
+            'font-size' => 10,
+            'font-style' => 'B',
+            'font-family' => 'arial',
+            'color' => '#333333'
+        ],
+        'R' => [
+            'content' => 'receipts: ' . date('Y-m-d H:i:s'),
+        ],
+        'line' => true,
+    ];
+
+    $pdfFooter = [
+        'L' => [
+            'content' => '&copy; PARKING',
+            'font-size' => 10,
+            'color' => '#333333',
+            'font-family' => 'arial',
+        ],
+        'C' => [
+            'content' => '',
+        ],
+        'R' => [
+            //'content' => 'RIGHT CONTENT (FOOTER)',
+            'font-size' => 10,
+            'color' => '#333333',
+            'font-family' => 'arial',
+        ],
+        'line' => true,
+    ];
+    ?>
 
 
     <?php $gridColumns = [
@@ -186,7 +223,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
                     'contentAfter' => ''
                 ]
             ],
-          /*  GridView::JSON => [
+           /* GridView::JSON => [
                 'filename' => Yii::t('app', 'Transportation Fees Details'),
                 'showPageSummary' => true,
                 'options' => ['title' => Yii::t('app', 'Comma Separated Values')],

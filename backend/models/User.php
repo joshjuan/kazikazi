@@ -18,6 +18,7 @@ use yii\helpers\ArrayHelper;
  * @property string $mobile
  * @property string $auth_key
  * @property integer $role
+ * @property integer $user_type
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
@@ -65,6 +66,18 @@ class User extends \common\models\User
             self::STATUS_ACTIVE => Yii::t('app', 'STATUS_ACTIVE'),
             self::STATUS_INACTIVE => Yii::t('app', 'STATUS_INACTIVE'),
             self::STATUS_DELETED => Yii::t('app', 'STATUS_DELETED'),
+        ];
+    }
+
+    public static function getArrayAssign()
+    {
+        return [
+            self::ADMIN => Yii::t('app', 'ADMIN'),
+            self::MANAGER => Yii::t('app', 'MANAGER'),
+            self::ACCOUNTANT => Yii::t('app', 'ACCOUNTANT'),
+            self::SUPERVISOR => Yii::t('app', 'SUPERVISOR'),
+            self::CLERK => Yii::t('app', 'CLERK'),
+            self::GVT => Yii::t('app', 'GOVERNMENT AGENT'),
         ];
     }
 
