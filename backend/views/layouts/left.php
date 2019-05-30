@@ -121,7 +121,7 @@ use dmstr\widgets\Menu;
                     ],
                     [
                         'label' => 'Reports',
-                        'visible' => Yii::$app->user->can('accountant') || Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || yii::$app->user->can('governmentOfficial'),
+                        'visible' => Yii::$app->user->can('accountant') || Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || yii::$app->user->can('governmentOfficial')|| yii::$app->user->can('manager'),
                         'icon' => 'sitemap text-orange',
                         'items' => [
                             [
@@ -131,20 +131,17 @@ use dmstr\widgets\Menu;
                                 'url' => ['/ticket-transaction/clerk-report'],
                             ],
                             [
-                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin'),
-                                'label' => 'Ripoti ya Supervisor ( POS )',
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin')|| Yii::$app->user->can('accountant'),
+                                'label' => 'Clerks Closed Report',
                                 'icon' => 'money text-green',
                                 'url' => ['/clerk-deni/clerk-report'],
                             ],
-
-
                             [
-                                'label' => 'Date Range Report',
-                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin'),
-                                'icon' => 'file-o text-green',
-                                'url' => ['/ticket-transaction/date-range'],
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin')|| Yii::$app->user->can('accountant'),
+                                'label' => 'Supervisors Closed Report',
+                                'icon' => 'money text-green',
+                                'url' => ['/clerk-deni/clerk-report'],
                             ],
-
                             [
                                 'visible' => Yii::$app->user->can('accountant') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin'),
                                 'label' => 'Ripoti ya Accountant',
@@ -152,8 +149,14 @@ use dmstr\widgets\Menu;
                                 'url' => ['/supervisor-deni/supervisor-report'],
                             ],
                             [
+                                'label' => 'Date Range Report',
+                                'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin')|| Yii::$app->user->can('accountant'),
+                                'icon' => 'file-o text-green',
+                                'url' => ['/ticket-transaction/date-range'],
+                            ],
+                            [
                                 'visible' => yii::$app->user->can('governmentOfficial'),
-                                'label' => 'Ripoti ya Mahesabu',
+                                'label' => 'Accountant closed Report',
                                 'icon' => 'money text-green',
                                 'url' => ['/accountant-report/gvt-report'],
                             ],
@@ -417,7 +420,7 @@ use dmstr\widgets\Menu;
                                 ],
                             ],
                             [
-                                'label' => 'Government Agent',
+                                'label' => 'Government Officials',
                                 'visible' => Yii::$app->user->can('admin') || Yii::$app->user->can('super_admin') || Yii::$app->user->can('supervisor') || Yii::$app->user->can('manager'),
                                 'icon' => 'users text-green',
                                 'url' => '',
@@ -429,7 +432,7 @@ use dmstr\widgets\Menu;
                                         'url' => ['/user/gvt-create']
                                     ],
                                     [
-                                        'label' => 'Government Agent List',
+                                        'label' => 'Officials List',
                                         'icon' => 'users text-green',
                                         'url' => ['/user/gvt']
                                     ],

@@ -2,8 +2,10 @@
 
 namespace backend\controllers;
 
+use backend\models\AccountantReport;
 use backend\models\Audit;
 use common\models\LoginForm;
+use kartik\mpdf\Pdf;
 use Yii;
 use backend\models\TicketTransaction;
 use backend\models\TicketTransactionSearch;
@@ -366,5 +368,44 @@ class TicketTransactionController extends Controller
 
     }
 
+    public function actionPrint($id)
+    {
+        if (!Yii::$app->user->isGuest) {
+          //  $currentBudget = Budget::getCurrentBudget(Wafanyakazi::getZoneByID(Yii::$app->user->identity->user_id));
+         //   if($currentBudget != null) {
+            $date = AccountantReport::find()->select(['date(collected_date)'])->where(['id' =>$id])->one();
+            $tickets = TicketTransaction::find()->where(['date(create_at)'=>$date])->all();
+                //$malipo->asArray()->all();
+                if ($tickets != null) {
 
+                    // print_r($malipo);
+                    //exit;
+                    $pdf = new Pdf([
+                        'mode' => Pdf::DEST_DOWNLOAD, // leaner size using standard fonts
+                        'content' => $this->renderPartial('print', [
+                            'tickets' => $tickets
+                        ]),
+                        'options' => [
+                            'title' => 'Privacy Policy - Krajee.com',
+                            'subject' => 'Generating PDF files via yii2-mpdf extension has never been easy'
+                        ],
+                        'methods' => [
+                            'SetHeader' => ['  ||Generated On: ' . date("Y-m-d H:i")],
+                            'SetFooter' => ['| |Page {PAGENO}|'],
+                        ]
+                    ]);
+                    return $pdf->render();
+                    exit;
+
+                }
+          //  }
+        }
+        else{
+            $model = new LoginForm();
+            return $this->redirect(['site/login',
+                'model' => $model,
+            ]);
+        }
+
+    }
 }
