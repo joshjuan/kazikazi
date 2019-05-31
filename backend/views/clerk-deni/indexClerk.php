@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
         [
             'attribute' => 'amount_date',
          //   'width' => '180px',
+            'format'=>['DateTime','php:Y-m-d'],
         ],
         [
             'label' => 'Supervisor',

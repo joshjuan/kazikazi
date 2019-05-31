@@ -73,24 +73,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'format' => ['decimal', 2],
         ],
         [
-         //   'class' => 'kartik\grid\EditableColumn',
             'attribute' => 'submitted_amount',
-       //     'contentOptions' => ['class' => 'truncate'],
-
-           // 'refreshGrid' => true,
             'pageSummary' => true,
             'format' => ['decimal', 2],
-           // 'visible' => yii::$app->user->can('super_admin') || yii::$app->user->can('createAccountantMahesabuModule'),
-       /*     'editableOptions' => [
-
-                'size' => 'sm',
-                'formOptions' => ['action' => ['accountant-report/deni']],
-                'asPopover' => false,
-
-                'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-                // 'data' => \backend\models\LineNumber::getAll(),
-
-            ],*/
         ],
         [
             'attribute' => 'difference',

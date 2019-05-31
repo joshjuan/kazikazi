@@ -34,7 +34,8 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
         //  'id',
         [
             'attribute' => 'amount_date',
-            'width' => '180px',
+          //  'width' => '180px',
+            'format'=>['DateTime','php:Y-m-d'],
         ],
 
         [
@@ -42,7 +43,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
             'attribute' => 'name',
             'vAlign' => 'middle',
             'pageSummary' => 'JUMLA',
-            'width' => '180px',
+          //  'width' => '180px',
             'value' =>'user0.name',
             'filterType' => GridView::FILTER_SELECT2,
 
@@ -57,7 +58,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
 
         [
             'attribute' => 'collected_amount',
-            'width' => '180px',
+          //  'width' => '180px',
             'pageSummary' => true,
             'format' => ['decimal', 2],
 
@@ -88,7 +89,7 @@ $this->params['breadcrumbs'][] = 'Clerk Denis';
           ],
         [
             'attribute' => 'deni',
-            'width' => '180px',
+          //  'width' => '180px',
             'format' => ['decimal', 2],
             'pageSummary' => true,
         ],

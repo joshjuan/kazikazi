@@ -28,12 +28,12 @@ $this->params['breadcrumbs'][] = $model->name;
         'model' => $model,
         'attributes' => [
             'name',
-            'type',
+         //   'type',
             'description:ntext',
-            'rule_name',
-            'data:ntext',
-            'created_at',
-            'updated_at',
+         //   'rule_name',
+        //    'data:ntext',
+         //   'created_at',
+          //  'updated_at',
         ],
     ]) ?>
 

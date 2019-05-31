@@ -43,13 +43,11 @@ class TicketTransactionController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewTicket')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewTicketTransactionModule')) {
 
                 $model = new Model;
                 $searchModel = new TicketTransactionSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-
 
                 Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia taarifa za ticket transaction ', 'TicketTransaction', 'Index', '', '');
 
@@ -84,7 +82,7 @@ class TicketTransactionController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('accountant')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewTicketTransactionModule')) {
 
                 $model = new Model;
                 $searchModel = new TicketTransactionSearch();
@@ -138,7 +136,8 @@ class TicketTransactionController extends Controller
                     'dataProvider' => $dataProvider,
                 ]);
 
-            } else {
+            }
+            else {
                 Yii::$app->session->setFlash('', [
                     'type' => 'danger',
                     'duration' => 1500,
@@ -304,17 +303,31 @@ class TicketTransactionController extends Controller
     public function actionClerkReport()
     {
         if (!Yii::$app->user->isGuest) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewReportModule')) {
 
-            $searchModel = new TicketTransactionSearch();
-            $dataProvider = $searchModel->searchClerk(Yii::$app->request->queryParams);
 
-            Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia ripoti za makarani (clerks) wote ', 'TicketTransaction', 'View', '', '');
+                $searchModel = new TicketTransactionSearch();
+                $dataProvider = $searchModel->searchClerk(Yii::$app->request->queryParams);
 
-            return $this->render('clerks_report', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
+                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') ameangalia ripoti za makarani (clerks) wote ', 'TicketTransaction', 'View', '', '');
 
+                return $this->render('clerks_report', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+            }
+            else {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'Danger',
+                    'duration' => 4500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => 'Hauna uwezo wa kuona  report',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['ticket-transaction/index']);
+            }
         }else{
             $model = new LoginForm();
             return $this->redirect(['site/login',

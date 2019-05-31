@@ -3,14 +3,17 @@
 namespace backend\controllers;
 
 use backend\models\Audit;
+use backend\models\ClerkDeni;
 use backend\models\ClerkDeniSearch;
 use backend\models\SupervisorDeni;
 use backend\models\SupervisorDeniSearch;
 use backend\models\TicketTransactionSearch;
 use common\models\LoginForm;
+use kartik\grid\EditableColumnAction;
 use Yii;
 use backend\models\AccountantReport;
 use backend\models\AccountantReportSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -42,13 +45,56 @@ class AccountantReportController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new AccountantReportSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewReportModule')) {
+            $searchModel = new AccountantReportSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        else {
+            Yii::$app->session->setFlash('', [
+                'type' => 'danger',
+                'duration' => 1500,
+                'icon' => 'fa fa-warning',
+                'title' => 'Notification',
+                'message' => Yii::t('app', 'You dont have a permission'),
+                'positonY' => 'top',
+                'positonX' => 'right'
+            ]);
+
+            return $this->redirect(['site/index']);
+        }
+    }
+    public function actionReport()
+    {
+        if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewReportModule')) {
+
+
+
+            $searchModel = new AccountantReportSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            return $this->render('report', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        else {
+            Yii::$app->session->setFlash('', [
+                'type' => 'danger',
+                'duration' => 1500,
+                'icon' => 'fa fa-warning',
+                'title' => 'Notification',
+                'message' => Yii::t('app', 'You dont have a permission'),
+                'positonY' => 'top',
+                'positonX' => 'right'
+            ]);
+
+            return $this->redirect(['site/index']);
+        }
     }
 
     /**
@@ -72,109 +118,123 @@ class AccountantReportController extends Controller
     public function actionCreate()
     {
         if (!Yii::$app->user->isGuest) {
-            $model = new AccountantReport();
 
-            if ($model->load(Yii::$app->request->post())) {
-                if ($model->collected_date != ''){
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createAccountantMahesabuModule')) {
 
-                $collected_amount = TicketTransactionSearch::find()->select('amount')->andWhere(['date(create_at)' => $model->collected_date])->sum('amount');
-                if ($collected_amount !=''){
-                    $collected_date = AccountantReport::find()->select('collected_amount')->andWhere(['date(collected_date)' => $model->collected_date])->sum('collected_amount');
-                    if ($collected_date ==''){
 
-                        if ($model->submitted_amount <=$collected_amount){
+                $model = new AccountantReport();
 
-                            $time = date('Y-m-d');
-                            $time = strtotime($time);
+                if ($model->load(Yii::$app->request->post())) {
+                    if ($model->collected_date != '') {
 
-                            $time1 = $model->collected_date;
-                            $time1 = strtotime($time1);
+                        $collected_amount = TicketTransactionSearch::find()->select('amount')->andWhere(['date(create_at)' => $model->collected_date])->sum('amount');
+                        if ($collected_amount != '') {
+                            $collected_date = AccountantReport::find()->select('collected_amount')->andWhere(['date(collected_date)' => $model->collected_date])->sum('collected_amount');
+                            if ($collected_date == '') {
 
-                            if ($time1 <= $time) {
-                                $model->collected_amount = $collected_amount;
-                                $model->difference = $model->collected_amount - $model->submitted_amount;
-                                $model->created_at = date('Y-m-d H:i:s');
-                                $model->created_by = Yii::$app->user->identity->name;
-                                $model->save();
-                                Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amefunga mahesabu ya siku kwa tarehe" ' . $model->collected_date . ' ")', 'AccountantReport', 'Create', '', '');
-                            }
-                            else {
+                                if ($model->submitted_amount <= $collected_amount) {
+
+                                    $time = date('Y-m-d');
+                                    $time = strtotime($time);
+
+                                    $time1 = $model->collected_date;
+                                    $time1 = strtotime($time1);
+
+                                    if ($time1 <= $time) {
+                                        $model->collected_amount = $collected_amount;
+                                        $model->difference = $model->collected_amount - $model->submitted_amount;
+                                        $model->created_at = date('Y-m-d H:i:s');
+                                        $model->created_by = Yii::$app->user->identity->name;
+                                        $model->save();
+                                        Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amefunga mahesabu ya siku kwa tarehe" ' . $model->collected_date . ' ")', 'AccountantReport', 'Create', '', '');
+                                    } else {
+                                        Yii::$app->session->setFlash('', [
+                                            'type' => 'warning',
+                                            'duration' => 4500,
+                                            'icon' => 'fa fa-warning',
+                                            'title' => 'Notification',
+                                            'message' => 'Tarehe ya kufunga mahesabu haiwezi kuwa mbele zaid tarehe ya siku ya leo',
+                                            'positonY' => 'top',
+                                            'positonX' => 'right'
+                                        ]);
+
+                                        return $this->redirect(['supervisor-deni/create']);
+                                    }
+                                } else {
+                                    Yii::$app->session->setFlash('', [
+                                        'type' => 'warning',
+                                        'duration' => 4500,
+                                        'icon' => 'fa fa-warning',
+                                        'title' => 'Notification',
+                                        'message' => 'Pesa iliyo letwa inazid makusanyo ya tarehe hii',
+                                        'positonY' => 'top',
+                                        'positonX' => 'right'
+                                    ]);
+                                    return $this->redirect(['accountant-report/create']);
+                                }
+
+
+                            } else {
                                 Yii::$app->session->setFlash('', [
                                     'type' => 'warning',
                                     'duration' => 4500,
                                     'icon' => 'fa fa-warning',
                                     'title' => 'Notification',
-                                    'message' => 'Tarehe ya kufunga mahesabu haiwezi kuwa mbele zaid tarehe ya siku ya leo',
+                                    'message' => 'Mahesabu ya tarehe hii yemakwisha fungwa',
                                     'positonY' => 'top',
                                     'positonX' => 'right'
                                 ]);
-
-                                return $this->redirect(['supervisor-deni/create']);
+                                return $this->redirect(['accountant-report/create']);
                             }
-                        }
-                        else {
+
+
+                        } else {
                             Yii::$app->session->setFlash('', [
                                 'type' => 'warning',
                                 'duration' => 4500,
                                 'icon' => 'fa fa-warning',
                                 'title' => 'Notification',
-                                'message' => 'Pesa iliyo letwa inazid makusanyo ya tarehe hii',
+                                'message' => 'Hakuna Makusanyo katika siku hii',
                                 'positonY' => 'top',
                                 'positonX' => 'right'
                             ]);
                             return $this->redirect(['accountant-report/create']);
                         }
+                        return $this->redirect(['index']);
+                    } else {
 
-
-                    }
-                    else {
                         Yii::$app->session->setFlash('', [
                             'type' => 'warning',
                             'duration' => 4500,
                             'icon' => 'fa fa-warning',
                             'title' => 'Notification',
-                            'message' => 'Mahesabu ya tarehe hii yemakwisha fungwa',
+                            'message' => 'Tarehe husika haiwez kuwa wazi',
                             'positonY' => 'top',
                             'positonX' => 'right'
                         ]);
                         return $this->redirect(['accountant-report/create']);
                     }
 
-
-                }
-                else{
-                    Yii::$app->session->setFlash('', [
-                        'type' => 'warning',
-                        'duration' => 4500,
-                        'icon' => 'fa fa-warning',
-                        'title' => 'Notification',
-                        'message' => 'Hakuna Makusanyo katika siku hii',
-                        'positonY' => 'top',
-                        'positonX' => 'right'
-                    ]);
-                    return $this->redirect(['accountant-report/create']);
-                }
-                return $this->redirect(['index']);
-                }
-                else{
-
-                    Yii::$app->session->setFlash('', [
-                        'type' => 'warning',
-                        'duration' => 4500,
-                        'icon' => 'fa fa-warning',
-                        'title' => 'Notification',
-                        'message' => 'Tarehe husika haiwez kuwa wazi',
-                        'positonY' => 'top',
-                        'positonX' => 'right'
-                    ]);
-                    return $this->redirect(['accountant-report/create']);
                 }
 
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
             }
 
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            else {
+                Yii::$app->session->setFlash('', [
+                    'type' => 'Danger',
+                    'duration' => 4500,
+                    'icon' => 'fa fa-warning',
+                    'title' => 'Notification',
+                    'message' => 'Hauna uwezo wa kufunga mahesabu',
+                    'positonY' => 'top',
+                    'positonX' => 'right'
+                ]);
+                return $this->redirect(['accountant-report/index']);
+            }
+
         }
         else {
             $model = new LoginForm();
@@ -188,7 +248,7 @@ class AccountantReportController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('accountant') || Yii::$app->user->can('admin')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createAccountantMahesabuModule')) {
                 $model = $this->findModel($id);
                 $file = new AccountantReport();
                 $model->updated_by = Yii::$app->user->identity->name;
@@ -348,4 +408,7 @@ class AccountantReportController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
+
 }

@@ -146,9 +146,13 @@ class AuthAssignmentController extends Controller
      */
     public function actionDelete($item_name, $user_id)
     {
-        $this->findModel($item_name, $user_id)->delete();
+      //  if (Yii::$app->user->identity->role=='super_admin')
+      //  {
+            $this->findModel($item_name, $user_id)->delete();
 
-        return $this->redirect(['index']);
+            return $this->redirect(['index']);
+   //     }
+
     }
 
     /**

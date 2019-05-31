@@ -31,10 +31,9 @@ $this->params['breadcrumbs'][] = 'Supervisor Deni';
         [
             'attribute' => 'updated_at',
             'label' => 'Tarehe',
-            'pageSummary' => 'JUMLA'
+            'pageSummary' => 'JUMLA',
+            'format'=>['DateTime','php:Y-m-d'],
         ],
-
-
         'receipt_no',
         [
             'header' => 'Bank Slip',
