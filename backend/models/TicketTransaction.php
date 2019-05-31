@@ -210,5 +210,8 @@ class TicketTransaction extends \yii\db\ActiveRecord
         return $this->hasOne(WorkArea::className(), ['id' => 'work_area']);
     }
 
-
+    public function getReceipt()
+    {
+        return $this->hasOne(AccountantReport::className(), ['id' => 'create_at']);
+    }
 }

@@ -95,11 +95,10 @@ $this->params['breadcrumbs'][] = 'Supervisor Deni';
             'class' => 'kartik\grid\EditableColumn',
             'attribute' => 'submitted_amount',
             'contentOptions' => ['class' => 'truncate'],
-
             'refreshGrid' => true,
             'pageSummary' => true,
             'format' => ['decimal', 2],
-            //   'visible' => yii::$app->user->can('UinAction') || yii::$app->user->can('admin'),
+            'visible' => yii::$app->user->can('super_admin') || yii::$app->user->can('createFungaSupervisorMahesabuModule'),
             'editableOptions' => [
 
                 'size' => 'sm',
@@ -113,7 +112,7 @@ $this->params['breadcrumbs'][] = 'Supervisor Deni';
         ],
         [
             'attribute' => 'deni',
-            //  'width' => '180px',
+            'visible' => yii::$app->user->can('super_admin') || yii::$app->user->can('createFungaSupervisorMahesabuModule'),
             'format' => ['decimal', 2],
             'pageSummary' => true,
         ],

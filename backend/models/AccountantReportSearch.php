@@ -76,6 +76,7 @@ class AccountantReportSearch extends AccountantReport
             ->andFilterWhere(['like', 'updated_by', $this->updated_by])
             ->andFilterWhere(['like', 'receipt_no', $this->receipt_no])
             ->andFilterWhere(['between', 'DATE_FORMAT(collected_date, "%Y-%m-%d")', $this->date_from, $this->date_to])
+            ->andFilterWhere(['between', 'DATE_FORMAT(updated_at, "%Y-%m-%d")', $this->date_from, $this->date_to])
             ->andFilterWhere(['like', 'uploaded_receipt', $this->uploaded_receipt]);
 
         return $dataProvider;
@@ -116,7 +117,7 @@ class AccountantReportSearch extends AccountantReport
         $query->andFilterWhere(['like', 'created_by', $this->created_by])
             ->andFilterWhere(['like', 'updated_by', $this->updated_by])
             ->andFilterWhere(['like', 'receipt_no', $this->receipt_no])
-            ->andFilterWhere(['between', 'DATE_FORMAT(collected_date, "%Y-%m-%d")', $this->date_from, $this->date_to])
+            ->andFilterWhere(['between', 'DATE_FORMAT(updated_at, "%Y-%m-%d")', $this->date_from, $this->date_to])
             ->andFilterWhere(['like', 'uploaded_receipt', $this->uploaded_receipt]);
 
         return $dataProvider;

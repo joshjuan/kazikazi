@@ -45,7 +45,7 @@ class UserController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('admin')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewAllUsers')) {
 
                 $searchModel = new UserSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

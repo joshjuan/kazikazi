@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
 <div class="application-search">
 
     <?php $form = ActiveForm::begin([
-        'action' => ['indexGvt'],
+        'action' => ['gvt-report'],
         'method' => 'get',
 
     ]);

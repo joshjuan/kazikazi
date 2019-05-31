@@ -44,7 +44,7 @@ class ClerkDeniController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaClerkMahesabu')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewFungaMahesabuModule')) {
 
                 $searchModel = new ClerkDeniSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -84,7 +84,7 @@ class ClerkDeniController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin')||Yii::$app->user->can('admin') || Yii::$app->user->can('accountant')) {
+            if (Yii::$app->user->can('super_admin')||Yii::$app->user->can('viewReportModule')) {
 
                 $searchModel = new ClerkDeniSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -337,7 +337,7 @@ class ClerkDeniController extends Controller
 
 
 
-    public function actionCollect($id){
+    public function actionCollect1($id){
         $model = $this->findModel($id);
 
         if ($model->submitted_amount === $model->collected_amount) {
@@ -373,34 +373,47 @@ class ClerkDeniController extends Controller
 
     public function actions()
     {
-        return ArrayHelper::merge(parent::actions(), [
-            'collect1' => [                                       // identifier for your editable action
-                'class' => EditableColumnAction::className(),     // action class name
-                'modelClass' => ClerkDeni::className(),             // the update model class
-                'outputValue' => function ($model, $attribute, $key, $index) {
-                    $fmt = Yii::$app->formatter;
-                    $value = $model->$attribute;                 // your attribute value
-                    if ($attribute === 'submitted_amount') // selective validation by attribute
-                    {
-                        $model = $this->findModel($model->id);
-                        if ($model->submitted_amount === $model->collected_amount) {
-                            $model->deni = $model->collected_amount - $model->submitted_amount;
-                            $model->status = ClerkDeni::COMPLETE;
-                            $model->updated_at=date('Y-m-d H:i:s');
-                            $model->updated_by=Yii::$app->user->identity->username;
-                            $model->save();
+     //   if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createFungaSupervisorMahesabuModule')) {
+
+
+            return ArrayHelper::merge(parent::actions(), [
+                'collect' => [                                       // identifier for your editable action
+                    'class' => EditableColumnAction::className(),     // action class name
+                    'modelClass' => ClerkDeni::className(),             // the update model class
+                    'outputValue' => function ($model, $attribute, $key, $index) {
+                        $fmt = Yii::$app->formatter;
+                        $value = $model->$attribute;                 // your attribute value
+                        if ($attribute === 'submitted_amount') // selective validation by attribute
+                        {
+                            $model = $this->findModel($model->id);
+                            if ($model->submitted_amount === $model->collected_amount) {
+                                $model->deni = $model->collected_amount - $model->submitted_amount;
+                                $model->status = ClerkDeni::COMPLETE;
+                                $model->updated_at = date('Y-m-d H:i:s');
+                                $model->updated_by = Yii::$app->user->identity->username;
+                                $model->save();
+                            }
+                            else{
+                                $model->deni = $model->collected_amount - $model->submitted_amount;
+                                $model->status = ClerkDeni::NOT_COMPLETE;
+                                $model->updated_at = date('Y-m-d H:i:s');
+                                $model->updated_by = Yii::$app->user->identity->username;
+                                $model->save();
+                            }
                         }
-                    }
-                    return '';                                   // empty is same as $value
-                },
-                'outputMessage' => function ($model, $attribute, $key, $index) {
-                    return '';                                  // any custom error after model save
-                },
+                        return '';                                   // empty is same as $value
+                    },
+                    'outputMessage' => function ($model, $attribute, $key, $index) {
+                        return '';                                  // any custom error after model save
+                    },
 
-            ],
+                ],
 
-        ]);
+            ]);
+
 
     }
+
+
 }
 

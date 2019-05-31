@@ -46,7 +46,7 @@ class SupervisorDeniController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaSupervisorMahesabu')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewFungaMahesabuModule')) {
 
                 $searchModel = new SupervisorDeniSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -86,7 +86,7 @@ class SupervisorDeniController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('fungaSupervisorMahesabu')) {
+            if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewReportModule')) {
 
                 $searchModel = new SupervisorDeniSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -156,7 +156,7 @@ class SupervisorDeniController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
 
-            if (Yii::$app->user->can('fungaSupervisorMahesabu') || Yii::$app->user->can('super_admin')) {
+            if (Yii::$app->user->can('createFungaSupervisorMahesabuModule') || Yii::$app->user->can('super_admin')) {
                 $model = new SupervisorDeni();
 
                 if ($model->load(Yii::$app->request->post())) {
@@ -279,7 +279,8 @@ class SupervisorDeniController extends Controller
                     'model' => $model,
                 ]);
 
-            } else {
+            }
+            else {
                 Yii::$app->session->setFlash('', [
                     'type' => 'Danger',
                     'duration' => 4500,
@@ -382,7 +383,7 @@ class SupervisorDeniController extends Controller
 
     public function actions()
     {
-        if (Yii::$app->user->can('super_admin')) {
+        if (Yii::$app->user->can('super_admin') || Yii::$app->user->can('createFungaSupervisorMahesabuModule')) {
             return ArrayHelper::merge(parent::actions(), [
                 'collect' => [                                       // identifier for your editable action
                     'class' => EditableColumnAction::className(),     // action class name
@@ -403,9 +404,25 @@ class SupervisorDeniController extends Controller
                         $fmt = Yii::$app->formatter;
                         $value = $model->$attribute;                 // your attribute value
                         $model = $this->findModel($model->id);
-                        if ($model->submitted_amount <= $model->collected_amount) {           // selective validation by attribute
-                            $model->deni = $model->collected_amount - $model->submitted_amount;     // return formatted value if desired
+                        if ($model->submitted_amount === $model->collected_amount) {           // selective validation by attribute
+                            $model->deni = $model->collected_amount - $model->submitted_amount;
+                            $model->status = ClerkDeni::COMPLETE;
+                            $model->updated_at = date('Y-m-d H:i:s');
+                            $model->updated_by = Yii::$app->user->identity->username;
+                            $model->save();
+                            // return formatted value if desired
                      }
+                        elseif ($model->submitted_amount < $model->collected_amount){
+                            $model->deni = $model->collected_amount - $model->submitted_amount;
+                            $model->status = ClerkDeni::NOT_COMPLETE;
+                            $model->updated_at = date('Y-m-d H:i:s');
+                            $model->updated_by = Yii::$app->user->identity->username;
+                            $model->save();
+                        }
+                        else{
+                            return'';
+                        }
+
                         return '';
                     },
                     'outputMessage' => function ($model, $attribute, $key, $index) {
