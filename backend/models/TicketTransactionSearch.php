@@ -20,7 +20,7 @@ class TicketTransactionSearch extends TicketTransaction
     public function rules()
     {
         return [
-            [['id', 'region', 'district', 'municipal', 'street', 'work_area', 'receipt_no', 'user'], 'integer'],
+            [['id', 'region', 'district', 'municipal', 'street', 'work_area', 'receipt_no', 'user','report_no'], 'integer'],
             [['ref_no', 'date_from', 'date_to', 'begin_time', 'end_time', 'car_no', 'status', 'create_at', 'created_by'], 'safe'],
             [['amount'], 'number'],
         ];
@@ -79,6 +79,7 @@ class TicketTransactionSearch extends TicketTransaction
             'receipt_no' => $this->receipt_no,
             'amount' => $this->amount,
             'user' => $this->user,
+            'report_no' => $this->report_no,
             'create_at' => $this->create_at,
         ]);
 

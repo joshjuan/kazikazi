@@ -3,7 +3,7 @@
 use backend\models\AccountantReport;
 use backend\models\TicketTransaction;
 use yii\helpers\Html;
-//ini_set('memory_limit','2048M');
+ini_set('memory_limit','2048M');
 ?>
 
 <div id="invoice-sec">
@@ -12,8 +12,8 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-xs-12 text-center">
                 <?php
-                echo Html::img('images/logo-zanzibar.jpg',
-                    ['width' => '70px', 'height' => '70px', 'class' => 'img-square']);
+                echo Html::img('images/smz.jpg',
+                    ['width' => '140px', 'height' => '100px', 'class' => 'img-square']);
                 ?>
             </div>
         </div>
@@ -29,7 +29,8 @@ use yii\helpers\Html;
         $dateObj   = DateTime::createFromFormat('m', date('m'));
         $monthName = $dateObj->format('F'); // March
         if($tickets != null) {
-            foreach ($tickets as $mp) {
+           foreach ($tickets as $mp  ) {
+
                 ?>
                 <p class="text-center"> Makusanyo yamaegesho ya magari kwa mwezi <?= $monthName ?>
                     , <?= date('Y'); ?></p>
@@ -39,8 +40,9 @@ use yii\helpers\Html;
                     <div class="col-sm-4 invoice-col">
 
                         <address>
+                            <?php $date = AccountantReport::find()->select(['receipt_no'])->where(['report_no' =>$mp->report_no])->one(); ?>
                             MKOA: <?= $mp->region0->name; ?><br/>
-                            BANK PAY SLIP: <?= $mp->car_no; ?><br/>
+                            BANK PAY SLIP: <?= $date['receipt_no']; ?><br/>
                         </address>
                     </div>
                     <div class="break"></div>
@@ -54,10 +56,7 @@ use yii\helpers\Html;
                 <div class="row" style="page-break-after: always">
                     <div class="col-sm-12">
                         <?php
-                        $id=$mp->id;
-                        $date = AccountantReport::find()->select(['date(collected_date)'])->where(['id' =>$id])->one();
-                        $items = TicketTransaction::find()->where(['date(create_at)'=>$date])->all();
-                       // $items = \backend\models\TicketTransaction::find()->where(['date(create_at)'=>'2019-05-28'])->all();
+                        $items = TicketTransaction::find()->where(['report_no'=>$mp->report_no])->all();
                         if($items != null){
                             ?>
                             <table class="table table-hover">
@@ -75,6 +74,8 @@ use yii\helpers\Html;
                                 $i = 1;
                                 $total = 0.00;
                                 foreach ($items as $wz) {
+
+
                                     echo '<tr>
                             <td>'.$i.'</td>
                             <td>'.$wz->car_no. '</td>';
@@ -91,7 +92,6 @@ use yii\helpers\Html;
                             </tr>';
                                     $i++;
                                     $total =$total + $wz->amount;
-
                                 }
 
 
@@ -105,6 +105,71 @@ use yii\helpers\Html;
                                 </tr>
                                 </tbody>
                             </table>
+                           <!-- <p style="clear: both;page-break-after: always">-->
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th colspan="3">1. Prepared By</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th colspan="3" style="padding-top: 10px">Jina Kamili</th>
+                                    <td> _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" style="padding-top: 10px">Cheo</th>
+                                    <td>_ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" style="padding-top: 10px">Sahihi</th>
+                                    <td>_ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                            <table style="padding-top: 15px">
+                                <thead>
+                                <tr>
+                                    <th colspan="3">2. Authorized By</th>
+
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th colspan="3" style="padding-top: 10px">Jina Kamili</th>
+                                    <td> _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" style="padding-top: 10px">Cheo</th>
+                                    <td>_ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" style="padding-top: 10px">Sahihi</th>
+                                    <td>_ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                            <table style="padding-top: 15px">
+                                <thead>
+                                <tr>
+                                    <th colspan="3">3. Approved By</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th colspan="3" style="padding-top: 10px">Jina Kamili</th>
+                                    <td> _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" style="padding-top: 10px">Cheo</th>
+                                    <td>_ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="3" style="padding-top: 10px">Sahihi</th>
+                                    <td>_ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
+                                </tr>
+                                </tfoot>
+                            </table>
                             <?php
                         }
                         ?>
@@ -113,7 +178,7 @@ use yii\helpers\Html;
 
                 <!-- /.row -->
                 <?php
-            }
+           }
 
         }
 

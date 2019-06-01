@@ -384,15 +384,9 @@ class TicketTransactionController extends Controller
     public function actionPrint($id)
     {
         if (!Yii::$app->user->isGuest) {
-          //  $currentBudget = Budget::getCurrentBudget(Wafanyakazi::getZoneByID(Yii::$app->user->identity->user_id));
-         //   if($currentBudget != null) {
-            $date = AccountantReport::find()->select(['date(collected_date)'])->where(['id' =>$id])->one();
-            $tickets = TicketTransaction::find()->where(['date(create_at)'=>$date])->all();
-                //$malipo->asArray()->all();
+            $date = AccountantReport::find()->select(['collected_date'])->where(['id' =>$id])->one();
+            $tickets = TicketTransaction::find()->where(['date(create_at)'=>$date['collected_date']])->groupBy('region')->all();
                 if ($tickets != null) {
-
-                    // print_r($malipo);
-                    //exit;
                     $pdf = new Pdf([
                         'mode' => Pdf::DEST_DOWNLOAD, // leaner size using standard fonts
                         'content' => $this->renderPartial('print', [
@@ -411,7 +405,7 @@ class TicketTransactionController extends Controller
                     exit;
 
                 }
-          //  }
+
         }
         else{
             $model = new LoginForm();

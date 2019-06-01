@@ -50,7 +50,13 @@ class AccountantReportSearch extends AccountantReport
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => ['pageSize' => 250],
+            'sort' => ['defaultOrder' => [
+                'id' => SORT_DESC,
+            ]
+            ]
         ]);
+
 
         $this->load($params);
 
@@ -92,7 +98,13 @@ class AccountantReportSearch extends AccountantReport
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => ['pageSize' => 250],
+            'sort' => ['defaultOrder' => [
+                'id' => SORT_DESC,
+            ]
+            ]
         ]);
+
 
         $this->load($params);
 

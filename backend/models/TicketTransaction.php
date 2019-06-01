@@ -23,6 +23,7 @@ use Yii;
  * @property string $status
  * @property string $create_at
  * @property string $created_by
+ * @property string $report_no
  *
  * @property District $district0
  * @property Municipal $municipal0
@@ -121,7 +122,7 @@ class TicketTransaction extends \yii\db\ActiveRecord
         return [
             [['ref_no', 'begin_time', 'end_time', 'region', 'district', 'municipal', 'street', 'work_area', 'receipt_no', 'amount', 'car_no', 'user', 'create_at'], 'required'],
             [['begin_time', 'end_time', 'create_at'], 'safe'],
-            [['user','status'], 'integer'],
+            [['user','status','report_no'], 'integer'],
             [['ref_no','receipt_no'], 'unique'],
             [['amount'], 'number'],
             [['ref_no', 'car_no', 'created_by','receipt_no','region', 'district', 'municipal', 'street', 'work_area'], 'string', 'max' => 200],
@@ -210,8 +211,8 @@ class TicketTransaction extends \yii\db\ActiveRecord
         return $this->hasOne(WorkArea::className(), ['id' => 'work_area']);
     }
 
-    public function getReceipt()
+    public function getReceipt0()
     {
-        return $this->hasOne(AccountantReport::className(), ['id' => 'create_at']);
+        return $this->hasOne(AccountantReport::className(), ['id' => 'report_no']);
     }
 }

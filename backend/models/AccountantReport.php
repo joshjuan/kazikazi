@@ -16,6 +16,7 @@ use Yii;
  * @property string $created_by
  * @property string $updated_at
  * @property string $updated_by
+ * @property string $report_no
  * @property string $receipt_no
  * @property string $uploaded_receipt
  * @property int $report_status
@@ -44,7 +45,7 @@ class AccountantReport extends \yii\db\ActiveRecord
             [['collected_amount', 'submitted_amount', 'difference'], 'number'],
             [['collected_date','submitted_amount', 'created_at', 'created_by'], 'required'],
             [['collected_date', 'created_at', 'updated_at'], 'safe'],
-            [['report_status'], 'integer'],
+            [['report_status','report_no'], 'integer'],
             [['created_by', 'updated_by', 'receipt_no', 'uploaded_receipt'], 'string', 'max' => 200],
         ];
     }

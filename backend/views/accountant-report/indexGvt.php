@@ -59,6 +59,20 @@ $this->params['breadcrumbs'][] = 'Supervisor Deni';
             'label'=>'Kiasi Kilicho Kusanywa',
             'format' => ['decimal', 2],
         ],
+        [
+            'class'=>'kartik\grid\ActionColumn',
+            'header'=>'Print',
+            'template'=>'{view}',
+            'buttons'=>[
+                'view' => function ($url, $model) {
+                    $url=['ticket-transaction/print','id' => $model->id];
+                    return Html::a('<span class="glyphicon glyphicon-print" title="View Details"></span>', $url, ['data-pjax' => 0, 'target' => "_blank"]);
+
+
+                },
+
+            ]
+        ],
     //    'created_at',
     //    'created_by',
 

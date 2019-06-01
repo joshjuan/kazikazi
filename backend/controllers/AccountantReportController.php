@@ -145,6 +145,7 @@ class AccountantReportController extends Controller
                                         $model->difference = $model->collected_amount - $model->submitted_amount;
                                         $model->created_at = date('Y-m-d H:i:s');
                                         $model->created_by = Yii::$app->user->identity->name;
+                                        $model->report_no = date('Ymd');
                                         $model->save();
                                         Audit::setActivity(Yii::$app->user->identity->name . ' ( ' . Yii::$app->user->identity->role . ') amefunga mahesabu ya siku kwa tarehe" ' . $model->collected_date . ' ")', 'AccountantReport', 'Create', '', '');
                                     } else {
@@ -280,7 +281,7 @@ class AccountantReportController extends Controller
                         'positonX' => 'right'
                     ]);
 
-                    return $this->redirect(['supervisor-deni/index']);
+                    return $this->redirect(['accountant-report/index']);
                 }
                 else{
                     Yii::$app->session->setFlash('', [

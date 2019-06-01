@@ -109,6 +109,7 @@ class ApiController extends \yii\rest\ActiveController
         $sale = new TicketTransaction();
         $sale->attributes = \yii::$app->request->post();
         $sale->status = 0;
+        $sale->report_no = date('Ymd');
         $sale->receipt_no = Reference::findLast();
         // $sale->receipt_no = 'ABDFDS';
 
