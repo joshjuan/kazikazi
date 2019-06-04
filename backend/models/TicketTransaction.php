@@ -59,11 +59,11 @@ class TicketTransaction extends \yii\db\ActiveRecord
     }
 
 
-    public static function getTodayTotalMaghalibiliA()
+    public static function getTodayTotalZone1()
 
     {
         $date=date('Y-m-d');
-        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['district'=>1])->sum('amount');
+        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['street'=>1])->sum('amount');
         if ($applications > 0) {
             $amount_paid_today = number_format($applications, 2, '.', ',');
             return $amount_paid_today;
@@ -75,11 +75,11 @@ class TicketTransaction extends \yii\db\ActiveRecord
     }
 
 
-    public static function getTodayTotalMaghalibiliB()
+    public static function getTodayTotalZone2()
 
     {
         $date=date('Y-m-d');
-        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['district'=>2])->sum('amount');
+        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['street'=>2])->sum('amount');
         if ($applications > 0) {
             $amount_paid_today = number_format($applications, 2, '.', ',');
             return $amount_paid_today;
@@ -89,11 +89,71 @@ class TicketTransaction extends \yii\db\ActiveRecord
             return $amount_paid_today;
         }
     }
-    public static function getTodayTotalMjiniMaghalibili()
+    public static function getTodayTotalZone3()
 
     {
         $date=date('Y-m-d');
-        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['district'=>3])->sum('amount');
+        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['street'=>3])->sum('amount');
+        if ($applications > 0) {
+            $amount_paid_today = number_format($applications, 2, '.', ',');
+            return $amount_paid_today;
+        } else {
+            $applications=0;
+            $amount_paid_today = number_format($applications, 2, '.', ',');
+            return $amount_paid_today;
+        }
+    }
+
+    public static function getTodayTotalZone4()
+
+    {
+        $date=date('Y-m-d');
+        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['street'=>4])->sum('amount');
+        if ($applications > 0) {
+            $amount_paid_today = number_format($applications, 2, '.', ',');
+            return $amount_paid_today;
+        } else {
+            $applications=0;
+            $amount_paid_today = number_format($applications, 2, '.', ',');
+            return $amount_paid_today;
+        }
+    }
+
+    public static function getTodayTotalZone5()
+
+    {
+        $date=date('Y-m-d');
+        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['street'=>5])->sum('amount');
+        if ($applications > 0) {
+            $amount_paid_today = number_format($applications, 2, '.', ',');
+            return $amount_paid_today;
+        } else {
+            $applications=0;
+            $amount_paid_today = number_format($applications, 2, '.', ',');
+            return $amount_paid_today;
+        }
+    }
+
+    public static function getTodayTotalZone6()
+
+    {
+        $date=date('Y-m-d');
+        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['street'=>6])->sum('amount');
+        if ($applications > 0) {
+            $amount_paid_today = number_format($applications, 2, '.', ',');
+            return $amount_paid_today;
+        } else {
+            $applications=0;
+            $amount_paid_today = number_format($applications, 2, '.', ',');
+            return $amount_paid_today;
+        }
+    }
+
+    public static function getTodayTotalZone7()
+
+    {
+        $date=date('Y-m-d');
+        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['street'=>7])->sum('amount');
         if ($applications > 0) {
             $amount_paid_today = number_format($applications, 2, '.', ',');
             return $amount_paid_today;

@@ -33,98 +33,126 @@ $this->title = '';
 
     <div class="site-index" id="grid" style="padding-top: 10px">
         <div class="row">
-            <div class="col-md-3 col-sm-5 col-xs-8">
-                <div class="info-box bg-yellow">
-                    <span class="info-box-icon"><i class="fa fa-ios-pricetag-outline"></i></span>
-
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-red"><i class="fa fa-calculator"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">TODAY TOTAL COLLECTION</span>
+                        <span class="info-box-text">Jumla</span>
                         <span class="info-box-number">
-
-                    <?= \backend\models\TicketTransaction::getTodayTotal() ?>
-                        </span>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 80%"></div>
-                        </div>
-                        <span class="progress-description">
-                               24 Hours collection amount
-                           </span>
+                        <?= \backend\models\TicketTransaction::getTodayTotal() ?>
+                    </span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
                 <!-- /.info-box -->
             </div>
-            <div class="col-md-3 col-sm-5 col-xs-8">
-                <div class="info-box bg-red">
-                    <span class="info-box-icon"><i class="ion ion-ios-heart-outline"></i></span>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-green-gradient"><i class="fa fa-sitemap"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">MAGHARIBI A TOTAL</span>
-
+                        <span class="info-box-text">ZONE 1</span>
                         <span class="info-box-number">
-
-                           <?= \backend\models\TicketTransaction::getTodayTotalMaghalibiliA() ?>
+                        <?= \backend\models\TicketTransaction::getTodayTotalZone1() ?>
                         </span>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 20%"></div>
-                        </div>
-                        <span class="progress-description">
-                           24 Hours collection amount
-                         </span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
-            </div>
-            <div class="col-md-3 col-sm-5 col-xs-8">
                 <!-- /.info-box -->
-                <div class="info-box bg-green">
-                    <span class="info-box-icon"><i class="ion ion-ios-cloud-download-outline"></i></span>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-light-blue-gradient"><i class="fa fa-tree"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">MAGHARIBI B TOTAL</span>
-
+                        <span class="info-box-text">ZONE 2</span>
                         <span class="info-box-number">
-                            <?= \backend\models\TicketTransaction::getTodayTotalMaghalibiliB() ?>
-                        </span>
-
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 70%"></div>
-                        </div>
-                        <span class="progress-description">
-                      24 Hours collection amount
-                  </span>
+                        <?= \backend\models\TicketTransaction::getTodayTotalZone2() ?>
+                    </span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
+                <!-- /.info-box -->
             </div>
 
-            <div class="col-md-3 col-sm-5 col-xs-8">
-                <!-- /.info-box -->
-                <div class="info-box bg-aqua">
-                    <span class="info-box-icon"><i class="ion ion-ios-cloud-download-outline"></i></span>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-yellow"><i class="fa fa-gavel"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">MJINI MAGHALIBI TOTAL</span>
-
+                        <span class="info-box-text">ZONE 3</span>
                         <span class="info-box-number">
-                            <?= \backend\models\TicketTransaction::getTodayTotalMjiniMaghalibili() ?>
-                        </span>
-
-                        <div class="progress">
-                            <div class="progress-bar" style="width: 54%"></div>
-                        </div>
-                        <span class="progress-description">
-                      24 Hours collection amount
-                  </span>
+                       <?= \backend\models\TicketTransaction::getTodayTotalZone3() ?>
+                    </span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
+                <!-- /.info-box -->
+            </div>
+        </div>
+    </div>
+    <div class="site-index" id="grid" style="padding-top: 10px">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-aqua"><i class="fa fa-shopping-cart"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">ZONE 4</span>
+                        <span class="info-box-number">
+                                <?= \backend\models\TicketTransaction::getTodayTotalZone4() ?>
+                    </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-green-gradient"><i class="fa fa-sitemap"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">ZONE 5</span>
+                        <span class="info-box-number">
+                         <?= \backend\models\TicketTransaction::getTodayTotalZone5() ?>
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-light-blue-gradient"><i class="fa fa-tree"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">ZONE 6</span>
+                        <span class="info-box-number">
+                         <?= \backend\models\TicketTransaction::getTodayTotalZone6() ?>
+                    </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-yellow"><i class="fa fa-gavel"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">ZONE 7</span>
+                        <span class="info-box-number">
+                      <?= \backend\models\TicketTransaction::getTodayTotalZone7() ?>
+                    </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
             </div>
         </div>
     </div>
 </div>
-<p style="padding-top: 20px"/>
-<div class="row">
+<div class="row" style="padding-top: 20px">
     <div class="col-md-12">
         <div class="box box-success">
             <div class="box-header with-border">
