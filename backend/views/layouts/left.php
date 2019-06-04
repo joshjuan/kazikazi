@@ -277,7 +277,7 @@ use dmstr\widgets\Menu;
                                 'items' => [
                                     [
                                         'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('createStreet'),
-                                        'label' => Yii::t('app', 'Add New Street'),
+                                        'label' => Yii::t('app', 'Add New Zone'),
                                         'url' => ['/street/create'],
                                         'icon' => 'plus text-green',
                                     ],
@@ -470,6 +470,11 @@ use dmstr\widgets\Menu;
                         'visible' => (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewSettingModule')),
                         'icon' => 'cogs text-orange',
                         'items' => [
+                            ['label' => 'Day Amount Setup',
+                                'icon' => 'cogs text-orange',
+                                'url' => ['/day-amount-setup'],
+                                'visible' => (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewAllUsers ')),
+                            ],
                             ['label' => 'All Users',
                                 'icon' => 'user text-orange',
                                 'url' => ['/user'],
