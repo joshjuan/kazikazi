@@ -1,3 +1,4 @@
+
 <?php
 
 /* @var $this yii\web\View */
@@ -128,7 +129,7 @@ $this->title = '';
         <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title"><i
-                            class="fa fa-bar-chart"></i> <?php echo Yii::t('app', 'Chati ya makusanyo kwa shehia Masaa 24 kwa tarehe ');
+                            class="fa fa-bar-chart"></i> <?php echo Yii::t('app', 'Chati ya makusanyo kwa sehemu za kazi Masaa 24 kwa tarehe ');
                     echo date('d Y'); ?>
                 </h3>
                 <div class="box-tools">
@@ -149,10 +150,10 @@ $this->title = '';
                     'columns' => [
 
                         [
-                            'attribute' => 'municipal',
+                            'attribute' => 'work_area',
                             'value' => function ($model) {
-                                if ($model->municipal0->name != null) {
-                                    return $model->municipal0->name;
+                                if ($model->workArea->name != null) {
+                                    return $model->workArea->name;
                                 } else {
                                     return '';
                                 }
@@ -172,4 +173,5 @@ $this->title = '';
     </div>
 
 </div>
+
 

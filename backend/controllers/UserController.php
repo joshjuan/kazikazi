@@ -843,7 +843,9 @@ class UserController extends Controller
                     'positonY' => 'top',
                     'positonX' => 'right'
                 ]);
-                return $this->redirect(['profile', 'id' => $model->id]);
+              //  return $this->redirect(['profile', 'id' => $model->id]);
+                Yii::$app->user->logout();
+                return $this->redirect(['site/login']);
 
             } else {
                 return $this->render('profile', [

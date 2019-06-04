@@ -200,7 +200,7 @@ class TicketTransactionSearch extends TicketTransaction
 
         $pagination = false;
         $current_day = date("Y-m-d");
-        $query->select(['municipal, sum(amount) as  amount'])->where(['date(create_at)' => $current_day])->groupBy(['municipal'])->all();
+        $query->select(['work_area, sum(amount) as  amount'])->where(['date(create_at)' => $current_day])->groupBy(['work_area'])->all();
 
         return $dataProvider;
 

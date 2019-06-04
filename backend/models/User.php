@@ -160,7 +160,8 @@ class User extends \common\models\User
         return [
             'default' => ['username','name','mobile', 'email', 'password', 'repassword', 'status', 'role','region','district','municipal','street','work_area'],
             'createUser' => ['username','name','mobile', 'email', 'password', 'repassword', 'status', 'role'],
-            'admin-update' => ['username','name','mobile', 'email', 'status', 'role']
+           // 'admin-update' => ['username','name','mobile', 'email', 'status', 'role']
+            'admin-update' => ['password', 'repassword']
         ];
     }
 

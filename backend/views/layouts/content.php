@@ -36,9 +36,7 @@ use dmstr\widgets\Alert;
 </div>
 
 <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-        <b>Version</b> 2.0
-    </div>
-    <strong><center ><p style="color: white">Copyright &copy; PARKING - MIS <?= date('Y') ?>   All rights </p></center></strong>
+    <strong style="text-align: center;"><p style="color: white">Copyright &copy; PARKING - MIS <?= date('Y') ?>   All rights </p>
+    </strong>
 </footer>
 

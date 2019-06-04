@@ -8,6 +8,7 @@ use backend\models\ClaimReport;
 use backend\models\ClerkDeni;
 use backend\models\ClerkDeniSearch;
 use backend\models\Reference;
+use backend\models\TicketReprinted;
 use backend\models\TicketTransaction;
 use backend\models\User;
 use backend\models\UserSearch;
@@ -129,6 +130,32 @@ class ApiController extends \yii\rest\ActiveController
         }
     }
 
+    public function actionReprint()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $sale = new TicketReprinted();
+        $sale->attributes = \yii::$app->request->post();
+      //  $sale->status = 0;
+        $sale->report_no = date('Ymd');
+       // $sale->receipt_no = Reference::findLast();
+        // $sale->receipt_no = 'ABDFDS';
+
+        if ($sale->validate()) {
+            $sale->save();
+            return array('receipt' => [
+                'reference_no' => $sale->ref_no,
+                'receipt_number' => $sale->receipt_no,
+                'status' => '200'
+            ]);
+        } else {
+            return array('statusCode ' => [
+                $sale->getErrors(),
+                'status' => '403',
+            ]);
+
+        }
+    }
+
     public function actionFungaClerkMahesabu()
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -183,7 +210,16 @@ class ApiController extends \yii\rest\ActiveController
 
         $claimReport->created_at = date('Y-m-d H:i:s');
 
-        if ($claimReport->save()) {
+        define('UPLOAD_DIR', 'documents/claim-reports/');
+        $encoded_data = $claimReport->upload;
+        $img = str_replace('data:image/jpeg;base64,', '', $encoded_data);
+        $data = base64_decode($img);
+        $file_name = 'CLAIM-' .$claimReport->plate_no. date('Y-m-d-H-i-s', time()); // You can change it to anything
+        $file = UPLOAD_DIR . $file_name . '.jpeg';
+        $claimReport->upload = $file_name . '.jpeg';
+        $status = file_put_contents($file, $data);
+
+        if ($claimReport->save() && $status) {
             return array('status' => [
                 'message' => 'Sent Successfully'
             ]

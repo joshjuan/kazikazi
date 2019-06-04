@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = 'Claim Reports';
                     return 'No attached file';
                 } elseif ($model->upload != null) {
 
-                    $basepath = Yii::$app->request->baseUrl . '/document/' . $model->upload;
+                    $basepath = Yii::$app->request->baseUrl . '/documents/claim-reports/' . $model->upload;
                     //$path = str_replace($basepath, '', $model->attachment);
                     return Html::a('<i class="fa fa-folder-open text-green"></i>', $basepath, array('target' => '_blank'));
 

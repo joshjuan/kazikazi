@@ -105,71 +105,36 @@ ini_set('memory_limit','2048M');
                                 </tr>
                                 </tbody>
                             </table>
-                           <!-- <p style="clear: both;page-break-after: always">-->
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th colspan="3">1. Prepared By</th>
-                                </tr>
-                                </thead>
-                                <tfoot>
-                                <tr>
-                                    <th colspan="3" style="padding-top: 10px">Jina Kamili</th>
-                                    <td> _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
-                                </tr>
-                                <tr>
-                                    <th colspan="3" style="padding-top: 10px">Cheo</th>
-                                    <td>_ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
-                                </tr>
-                                <tr>
-                                    <th colspan="3" style="padding-top: 10px">Sahihi</th>
-                                    <td>_ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
-                                </tr>
-                                </tfoot>
-                            </table>
-                            <table style="padding-top: 15px">
-                                <thead>
-                                <tr>
-                                    <th colspan="3">2. Authorized By</th>
+                          <p style="clear: both;page-break-after: always">
+                        <table>
+                            <tr>
+                                <th>Items</th>
+                                <th style="padding-left: 100px">Prepared By</th>
+                                <th style="padding-left: 100px">Authorized by</th>
+                                <th style="padding-left: 100px">Approved by </th>
+                            </tr>
+                            <tr>
+                                <td style="padding-top: 20px">Jina:</td>
+                                <td style="padding-left: 100px">..................................</td>
+                                <td style="padding-left: 100px">..................................</td>
+                                <td style="padding-left: 100px">..................................</td>
 
-                                </tr>
-                                </thead>
-                                <tfoot>
-                                <tr>
-                                    <th colspan="3" style="padding-top: 10px">Jina Kamili</th>
-                                    <td> _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
-                                </tr>
-                                <tr>
-                                    <th colspan="3" style="padding-top: 10px">Cheo</th>
-                                    <td>_ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
-                                </tr>
-                                <tr>
-                                    <th colspan="3" style="padding-top: 10px">Sahihi</th>
-                                    <td>_ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
-                                </tr>
-                                </tfoot>
-                            </table>
-                            <table style="padding-top: 15px">
-                                <thead>
-                                <tr>
-                                    <th colspan="3">3. Approved By</th>
-                                </tr>
-                                </thead>
-                                <tfoot>
-                                <tr>
-                                    <th colspan="3" style="padding-top: 10px">Jina Kamili</th>
-                                    <td> _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
-                                </tr>
-                                <tr>
-                                    <th colspan="3" style="padding-top: 10px">Cheo</th>
-                                    <td>_ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
-                                </tr>
-                                <tr>
-                                    <th colspan="3" style="padding-top: 10px">Sahihi</th>
-                                    <td>_ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _</td>
-                                </tr>
-                                </tfoot>
-                            </table>
+                            </tr>
+                            <tr>
+                                <td style="padding-top: 20px">Cheo:</td>
+                                <td style="padding-left: 100px">..................................</td>
+                                <td style="padding-left: 100px">.................................</td>
+                                <td style="padding-left: 100px">..................................</td>
+
+                            </tr>
+                            <tr>
+                                <td style="padding-top: 20px">Sahihi:</td>
+                                <td style="padding-left: 100px">..................................</td>
+                                <td style="padding-left: 100px">..................................</td>
+                                <td style="padding-left: 100px">.................................</td>
+                            </tr>
+                        </table>
+
                             <?php
                         }
                         ?>
