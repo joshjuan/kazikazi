@@ -88,11 +88,13 @@ class TicketTransaction extends \yii\db\ActiveRecord
             return $amount_paid_today;
         }
     }
+
     public static function getTodayTotalMjiniMaghalibili()
 
     {
         $date=date('Y-m-d');
-        $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['district'=>3])->sum('amount');
+       // $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->andWhere(['district'=>3])->sum('amount');
+       $applications = TicketTransaction::find()->where(['date(create_at)'=>$date])->sum('amount');
         if ($applications > 0) {
             $amount_paid_today = number_format($applications, 2, '.', ',');
             return $amount_paid_today;

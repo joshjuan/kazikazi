@@ -120,6 +120,95 @@ $this->title = '';
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-5 col-xs-8">
+                <div class="info-box bg-yellow">
+                    <span class="info-box-icon"><i class="fa fa-ios-pricetag-outline"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">TODAY TOTAL COLLECTION</span>
+                        <span class="info-box-number">
+
+                    <?= \backend\models\TicketTransaction::getTodayTotal() ?>
+                        </span>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 80%"></div>
+                        </div>
+                        <span class="progress-description">
+                               24 Hours collection amount
+                           </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <div class="col-md-3 col-sm-5 col-xs-8">
+                <div class="info-box bg-red">
+                    <span class="info-box-icon"><i class="ion ion-ios-heart-outline"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">MAGHARIBI A TOTAL</span>
+
+                        <span class="info-box-number">
+
+                           <?= \backend\models\TicketTransaction::getTodayTotalMaghalibiliA() ?>
+                        </span>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 20%"></div>
+                        </div>
+                        <span class="progress-description">
+                           24 Hours collection amount
+                         </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-5 col-xs-8">
+                <!-- /.info-box -->
+                <div class="info-box bg-green">
+                    <span class="info-box-icon"><i class="ion ion-ios-cloud-download-outline"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">MAGHARIBI B TOTAL</span>
+
+                        <span class="info-box-number">
+                            <?= \backend\models\TicketTransaction::getTodayTotalMaghalibiliB() ?>
+                        </span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 70%"></div>
+                        </div>
+                        <span class="progress-description">
+                      24 Hours collection amount
+                  </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-5 col-xs-8">
+                <!-- /.info-box -->
+                <div class="info-box bg-aqua">
+                    <span class="info-box-icon"><i class="ion ion-ios-cloud-download-outline"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">MJINI MAGHALIBI TOTAL</span>
+
+                        <span class="info-box-number">
+                            <?= \backend\models\TicketTransaction::getTodayTotalMjiniMaghalibili() ?>
+                        </span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 54%"></div>
+                        </div>
+                        <span class="progress-description">
+                      24 Hours collection amount
+                  </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <p style="padding-top: 20px"/>
