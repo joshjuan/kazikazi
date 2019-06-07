@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = 'Supervisor Deni';
         //  'id',
         [
             'attribute' => 'amount_date',
-         //   'width' => '180px',
+            'format'=>['DateTime','php:Y-m-d'],
         ],
 
         [

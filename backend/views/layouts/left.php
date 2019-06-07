@@ -49,6 +49,12 @@ use dmstr\widgets\Menu;
                                 'url' => ['/ticket-transaction/index'],
                                 'icon' => 'lock text-orange',
                             ],
+                            [
+                                //   'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewTicketTransactionSubModule'),
+                                'label' => Yii::t('app', 'Ticket Reprinted'),
+                                'url' => ['/ticket-reprinted/index'],
+                                'icon' => 'lock text-orange',
+                            ],
                         ],
                     ],
                     [
@@ -108,7 +114,7 @@ use dmstr\widgets\Menu;
                                     [
                                         //  'visible' =>  yii::$app->user->can('auditSystem'),
                                         'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewFungaMahesabuModule'),
-                                        'label' => Yii::t('app', 'Mahesabu yalifungwa'),
+                                        'label' => Yii::t('app', 'Mahesabu yaliyofungwa'),
                                         'url' => ['/accountant-report/index'],
                                         'icon' => 'circle text-red',
                                     ],
@@ -271,7 +277,7 @@ use dmstr\widgets\Menu;
                                 'items' => [
                                     [
                                         'visible' => Yii::$app->user->can('super_admin') || Yii::$app->user->can('createStreet'),
-                                        'label' => Yii::t('app', 'Add New Street'),
+                                        'label' => Yii::t('app', 'Add New Zone'),
                                         'url' => ['/street/create'],
                                         'icon' => 'plus text-green',
                                     ],
@@ -464,6 +470,11 @@ use dmstr\widgets\Menu;
                         'visible' => (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewSettingModule')),
                         'icon' => 'cogs text-orange',
                         'items' => [
+                            ['label' => 'Day Amount Setup',
+                                'icon' => 'cogs text-orange',
+                                'url' => ['/day-amount-setup'],
+                                'visible' => (Yii::$app->user->can('super_admin') || Yii::$app->user->can('viewAllUsers ')),
+                            ],
                             ['label' => 'All Users',
                                 'icon' => 'user text-orange',
                                 'url' => ['/user'],

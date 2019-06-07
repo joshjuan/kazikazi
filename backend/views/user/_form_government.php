@@ -139,7 +139,7 @@ use kartik\form\ActiveForm;
                         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Save') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-block btn-success' : 'btn btn-block btn-info']) ?>
                     </div>
                     <div class="col-xs-6 col-xs-12">
-                        <?= Html::a(Yii::t('app', 'Cancel'), ['gvt'], ['class' => 'btn btn-warning btn-block']) ?>
+                        <?= Html::a(Yii::t('app', 'Cancel'), ['clerk'], ['class' => 'btn btn-warning btn-block']) ?>
                     </div>
                 </div>
                 <?php ActiveForm::end(); ?>

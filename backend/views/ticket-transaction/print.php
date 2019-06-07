@@ -3,7 +3,7 @@
 use backend\models\AccountantReport;
 use backend\models\TicketTransaction;
 use yii\helpers\Html;
-//ini_set('memory_limit','2048M');
+ini_set('memory_limit','2048M');
 ?>
 
 <div id="invoice-sec">
@@ -12,8 +12,8 @@ use yii\helpers\Html;
         <div class="row">
             <div class="col-xs-12 text-center">
                 <?php
-                echo Html::img('images/logo-zanzibar.jpg',
-                    ['width' => '70px', 'height' => '70px', 'class' => 'img-square']);
+                echo Html::img('images/smz.png',
+                    ['width' => '140px', 'height' => '140px', 'class' => 'img-square']);
                 ?>
             </div>
         </div>
@@ -21,7 +21,7 @@ use yii\helpers\Html;
             <div class="col-xs-12">
                 <h6 class="page-header text-center">
                     SERIKALI YA MAPINDUZI ZANZIBAR<br/>
-                   MAKUSANYO YA MAEGESHO YA MAGARI<br/>
+                    MAKUSANYO YA MAEGESHO YA MAGARI<br/>
                 </h6>
             </div>
         </div>
@@ -29,7 +29,8 @@ use yii\helpers\Html;
         $dateObj   = DateTime::createFromFormat('m', date('m'));
         $monthName = $dateObj->format('F'); // March
         if($tickets != null) {
-            foreach ($tickets as $mp) {
+            foreach ($tickets as $mp  ) {
+
                 ?>
                 <p class="text-center"> Makusanyo yamaegesho ya magari kwa mwezi <?= $monthName ?>
                     , <?= date('Y'); ?></p>
@@ -39,8 +40,9 @@ use yii\helpers\Html;
                     <div class="col-sm-4 invoice-col">
 
                         <address>
-                            MKOA: <?= $mp->region0->name; ?><br/>
-                            BANK PAY SLIP: <?= $mp->car_no; ?><br/>
+                            <?php $date = AccountantReport::find()->select(['receipt_no'])->where(['report_no' =>$mp->report_no])->one(); ?>
+                            <strong> MKOA: </strong> <?= $mp->region0->name; ?><br/>
+                            <strong>  BANK PAY SLIP:  </strong> <?= $date['receipt_no']; ?><br/>
                         </address>
                     </div>
                     <div class="break"></div>
@@ -54,10 +56,7 @@ use yii\helpers\Html;
                 <div class="row" style="page-break-after: always">
                     <div class="col-sm-12">
                         <?php
-                        $id=$mp->id;
-                        $date = AccountantReport::find()->select(['date(collected_date)'])->where(['id' =>$id])->one();
-                        $items = TicketTransaction::find()->where(['date(create_at)'=>$date])->all();
-                       // $items = \backend\models\TicketTransaction::find()->where(['date(create_at)'=>'2019-05-28'])->all();
+                        $items = TicketTransaction::find()->where(['report_no'=>$mp->report_no])->all();
                         if($items != null){
                             ?>
                             <table class="table table-hover">
@@ -75,6 +74,8 @@ use yii\helpers\Html;
                                 $i = 1;
                                 $total = 0.00;
                                 foreach ($items as $wz) {
+
+
                                     echo '<tr>
                             <td>'.$i.'</td>
                             <td>'.$wz->car_no. '</td>';
@@ -91,7 +92,6 @@ use yii\helpers\Html;
                             </tr>';
                                     $i++;
                                     $total =$total + $wz->amount;
-
                                 }
 
 
@@ -105,6 +105,36 @@ use yii\helpers\Html;
                                 </tr>
                                 </tbody>
                             </table>
+                            <p style="clear: both;page-break-after: always">
+                            <table>
+                                <tr>
+                                    <th>Items</th>
+                                    <th style="padding-left: 100px">Prepared By</th>
+                                    <th style="padding-left: 100px">Authorized by</th>
+                                    <th style="padding-left: 100px">Approved by </th>
+                                </tr>
+                                <tr>
+                                    <td style="padding-top: 20px">Jina:</td>
+                                    <td style="padding-left: 100px">..................................</td>
+                                    <td style="padding-left: 100px">..................................</td>
+                                    <td style="padding-left: 100px">..................................</td>
+
+                                </tr>
+                                <tr>
+                                    <td style="padding-top: 20px">Cheo:</td>
+                                    <td style="padding-left: 100px">..................................</td>
+                                    <td style="padding-left: 100px">.................................</td>
+                                    <td style="padding-left: 100px">..................................</td>
+
+                                </tr>
+                                <tr>
+                                    <td style="padding-top: 20px">Sahihi:</td>
+                                    <td style="padding-left: 100px">..................................</td>
+                                    <td style="padding-left: 100px">..................................</td>
+                                    <td style="padding-left: 100px">.................................</td>
+                                </tr>
+                            </table>
+
                             <?php
                         }
                         ?>

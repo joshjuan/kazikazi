@@ -132,7 +132,7 @@ class User extends \common\models\User
     {
         return [
 
-            [['username','name','password','repassword','status','mobile','role','region'], 'required',],
+            [['username','name','status','mobile','role','region'], 'required',],
             [['username', 'password', 'repassword'], 'trim'],
             [['password', 'repassword'], 'string', 'min' => 4, 'max' => 30],
             [['name','mobile'], 'string', 'max' => 255],
@@ -160,7 +160,8 @@ class User extends \common\models\User
         return [
             'default' => ['username','name','mobile', 'email', 'password', 'repassword', 'status', 'role','region','district','municipal','street','work_area'],
             'createUser' => ['username','name','mobile', 'email', 'password', 'repassword', 'status', 'role'],
-            'admin-update' => ['username','name','mobile', 'email', 'status', 'role']
+           // 'admin-update' => ['username','name','mobile', 'email', 'status', 'role']
+            'admin-update' => ['password', 'repassword']
         ];
     }
 

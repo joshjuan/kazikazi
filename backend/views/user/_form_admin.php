@@ -118,12 +118,12 @@ use yii\web\View;
 
                         </div>
 
-<!--
+
                         <div class="col-sm-3">
-                            <?/*= $form->field($model, 'role')->dropDownList(\backend\models\User::getRulesAdmin(), ['prompt' => '-- select Role name --']) */?>
+                            <?= $form->field($model, 'role')->dropDownList(\backend\models\User::getRulesAdmin(), ['prompt' => '-- select Role name --']) ?>
                         </div>
 
-                        </div>-->
+                        </div>
 
 
                         <div class="col-sm-3">

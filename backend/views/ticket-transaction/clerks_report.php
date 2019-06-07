@@ -58,9 +58,16 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
         ['class' => 'kartik\grid\SerialColumn'],
         [
             'attribute' => 'user',
-            'value'=>'user0.username',
-            'label'=>'Clerk',
-            'group'=>true,
+            //  'value'=>'user0.name'.'(user0.username)',
+            'value' => function ($model) {
+                if ($model->user0->name != '') {
+                    return $model->user0->name . '   (' . $model->user0->username . ')';
+                } else {
+                    return '';
+                }
+            },
+            'label' => 'Clerk',
+            'group' => true,
         ],
         [
             'attribute' => 'amount',
@@ -81,7 +88,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
         'storage' => 'session',
         'gridOptions' => [
             'dataProvider' => $dataProvider,
-          //  'filterModel'=>$searchModel,
+            //  'filterModel'=>$searchModel,
             'striped' => true,
             'showPageSummary' => true,
             'hover' => true,
