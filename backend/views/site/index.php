@@ -201,5 +201,12 @@ $this->title = '';
     </div>
 
 </div>
+<script>
+    function autoRefresh()
+    {
+        window.location.reload();
+    }
 
+    setInterval('autoRefresh()', 60000); // this will reload page after every 1 minute.
+</script>
 

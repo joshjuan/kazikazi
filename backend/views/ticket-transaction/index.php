@@ -17,13 +17,7 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?php Pjax::begin(); ?>
-    <?php
 
-    $this->registerJs(' 
-    setInterval(function(){  
-         $.pjax.reload({container:"YOUR_PJAX_CONTAINER_ID"});
-    }, 10000);', \yii\web\VIEW::POS_HEAD);
-    ?>
     <?php
     $pdfHeader = [
         'L' => [
@@ -99,12 +93,11 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
             //   'width' => '80px',
             'value' => function ($model) {
                 if ($model->user0->name != '') {
-                    return Html::a($model->user0->name.' ('.$model->user0->username.' )');
+                    return Html::a($model->user0->name).'('.$model->user0->username.')';
                 } else {
                     return '';
                 }
             },
-        
             'filterType' => GridView::FILTER_SELECT2,
             'filter' => ArrayHelper::map(\backend\models\User::find()->where(['user_type' => \backend\models\User::CLERK])->asArray()->all(), 'id', 'username'),
             'filterWidgetOptions' => [
@@ -233,4 +226,11 @@ $this->params['breadcrumbs'][] = 'Ticket Transactions';
 
     <?php Pjax::end(); ?>
 </div>
+<script>
+    function autoRefresh()
+    {
+        window.location.reload();
+    }
 
+    setInterval('autoRefresh()', 60000); // this will reload page after every 1 minute.
+</script>
